@@ -1,0 +1,8 @@
+.framed {
+  border: 4px dotted blue;
+}
+
+.district{
+  fill: #31044F;
+  stroke: white
+}
