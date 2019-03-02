@@ -1,3 +1,8 @@
+/*#gray, light purple, darker purple, dark purple
+#light orange, light blue, light green
+primary <- c('#D3D3D3', '#8C82FA', '#6408A1','#31044F')
+secondary <- c('#ED9007','#14E5D0', '#B0EE31')*/
+
 .framed {
   border: 4px dotted blue;
 }
@@ -5,4 +10,19 @@
 .district{
   fill: #31044F;
   stroke: white
+}
+
+.circle-blight {
+  fill: #ED9007;
+  opacity: 0.25;
+}
+
+.circle-dem {
+  fill: #14E5D0;
+  opacity: 0.25;
+}
+
+.circle-sale {
+  fill: #8C82FA;
+  opacity: 0.25;
 }
