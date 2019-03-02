@@ -5,13 +5,101 @@
   <title>Blight, Demolitions, and Public Land Sales in Detroit Michigan</title>
   <link rel="stylesheet" type="text/css" href="main.css" media="screen" />
   <link rel="stylesheet" href="./leaflet/leaflet.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body>
-  <h1>Interactive</h1>
-  <div id="chart" style="width: 850px; height: 600px"></div>
+<body onload="myFunction()" style="margin:0;">
+  <h1>Blight, Demolitions, and Public Land Sales<br>in Detroit, Michigan</h1>
+  <div id="loader"></div>
+
   <script type="text/javascript" src="./d3/d3.min.js"></script>
   <script type="text/javascript" src="./leaflet/leaflet.js"></script>
-  <script src="script.js"></script>
+
+  <p>
+    Like many other metropolitan cities, Detroit suffers from derelict properties decaying from
+    years of abandonment and disuse. Abandoned buildings often lower the values of surrounding properties and are
+    linked to increased rates of crime. The city of Detroit has several methods of combatting blight and vacant buildings:
+    monetary violations, demolitions, and sales of publically-owned land.
+    <br>
+    <br>
+    Blight tickets are fines issued to property owners for infractions regarding the maintenance of their property’s exterior.
+    While blight plagues the entire city, it is more concentrated in some areas than others. You can explore the density of
+    blight violations in the dashboard below.
+    <br>
+    <br>
+    To maintain publically-owned blighted and abandoned land, Detroit has one of the largest demolitions programs in the country.
+    The city spends tens of millions of dollars each year to demolish thousands of buildings.
+    <br>
+    <br>
+    Detroit Land Bank Authority is a public agency and the city’s largest landowner with a number of vacant lots and abandoned houses.
+    The DLBA sounds land from its inventory through a number of programs, notably the Side Lot Sales, Own It Now, and Auctions programs.
+    <br>
+    <br>
+  </p>
+
+  <div class = "row">
+    <div class = "column">
+      <fieldset class="radiobox">
+        <legend class = 'legend'>Initialize the map of Detroit (choose one):</legend>
+        <input type="radio" name="map-type" value="c-district-box" id="c-district-box" checked>
+        <label for="c-district-box">Council District</label>
+
+        <input type="radio" name="map-type" value="nhood-box" id="nhood-box">
+        <label for="nhood-box">Neighborhood</label>
+      </fieldset>
+
+      <fieldset class="radiobox">
+          <legend class = 'legend'>Explore:</legend>
+          <input type="checkbox" name="blight-box" id="blight-box" checked>
+          <label for="blight-box">Blight Tickets</label>
+
+          <input type="checkbox" name="demolitions-box" id="demolitions-box">
+          <label for="demolitions-box">Demolitions</label>
+
+          <input type="checkbox" name="land-sales-box" id="land-sales-box">
+          <label for="land-sales-box">Public Land Sales</label>
+      </fieldset>
+
+      <fieldset class="radiobox">
+          <legend class = 'legend'>Year (choose one):</legend>
+          <input type="radio" name="year" value="2014-box" id="2014-box">
+          <label for="2014-box">2014</label>
+
+          <input type="radio" name="year" value="2015-box" id="2015-box">
+          <label for="2015-box">2015</label>
+
+          <input type="radio" name="year" value="2016-box" id="2016-box">
+          <label for="2016-box">2016</label>
+
+          <input type="radio" name="year" value="2017-box" id="2017-box">
+          <label for="2017-box">2017</label>
+
+          <input type="radio" name="year" value="2018-box" id="2018-box" checked>
+          <label for="2018-box">2018</label>
+      </fieldset>
+
+      <div id="chart" style="width: 750px; height: 500px" class="animate-bottom"></div>
+
+      <script>
+      var myVar;
+
+      function myFunction() {
+        myVar = setTimeout(showPage, 3000);
+      }
+
+      function showPage() {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("chart").style.display = "block";
+      }
+    </script>
+
+    </div>
+    <div class = "column">
+      <p>box with more info will go here</p>
+    </div>
+  </div>
+
+<script src="script.js"></script>
+
 </body>
 </html>
