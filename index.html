@@ -50,20 +50,20 @@
 
       <fieldset class="radiobox">
           <legend class = 'legend'>Explore:</legend>
-          <input type="checkbox" name="blight-box" id="blight-box" checked>
+          <input type="checkbox" name="blight-box" id="blight-box">
           <label for="blight-box">Blight Tickets</label>
 
           <input type="checkbox" name="demolitions-box" id="demolitions-box">
           <label for="demolitions-box">Demolitions</label>
 
-          <input type="checkbox" name="land-sales-box" id="land-sales-box">
+          <input type="checkbox" name="land-sales-box" id="land-sales-box" checked>
           <label for="land-sales-box">Public Land Sales</label>
       </fieldset>
 
       <fieldset class="radiobox">
           <legend class = 'legend'>Year (choose one):</legend>
-          <input type="radio" name="year" value="2014-box" id="2014-box">
-          <label for="2014-box">2014</label>
+          <!-- <input type="radio" name="year" value="2014-box" id="2014-box">
+          <label for="2014-box">2014</label> -->
 
           <input type="radio" name="year" value="2015-box" id="2015-box">
           <label for="2015-box">2015</label>
@@ -84,7 +84,7 @@
       var myVar;
 
       function myFunction() {
-        myVar = setTimeout(showPage, 3000);
+        myVar = setTimeout(showPage, 20000);
       }
 
       function showPage() {
@@ -95,7 +95,8 @@
 
     </div>
     <div class = "column">
-      <p>box with more info will go here</p>
+      <h3 class = 'table-title'></h3>
+      <div class = "statsTable"></div>
     </div>
   </div>
 

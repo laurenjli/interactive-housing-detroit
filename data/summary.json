@@ -1,0 +1,74 @@
+[
+  {
+    "Year": 15,
+    "Total": 23614,
+    "Percent Change from Previous Year": "NA",
+    "Category": "Blight Ticket"
+  },
+  {
+    "Year": 16,
+    "Total": 26426,
+    "Percent Change from Previous Year": "11.91%",
+    "Category": "Blight Ticket"
+  },
+  {
+    "Year": 17,
+    "Total": 31372,
+    "Percent Change from Previous Year": "18.72%",
+    "Category": "Blight Ticket"
+  },
+  {
+    "Year": 18,
+    "Total": 36868,
+    "Percent Change from Previous Year": "17.52%",
+    "Category": "Blight Ticket"
+  },
+  {
+    "Year": 15,
+    "Total": 4014,
+    "Percent Change from Previous Year": "NA",
+    "Category": "Demolition"
+  },
+  {
+    "Year": 16,
+    "Total": 3201,
+    "Percent Change from Previous Year": "-20.25%",
+    "Category": "Demolition"
+  },
+  {
+    "Year": 17,
+    "Total": 2508,
+    "Percent Change from Previous Year": "-21.65%",
+    "Category": "Demolition"
+  },
+  {
+    "Year": 18,
+    "Total": 3194,
+    "Percent Change from Previous Year": "27.35%",
+    "Category": "Demolition"
+  },
+  {
+    "Year": 15,
+    "Total": 3129,
+    "Percent Change from Previous Year": "NA",
+    "Category": "Sale"
+  },
+  {
+    "Year": 16,
+    "Total": 3778,
+    "Percent Change from Previous Year": "20.74%",
+    "Category": "Sale"
+  },
+  {
+    "Year": 17,
+    "Total": 4241,
+    "Percent Change from Previous Year": "12.26%",
+    "Category": "Sale"
+  },
+  {
+    "Year": 18,
+    "Total": 3596,
+    "Percent Change from Previous Year": "-15.21%",
+    "Category": "Sale"
+  }
+]

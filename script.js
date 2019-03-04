@@ -5,25 +5,72 @@
 //referenced: http://bl.ocks.org/d3noob/9211665
 //referenced: https://www.w3schools.com/howto/howto_css_loader.asp
 
-var CURR_YEAR = 15
+var CURR_YEAR = 18
+
 //load data
 Promise.all(
   [d3.json("./data/districts.geojson"),
    d3.json("./data/neighborhoods.geojson"),
-   d3.json("./data/blight.json"),
+   //d3.json("./data/blight.json"),
    //d3.json("./data/dem.json"),
-   d3.json("./data/sales.json")
+   d3.json("./data/sales.json"),
+   d3.json("./data/summary.json")
   ])
   .then(function(data) {
     console.log(data)
-    makeMap(data)
+    makeVis(data)
     //makeDistrictDotMap(data)
     //makeNHoodDotMap(data)
     })
   .catch(error => console.warn(error))
 
+
+function makeVis(dataset) {
+  const summaryStats = dataset[3];
+  makeTable(summaryStats);
+  makeMap(dataset);
+
+}
+
+function makeTable(summary){
+
+  const colNames = ['Category','Total', 'Percent Change from Previous Year'];
+
+  var summaryYr = summary.filter(d => d.Year == CURR_YEAR)
+
+  var title = d3.select('.table-title').append('text')
+      .text('Summary of 20' + CURR_YEAR)
+
+  var table = d3.select('.statsTable').append('table')
+	var thead = table.append('thead')
+	var	tbody = table.append('tbody');
+
+  thead.append('tr')
+		  .selectAll('th')
+		  .data(colNames).enter()
+		  .append('th')
+		    .text(d => d);
+
+  //create a row for each object in the data
+	var rows = tbody.selectAll('tr')
+	  .data(summaryYr)
+	  .enter()
+	  .append('tr');
+
+	// create a cell in each row for each column
+	var cells = rows.selectAll('td')
+	  .data(function (row) {
+	    return colNames.map(function (colNames) {
+	      return {colNames: colNames, value: row[colNames]};
+	    });
+	  })
+	  .enter()
+	  .append('td')
+	    .text(d => d.value);
+}
+
 function makeMap(dataset) {
-  const [dist, nhood, blight, sales] = dataset;
+  const [dist, nhood, sales, summary] = dataset;
 
   var map = L.map('chart', { center: [42.3614, -83.0458], zoom:11}); //setView(new L.LatLng(42.3314, -83.0458));
   L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
