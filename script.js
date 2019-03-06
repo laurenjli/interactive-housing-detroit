@@ -268,7 +268,14 @@ function demDots(demCurr, map){
         fillColor: '#14E5D0',
         fillOpacity: 0.75,
         radius: 1
-      }).bindPopup(d_descrip).addTo(group_temp2);
+      }).bindPopup(d_descrip)
+      .on('mouseover', function (e) {
+        this.openPopup();
+      })
+      .on('mouseout', function (e) {
+        this.closePopup();
+      })
+      .addTo(group_temp2);
   };
   return group_temp2;
 }
