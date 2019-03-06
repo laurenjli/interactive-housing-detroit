@@ -1,74 +1,98 @@
 [
   {
     "Year": 15,
-    "Total": 23614,
-    "Percent Change from Previous Year": "NA",
-    "Category": "Blight Ticket"
+    "Total (Number)": "18,595",
+    "Average Amount": "$313.18",
+    "Category": "Blight Ticket",
+    "Pct Change in Avg Amount from Previous Year": "NA%",
+    "Pct Change in Total from Previous Year": "NA%"
   },
   {
     "Year": 16,
-    "Total": 26426,
-    "Percent Change from Previous Year": "11.91%",
-    "Category": "Blight Ticket"
+    "Total (Number)": "18,822",
+    "Average Amount": "$351.23",
+    "Category": "Blight Ticket",
+    "Pct Change in Avg Amount from Previous Year": "12.1%",
+    "Pct Change in Total from Previous Year": "1.2%"
   },
   {
     "Year": 17,
-    "Total": 31372,
-    "Percent Change from Previous Year": "18.72%",
-    "Category": "Blight Ticket"
+    "Total (Number)": "23,673",
+    "Average Amount": "$391.56",
+    "Category": "Blight Ticket",
+    "Pct Change in Avg Amount from Previous Year": "11.5%",
+    "Pct Change in Total from Previous Year": "25.8%"
   },
   {
     "Year": 18,
-    "Total": 36868,
-    "Percent Change from Previous Year": "17.52%",
-    "Category": "Blight Ticket"
+    "Total (Number)": "22,181",
+    "Average Amount": "$330.84",
+    "Category": "Blight Ticket",
+    "Pct Change in Avg Amount from Previous Year": "-15.5%",
+    "Pct Change in Total from Previous Year": "-6.3%"
   },
   {
     "Year": 15,
-    "Total": 4014,
-    "Percent Change from Previous Year": "NA",
-    "Category": "Demolition"
+    "Total (Number)": "4,014",
+    "Average Amount": "$16,716.42",
+    "Category": "Demolition",
+    "Pct Change in Avg Amount from Previous Year": "NA%",
+    "Pct Change in Total from Previous Year": "NA%"
   },
   {
     "Year": 16,
-    "Total": 3201,
-    "Percent Change from Previous Year": "-20.25%",
-    "Category": "Demolition"
+    "Total (Number)": "3,201",
+    "Average Amount": "$14,248.73",
+    "Category": "Demolition",
+    "Pct Change in Avg Amount from Previous Year": "-14.8%",
+    "Pct Change in Total from Previous Year": "-20%"
   },
   {
     "Year": 17,
-    "Total": 2508,
-    "Percent Change from Previous Year": "-21.65%",
-    "Category": "Demolition"
+    "Total (Number)": "2,508",
+    "Average Amount": "$18,455.63",
+    "Category": "Demolition",
+    "Pct Change in Avg Amount from Previous Year": "29.5%",
+    "Pct Change in Total from Previous Year": "-22%"
   },
   {
     "Year": 18,
-    "Total": 3194,
-    "Percent Change from Previous Year": "27.35%",
-    "Category": "Demolition"
+    "Total (Number)": "3,194",
+    "Average Amount": "$19,807.63",
+    "Category": "Demolition",
+    "Pct Change in Avg Amount from Previous Year": "7.3%",
+    "Pct Change in Total from Previous Year": "27%"
   },
   {
     "Year": 15,
-    "Total": 3129,
-    "Percent Change from Previous Year": "NA",
-    "Category": "Sale"
+    "Total (Number)": "3,129",
+    "Average Amount": "$957.12",
+    "Category": "Public Land Sale",
+    "Pct Change in Avg Amount from Previous Year": "NA%",
+    "Pct Change in Total from Previous Year": "NA%"
   },
   {
     "Year": 16,
-    "Total": 3778,
-    "Percent Change from Previous Year": "20.74%",
-    "Category": "Sale"
+    "Total (Number)": "3,778",
+    "Average Amount": "$791.10",
+    "Category": "Public Land Sale",
+    "Pct Change in Avg Amount from Previous Year": "-17.3%",
+    "Pct Change in Total from Previous Year": "21%"
   },
   {
     "Year": 17,
-    "Total": 4241,
-    "Percent Change from Previous Year": "12.26%",
-    "Category": "Sale"
+    "Total (Number)": "4,241",
+    "Average Amount": "$1,191.61",
+    "Category": "Public Land Sale",
+    "Pct Change in Avg Amount from Previous Year": "50.6%",
+    "Pct Change in Total from Previous Year": "12%"
   },
   {
     "Year": 18,
-    "Total": 3596,
-    "Percent Change from Previous Year": "-15.21%",
-    "Category": "Sale"
+    "Total (Number)": "3,596",
+    "Average Amount": "$1,911.45",
+    "Category": "Public Land Sale",
+    "Pct Change in Avg Amount from Previous Year": "60.4%",
+    "Pct Change in Total from Previous Year": "-15%"
   }
 ]
