@@ -133,30 +133,25 @@ function makeMap(dataset) {
     myData.addLayer(nhood_geo);
     myData.addTo(map)});
 
-  // var salesCurr = sales.features.filter(d => d.properties.year == CURR_YEAR);
-  // plotPoints(reformat(salesCurr), map, 'sale', 'Public Land Sale');
-  // var demCurr = dem.features.filter(d => d.properties.year == CURR_YEAR);
-  // plotPoints(reformat(demCurr), map, 'dem', 'Demolition');
-  // var blightCurr = blight.features.filter(d => d.properties.year == CURR_YEAR);
-  // plotPoints(reformat(blightCurr), map, 'blight', 'Blight Violation');
-}
-
-function plotPoints(dataset, map, type, title){
-
   var svg = d3.select(map.getPanes().overlayPane).append("svg");
   var g = svg.append("g").attr("class", "leaflet-zoom-hide");
 
   var tooltip = d3.select('body')
     .append("div")
     .attr("class", "tooltip")
-    // .style("position", "absolute")
-    // .style("z-index", "10")
-    // .style("visibility", "hidden")
     .text("a simple tooltip")
     .style("opacity", 0)
     .style("z-index", "999");
 
+  var salesCurr = sales.features.filter(d => d.properties.year == CURR_YEAR);
+  plotPoints(reformat(salesCurr), map, 'sale', 'Public Land Sale', tooltip, g, svg);
+  var demCurr = dem.features.filter(d => d.properties.year == CURR_YEAR);
+  plotPoints(reformat(demCurr), map, 'dem', 'Demolition', tooltip, g, svg);
+  var blightCurr = blight.features.filter(d => d.properties.year == CURR_YEAR);
+  plotPoints(reformat(blightCurr), map, 'blight', 'Blight Violation', tooltip, g, svg);
+}
 
+function plotPoints(dataset, map, type, title, tooltip, g, svg){
 
   //  create a d3.geo.path to convert GeoJSON to SVG
   var transform = d3.geoTransform({point: projectPoint}),
@@ -177,11 +172,74 @@ function plotPoints(dataset, map, type, title){
              .attr('r', 2)
              .on("mouseover", function(d){
                console.log(d)
-               tooltip.transition().duration(300).style('opacity',1)
+               tooltip.transition().duration(100).style('opacity',1)
                tooltip.html("<dl><dt> Type: " + title + "</dt>"
-                        + "<dt>Sale Price: " + d.properties.price + "</dt>"
+                        + "<dt>Amount: " + d.properties.price + "</dt>"
                         + "<dt>Council District: " + d.properties.councilDistrict + "</dt>"
                         + "<dt>Neighborhood: " + d.properties.neighborhood + "</dt>"
+                        + "<dt>Year: " + d.properties.year + "</dt>")
+                 .style("top",(d3.event.pageY-10)+"px")
+                 .style("left",(d3.event.pageX)+"px");})
+             //.on("mousemove", function(){return tooltip.style("top",
+             //(d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+            .on("mouseout", function(d){tooltip.style('opacity', 0);});
+
+ map.on("moveend", update);
+ // map.on("viewreset", update);
+ update();
+
+ function update() {
+    var bounds = path.bounds(dataset),
+      topLeft = bounds[0],
+      bottomRight = bounds[1];
+    svg.attr("width", bottomRight[0] - topLeft[0])
+          .attr("height", bottomRight[1] - topLeft[1])
+          .style("left", topLeft[0] + "px")
+          .style("top", topLeft[1] + "px");
+
+    g.attr("transform", "translate(" + -topLeft[0] + "," + -topLeft[1] + ")");
+
+    dots.attr("transform", function(d) {
+      return "translate("+
+            map.latLngToLayerPoint(d.LatLng).x +","+
+            map.latLngToLayerPoint(d.LatLng).y +")";
+        });
+
+  }
+
+    //Use Leaflet to implement a D3 geometric transformation.
+  function projectPoint(x, y) {
+   var point = map.latLngToLayerPoint(new L.LatLng(y, x));
+   this.stream.point(point.x, point.y);
+   };
+};
+
+function plotBlight(dataset, map, type, title, tooltip, g, svg){
+
+  //  create a d3.geo.path to convert GeoJSON to SVG
+  var transform = d3.geoTransform({point: projectPoint}),
+            path = d3.geoPath().projection(transform);
+
+  dataset.features.forEach(function(d) {
+    d.LatLng = new L.LatLng(d.geometry.coordinates[1],
+    d.geometry.coordinates[0]);
+  });
+
+  var dots = g.selectAll(".circle-" +type)
+             .data(dataset.features)
+             //.data(sales.features.filter(d => d.properties.year == CURR_YEAR))
+             .enter()
+             //.append('a')
+             .append('circle')
+             .attr('class', 'circle-'+type)
+             .attr('r', 2)
+             .on("mouseover", function(d){
+               console.log(d)
+               tooltip.transition().duration(100).style('opacity',1)
+               tooltip.html("<dl><dt> Type: " + title + "</dt>"
+                        + "<dt>Amount: " + d.properties.totalDue + "</dt>"
+                        + "<dt>Council District: " + d.properties.councilDistrict + "</dt>"
+                        + "<dt>Neighborhood: " + d.properties.NHood_Name + "</dt>"
                         + "<dt>Year: " + d.properties.year + "</dt>")
                  .style("top",(d3.event.pageY-10)+"px")
                  .style("left",(d3.event.pageX)+"px");})
