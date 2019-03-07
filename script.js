@@ -107,14 +107,14 @@ function makeMap(dataset) {
     myData.addTo(map);
 
   //define tooltip: https://stackoverflow.com/questions/10805184/show-data-on-mouseover-of-circle
-  var tooltip = d3.select("body")
-    .append("div")
-    .attr("class", "tooltip")
-    .style("position", "absolute")
-    .style("z-index", "10")
-    .style("visibility", "hidden")
-    .text("a simple tooltip");
-    //.style("opacity", 0);
+  // var tooltip = d3.select(map.getContainer())
+  //   .append("div")
+  //   .attr("class", "tooltip")
+  //   // .style("position", "absolute")
+  //   // .style("z-index", "10")
+  //   // .style("visibility", "hidden")
+  //   .text("a simple tooltip")
+  //   .style("opacity", 0);
 
 
   //If district map box is clicked.
@@ -133,18 +133,30 @@ function makeMap(dataset) {
     myData.addLayer(nhood_geo);
     myData.addTo(map)});
 
-  var salesCurr = sales.features.filter(d => d.properties.year == CURR_YEAR);
-  plotPoints(reformat(salesCurr), map, tooltip, 'sale');
+  // var salesCurr = sales.features.filter(d => d.properties.year == CURR_YEAR);
+  // plotPoints(reformat(salesCurr), map, 'sale', 'Public Land Sale');
   // var demCurr = dem.features.filter(d => d.properties.year == CURR_YEAR);
-  // plotPoints(reformat(demCurr), map, tooltip, 'dem');
+  // plotPoints(reformat(demCurr), map, 'dem', 'Demolition');
   // var blightCurr = blight.features.filter(d => d.properties.year == CURR_YEAR);
-  // plotPoints(reformat(blightCurr), map, tooltip, 'blight');
+  // plotPoints(reformat(blightCurr), map, 'blight', 'Blight Violation');
 }
 
-function plotPoints(dataset, map, tooltip, type){
+function plotPoints(dataset, map, type, title){
 
   var svg = d3.select(map.getPanes().overlayPane).append("svg");
   var g = svg.append("g").attr("class", "leaflet-zoom-hide");
+
+  var tooltip = d3.select('body')
+    .append("div")
+    .attr("class", "tooltip")
+    // .style("position", "absolute")
+    // .style("z-index", "10")
+    // .style("visibility", "hidden")
+    .text("a simple tooltip")
+    .style("opacity", 0)
+    .style("z-index", "999");
+
+
 
   //  create a d3.geo.path to convert GeoJSON to SVG
   var transform = d3.geoTransform({point: projectPoint}),
@@ -155,7 +167,7 @@ function plotPoints(dataset, map, tooltip, type){
     d.geometry.coordinates[0]);
   });
 
-  var dots = g.selectAll(".circle-sale")
+  var dots = g.selectAll(".circle-" +type)
              .data(dataset.features)
              //.data(sales.features.filter(d => d.properties.year == CURR_YEAR))
              .enter()
@@ -163,15 +175,19 @@ function plotPoints(dataset, map, tooltip, type){
              .append('circle')
              .attr('class', 'circle-'+type)
              .attr('r', 2)
-             .on("mouseover", function(){return tooltip.html('test')
-               .style("visibility", "visible")
-               .style('opacity', 1)
-               .style("top",(d3.event.pageY-10)+"px")
-               .style("left",(d3.event.pageX)+"px")
-               .text('test');})
+             .on("mouseover", function(d){
+               console.log(d)
+               tooltip.transition().duration(300).style('opacity',1)
+               tooltip.html("<dl><dt> Type: " + title + "</dt>"
+                        + "<dt>Sale Price: " + d.properties.price + "</dt>"
+                        + "<dt>Council District: " + d.properties.councilDistrict + "</dt>"
+                        + "<dt>Neighborhood: " + d.properties.neighborhood + "</dt>"
+                        + "<dt>Year: " + d.properties.year + "</dt>")
+                 .style("top",(d3.event.pageY-10)+"px")
+                 .style("left",(d3.event.pageX)+"px");})
              //.on("mousemove", function(){return tooltip.style("top",
              //(d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
-            .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
+            .on("mouseout", function(d){tooltip.style('opacity', 0);});
 
  map.on("moveend", update);
  // map.on("viewreset", update);
@@ -205,21 +221,21 @@ function plotPoints(dataset, map, tooltip, type){
 
 
 function reformat(array) {
-                var data = [];
-                array.map(function (d, i) {
-
-                    data.push({
-                        id: i,
-                        type: "Feature",
-                        geometry: {
-                            coordinates: d.geometry.coordinates,
-                            type: "Point"
-                        }
-
-
-                    });
-                });
-                return {type: 'FeatureCollection', features: data};
+                // var data = [];
+                // array.map(function (d, i) {
+                //
+                //     data.push({
+                //         id: i,
+                //         type: "Feature",
+                //         geometry: {
+                //             coordinates: d.geometry.coordinates,
+                //             type: "Point"
+                //         }
+                //
+                //
+                //     });
+                // });
+                return {type: 'FeatureCollection', features: array};
             };
 
 
