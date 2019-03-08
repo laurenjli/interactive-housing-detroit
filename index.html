@@ -15,7 +15,7 @@
   <script type="text/javascript" src="./d3/d3.min.js"></script>
   <script type="text/javascript" src="./leaflet/leaflet.js"></script>
 
-  <p>
+  <p class='description'>
     Like many other metropolitan cities, Detroit suffers from derelict properties decaying from
     years of abandonment and disuse. Abandoned buildings often lower the values of surrounding properties and are
     linked to increased rates of crime. The city of Detroit has several methods of combatting blight and vacant buildings:
@@ -78,26 +78,27 @@
           <label for="2018-box">2018</label>
       </fieldset>
 
-      <div id="chart" style="width: 750px; height: 500px" class="animate-bottom"></div>
-
-      <script>
-      var myVar;
-
-      function myFunction() {
-        myVar = setTimeout(showPage, 20000);
-      }
-
-      function showPage() {
-        document.getElementById("loader").style.display = "none";
-        document.getElementById("chart").style.display = "block";
-      }
-    </script>
-
     </div>
     <div class = "column">
       <h3 class = 'table-title'></h3>
       <div class = "statsTable"></div>
     </div>
+  </div>
+  <div class = "row map-container">
+    <div id="chart" style="width: 1500px; height: 500px" class="animate-bottom"></div>
+
+    <script>
+    var myVar;
+
+    function myFunction() {
+      myVar = setTimeout(showPage, 20000);
+    }
+
+    function showPage() {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("chart").style.display = "block";
+    }
+  </script>
   </div>
 
 <script src="script.js"></script>
