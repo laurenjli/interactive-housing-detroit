@@ -5,7 +5,8 @@
 //referenced: http://bl.ocks.org/d3noob/9211665
 //referenced: https://www.w3schools.com/howto/howto_css_loader.asp
 
-var CURR_YEAR = 18
+var CURR_YEAR = 18;
+var unique_point = d3.select(null);
 
 //load data
 Promise.all(
@@ -35,41 +36,6 @@ function makeTable(summary){
   const colNames = ['Category','Total (Number)',
 'Pct Change in Total from Previous Year', 'Average Amount',
 'Pct Change in Avg Amount from Previous Year'];
-
-  // var summaryYr = summary.filter(d => d.Year == CURR_YEAR)
-  //
-  // var title = d3.select('.table-title').append('text');
-  // title.text('Summary of 20' + CURR_YEAR);
-  //
-  // var table = d3.select('.statsTable')
-	// 				.append("table")
-	// 				.property("border","1px");
-  //
-  // var thead = table.append('thead');
-  // var	tbody = table.append('tbody');
-  //
-  // thead.append('tr')
-	// 	  .selectAll('th')
-	// 	  .data(colNames).enter()
-	// 	  .append('th')
-	// 	    .text(d => d);
-  //
-  // //create a row for each object in the data
-	// var rows = tbody.selectAll('tr')
-	//   .data(summaryYr)
-	//   .enter()
-	//   .append('tr');
-  //
-	// //create a cell in each row for each column
-	// var cells = rows.selectAll('td')
-	//   .data(function (row) {
-	//     return colNames.map(function (colNames) {
-	//       return {colNames: colNames, value: row[colNames]};
-	//     });
-	//   })
-	//   .enter()
-	//   .append('td')
-	//     .text(d => d.value);
 
   var title = d3.select('.table-title').append('text');
   d3.selectAll('.dot-type').on("change", tableUpdate);
@@ -111,7 +77,7 @@ function makeTable(summary){
   function tableUpdate() {
     //should change table
     var summaryYr = summary.filter(d => d.Year == CURR_YEAR);
-    //var title = d3.select('.table-title').append('text');
+
     title.text('Summary of 20' + CURR_YEAR);
 
     d3.select('.statsTable').selectAll("*").remove();
@@ -146,30 +112,6 @@ function makeTable(summary){
   	  .enter()
   	  .append('td')
   	    .text(d => d.value);
-
-    // console.log(newData)
-    // console.log('row')
-    //
-    // var newRows = tbody.selectAll('tr').data(newData)
-  	//   .enter()
-  	//   .append('tr').exit().remove();
-    //
-    // console.log('cell')
-    //
-    // var newCells = newRows.selectAll('td')
-  	//   .data(function (row) {
-  	//     return colNames.map(function (colNames) {
-  	//       return {colNames: colNames, value: row[colNames]};
-  	//     });
-  	//   })
-    //   .enter()
-  	//   .append('td')
-  	//     .text(d => d.value);
-    //
-    // //newRows.data(newData).exit().remove();
-    // newCells.exit().remove();
-
-
   };
 
 }
@@ -336,6 +278,20 @@ function makeMap(dataset) {
 };
 
 
+function zoomPoint(d) {
+	// Make school dot active
+	unique_point.classed('active', false)
+		.style('opacity', 0.5);
+	unique_school = d3.selectAll('.circle')
+		.filter(function(e) {return d.geometry.coordinates == e.geometry.coordinates})
+		.classed('active', true)
+		.style('opacity', 1);
+
+	// Zoom to selected school on the map
+	map.setView(L.latLng(unique_point.data()[0].LatLng), 14);
+};
+
+
 function plotPoints(dataset, map, type, title, tooltip, g, svg){
 
   //  create a d3.geo.path to convert GeoJSON to SVG
@@ -347,17 +303,25 @@ function plotPoints(dataset, map, type, title, tooltip, g, svg){
     d.geometry.coordinates[0]);
   });
 
+  if (type == 'sale'){
+    var color_fade = '#8C82FA'
+  }
+  else{
+    var color_fade = '#14E5D0'
+  }
+
   var dots = g.selectAll(".circle-" +type)
              .data(dataset.features)
              .enter()
              .append('circle')
-             .attr('class', 'circle-'+type)
+             .attr('class', 'circle circle-'+type)
              .attr('r', 3.5)
              .on("mouseover", function(d){
                d3.select(this)
                 .classed('hovered', true)
                 .transition().duration(200)
-                .attr('r', 6);
+                .attr('r', 7)
+                .attr('fill','red');
 
                tooltip.transition().duration(100).style('opacity',1)
                tooltip.html("<dl><dt> Type: " + title + "</dt>"
@@ -373,7 +337,21 @@ function plotPoints(dataset, map, type, title, tooltip, g, svg){
               d3.select(this)
                .classed('hovered', false)
                .transition().duration(300)
-               .attr('r', 3.5);});
+               .attr('r', 3.5);})
+            .on('click', function(d){
+              unique_point.classed('active', false)
+            		.style('opacity', 0.5)
+                .style('fill', color_fade)
+                .style('r', 3.5);
+            	unique_point = d3.selectAll('.circle')
+            		.filter(function(e) {return d.geometry.coordinates == e.geometry.coordinates})
+            		.classed('active', true)
+            		.style('opacity', 1)
+                .style('fill', 'red');
+
+            	// Zoom to selected school on the map
+            	map.setView(d.LatLng, 14.3);
+            });
 
  map.on("moveend", update);
  update();
@@ -419,7 +397,7 @@ function plotBlight(dataset, map, type, title, tooltip, g, svg){
              .data(dataset.features)
              .enter()
              .append('circle')
-             .attr('class', 'circle-'+type)
+             .attr('class', 'circle circle-'+type)
              .attr('r', 3.5)
              .on("mouseover", function(d){
                d3.select(this)
