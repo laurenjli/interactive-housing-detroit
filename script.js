@@ -134,8 +134,12 @@ function makeMap(dataset) {
     .style("opacity", 0)
     .style("z-index", "999");
 
+  //defaults  
   var demCurr = dem.features.filter(d => d.properties.year == CURR_YEAR);
   plotPoints(reformat(demCurr), map, 'dem', 'Demolition', tooltip, g, svg);
+
+  d3.selectAll('.dot-type').on("change", manageUpdate);
+  manageUpdate()
 
   document.getElementById("2015-box").addEventListener('click', function(event) {
     CURR_YEAR = 15;
