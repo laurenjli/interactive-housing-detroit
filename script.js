@@ -418,7 +418,21 @@ function plotBlight(dataset, map, type, title, tooltip, g, svg){
               d3.select(this)
                .classed('hovered', false)
                .transition().duration(300)
-               .attr('r', 3.5);});
+               .attr('r', 3.5);})
+           .on('click', function(d){
+             unique_point.classed('active', false)
+               .style('opacity', 0.5)
+               .style('fill', '#ED9007')
+               .style('r', 3.5);
+             unique_point = d3.selectAll('.circle')
+               .filter(function(e) {return d.geometry.coordinates == e.geometry.coordinates})
+               .classed('active', true)
+               .style('opacity', 1)
+               .style('fill', 'red');
+
+             // Zoom to selected school on the map
+             map.setView(d.LatLng, 14.3);
+               });
 
  map.on("moveend", update);
  update();
