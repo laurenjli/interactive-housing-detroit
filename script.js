@@ -106,16 +106,6 @@ function makeMap(dataset) {
     myData.addLayer(dist_geo);
     myData.addTo(map);
 
-  //define tooltip: https://stackoverflow.com/questions/10805184/show-data-on-mouseover-of-circle
-  // var tooltip = d3.select(map.getContainer())
-  //   .append("div")
-  //   .attr("class", "tooltip")
-  //   // .style("position", "absolute")
-  //   // .style("z-index", "10")
-  //   // .style("visibility", "hidden")
-  //   .text("a simple tooltip")
-  //   .style("opacity", 0);
-
 
   //If district map box is clicked.
 	document.getElementById("c-district-box").addEventListener('click', function(event) {
@@ -133,6 +123,7 @@ function makeMap(dataset) {
     myData.addLayer(nhood_geo);
     myData.addTo(map)});
 
+  //initalize for plotting points
   var svg = d3.select(map.getPanes().overlayPane).append("svg");
   var g = svg.append("g").attr("class", "leaflet-zoom-hide");
 
@@ -143,13 +134,100 @@ function makeMap(dataset) {
     .style("opacity", 0)
     .style("z-index", "999");
 
-  var salesCurr = sales.features.filter(d => d.properties.year == CURR_YEAR);
-  plotPoints(reformat(salesCurr), map, 'sale', 'Public Land Sale', tooltip, g, svg);
   var demCurr = dem.features.filter(d => d.properties.year == CURR_YEAR);
   plotPoints(reformat(demCurr), map, 'dem', 'Demolition', tooltip, g, svg);
-  var blightCurr = blight.features.filter(d => d.properties.year == CURR_YEAR);
-  plotPoints(reformat(blightCurr), map, 'blight', 'Blight Violation', tooltip, g, svg);
-}
+
+  document.getElementById("2015-box").addEventListener('click', function(event) {
+    CURR_YEAR = 15;
+
+    d3.selectAll('.dot-type').on("change", manageUpdate);
+    manageUpdate()
+  });
+
+  document.getElementById("2016-box").addEventListener('click', function(event) {
+    CURR_YEAR = 16;
+
+    d3.selectAll('.dot-type').on("change", manageUpdate);
+    manageUpdate()
+  });
+
+  document.getElementById("2017-box").addEventListener('click', function(event) {
+    CURR_YEAR = 17;
+
+    d3.selectAll('.dot-type').on("change", manageUpdate);
+    manageUpdate()
+  });
+
+  document.getElementById("2018-box").addEventListener('click', function(event) {
+    CURR_YEAR = 18;
+
+    d3.selectAll('.dot-type').on("change", manageUpdate);
+    manageUpdate()
+  });
+
+  function manageUpdate() {
+    //should change map dots and table
+    var choices = [];
+    d3.selectAll('.dot-type').each(function(d){
+      cb = d3.select(this);
+      if(cb.property("checked")){
+        choices.push(cb.property("value"));
+      }
+    });
+
+    var blightCurr = blight.features.filter(d => d.properties.year == CURR_YEAR);
+    var demCurr = dem.features.filter(d => d.properties.year == CURR_YEAR);
+    var salesCurr = sales.features.filter(d => d.properties.year == CURR_YEAR);
+
+    console.log(choices)
+    if(choices.includes('blight-box')){
+      //plot blight
+      plotBlight(reformat(blightCurr), map, 'blight', 'Blight Violation', tooltip, g, svg);
+      g.selectAll('.circle-blight').data(reformat(blightCurr).features).exit()
+        .transition()
+        .duration(100)
+        .remove();
+    }
+    else {
+      //remove blight
+      g.selectAll('.circle-blight').data([]).exit()
+        .transition()
+        .duration(100)
+        .remove();
+    }
+
+    if(choices.includes('dem-box')){
+      plotPoints(reformat(demCurr), map, 'dem', 'Demolition', tooltip, g, svg);
+      g.selectAll('.circle-dem').data(reformat(demCurr).features).exit()
+        .transition()
+        .duration(100)
+        .remove();
+    }
+    else {
+      g.selectAll('.circle-dem').data([]).exit()
+        .transition()
+        .duration(100)
+        .remove();
+    }
+
+    if(choices.includes('sales-box')){
+      plotPoints(reformat(salesCurr), map, 'sale', 'Public Land Sale', tooltip, g, svg);
+      g.selectAll('.circle-sale').data(reformat(salesCurr).features).exit()
+        .transition()
+        .duration(100)
+        .remove();
+    }
+
+    else {
+      g.selectAll('.circle-sale').data([]).exit()
+        .transition()
+        .duration(100)
+        .remove();
+    }
+
+  };
+};
+
 
 function plotPoints(dataset, map, type, title, tooltip, g, svg){
 
@@ -164,14 +242,16 @@ function plotPoints(dataset, map, type, title, tooltip, g, svg){
 
   var dots = g.selectAll(".circle-" +type)
              .data(dataset.features)
-             //.data(sales.features.filter(d => d.properties.year == CURR_YEAR))
              .enter()
-             //.append('a')
              .append('circle')
              .attr('class', 'circle-'+type)
-             .attr('r', 2)
+             .attr('r', 3.5)
              .on("mouseover", function(d){
-               console.log(d)
+               d3.select(this)
+                .classed('hovered', true)
+                .transition().duration(300)
+                .attr('r', 6);
+
                tooltip.transition().duration(100).style('opacity',1)
                tooltip.html("<dl><dt> Type: " + title + "</dt>"
                         + "<dt>Amount: " + d.properties.price + "</dt>"
@@ -179,13 +259,16 @@ function plotPoints(dataset, map, type, title, tooltip, g, svg){
                         + "<dt>Neighborhood: " + d.properties.neighborhood + "</dt>"
                         + "<dt>Year: " + d.properties.year + "</dt>")
                  .style("top",(d3.event.pageY-10)+"px")
-                 .style("left",(d3.event.pageX)+"px");})
-             //.on("mousemove", function(){return tooltip.style("top",
-             //(d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
-            .on("mouseout", function(d){tooltip.style('opacity', 0);});
+                 .style("left",(d3.event.pageX+30)+"px");
+               })
+            .on("mouseout", function(d){
+              tooltip.style('opacity', 0);
+              d3.select(this)
+               .classed('hovered', false)
+               .transition().duration(300)
+               .attr('r', 3.5);});
 
  map.on("moveend", update);
- // map.on("viewreset", update);
  update();
 
  function update() {
@@ -227,28 +310,32 @@ function plotBlight(dataset, map, type, title, tooltip, g, svg){
 
   var dots = g.selectAll(".circle-" +type)
              .data(dataset.features)
-             //.data(sales.features.filter(d => d.properties.year == CURR_YEAR))
              .enter()
-             //.append('a')
              .append('circle')
              .attr('class', 'circle-'+type)
-             .attr('r', 2)
+             .attr('r', 3.5)
              .on("mouseover", function(d){
-               console.log(d)
+               d3.select(this)
+                .classed('hovered', true)
+                .transition().duration(300)
+                .attr('r', 6);
+
                tooltip.transition().duration(100).style('opacity',1)
                tooltip.html("<dl><dt> Type: " + title + "</dt>"
-                        + "<dt>Amount: " + d.properties.totalDue + "</dt>"
+                        + "<dt>Amount: $" + d.properties.totalDue + "</dt>"
                         + "<dt>Council District: " + d.properties.councilDistrict + "</dt>"
                         + "<dt>Neighborhood: " + d.properties.NHood_Name + "</dt>"
                         + "<dt>Year: " + d.properties.year + "</dt>")
                  .style("top",(d3.event.pageY-10)+"px")
-                 .style("left",(d3.event.pageX)+"px");})
-             //.on("mousemove", function(){return tooltip.style("top",
-             //(d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
-            .on("mouseout", function(d){tooltip.style('opacity', 0);});
+                 .style("left",(d3.event.pageX+30)+"px");})
+            .on("mouseout", function(d){
+              tooltip.style('opacity', 0)
+              d3.select(this)
+               .classed('hovered', false)
+               .transition().duration(300)
+               .attr('r', 3.5);});
 
  map.on("moveend", update);
- // map.on("viewreset", update);
  update();
 
  function update() {
@@ -279,185 +366,5 @@ function plotBlight(dataset, map, type, title, tooltip, g, svg){
 
 
 function reformat(array) {
-                // var data = [];
-                // array.map(function (d, i) {
-                //
-                //     data.push({
-                //         id: i,
-                //         type: "Feature",
-                //         geometry: {
-                //             coordinates: d.geometry.coordinates,
-                //             type: "Point"
-                //         }
-                //
-                //
-                //     });
-                // });
-                return {type: 'FeatureCollection', features: array};
-            };
-
-
-  //Handle different years
-  // document.getElementById("2015-box").addEventListener('click', function(event) {
-  //   CURR_YEAR = 15;
-  //
-  //   demCurr = dem.filter(d => d.year == CURR_YEAR);
-  //   demDots(demCurr, map);
-
-    // document.getElementById("blight-box").addEventListener('click', function(event) {
-    //   var blightCurr = blight.filter(d => d.year == CURR_YEAR);
-    //   blightDots(blightCurr, map)});
-    //
-    // document.getElementById("demolitions-box").addEventListener('click', function(event) {
-    //   demCurr = dem.filter(d => d.year == CURR_YEAR);
-    //   demDots(demCurr, map)});
-    //
-    // document.getElementById("land-sales-box").addEventListener('click', function(event) {
-    //   var salesCurr = sales.filter(d => d.year == CURR_YEAR);
-    //   saleDots(salesCurr, map)});
-
-  // });
-  // document.getElementById("2016-box").addEventListener('click', function(event) {
-  //   CURR_YEAR = 16;
-  //
-  //   demCurr = dem.filter(d => d.year == CURR_YEAR);
-  //   demDots(demCurr, map);
-  //
-  // });
-  // document.getElementById("2017-box").addEventListener('click', function(event) {
-  //   CURR_YEAR = 17;
-  //
-  //   demCurr = dem.filter(d => d.year == CURR_YEAR);
-  //   demDots(demCurr, map);
-  //
-  // });
-  // document.getElementById("2018-box").addEventListener('click', function(event) {
-  //   CURR_YEAR = 18;
-  //
-  //   demCurr = dem.filter(d => d.year == CURR_YEAR);
-  //   demDots(demCurr, map);
-  //
-  // });
-
-  //var myRenderer = L.canvas({ padding: 0.5 });
-
-  //blight
-  // var blightCurr = blight.filter(d => d.year == CURR_YEAR)
-  //
-  // for (var i = 0; i < Object.keys(blightCurr).length; i += 1) {
-  // var b_descrip = "<dl><dt>Type: Blight Violation</dt>"
-  //      + "<dt>Final Fine Amount: " + blightCurr[i].totalDue + "</dt>"
-  //      + "<dt>Council District: " + blightCurr[i].councilDistrict + "</dt>"
-  //      + "<dt>Neighborhood: " + blightCurr[i].NHood_Name + "</dt>";
-  //   L.circleMarker([blightCurr[i].lat, blightCurr[i].long], {
-  //     renderer: myRenderer,
-  //     color: '#B0EE31',
-  //     fillColor: '#B0EE31',
-  //     fillOpacity: 0.75,
-  //     radius: 1
-  //   }).addTo(map).bindPopup(b_descrip);
-  // }
-  //
-  //
-  // //demolitions
-  // var demCurr = dem.filter(d => d.year == CURR_YEAR)
-  //
-  // for (var i = 0; i < Object.keys(demCurr).length; i += 1) {
-  // var d_descrip = "<dl><dt>Type: Demolition</dt>"
-  //      + "<dt>Cost: " + demCurr[i].price + "</dt>"
-  //      + "<dt>Council District: " + demCurr[i].councilDistrict + "</dt>"
-  //      + "<dt>Neighborhood: " + demCurr[i].neighborhood + "</dt>";
-  // 	L.circleMarker([demCurr[i].lat, demCurr[i].long], {
-  //   	renderer: myRenderer,
-  //     color: '#14E5D0',
-  //     fillColor: '#14E5D0',
-  //     fillOpacity: 0.75,
-  //     radius: 1
-  //   }).addTo(map).bindPopup(d_descrip);
-  // }
-  //
-  //
-  // var salesCurr = sales.filter(d => d.year == CURR_YEAR)
-  //
-  // for (var i = 0; i < Object.keys(salesCurr).length; i += 1) {
-  //
-  //   var s_descrip = "<dl><dt>Type: Public Land Sale</dt>"
-  //        + "<dt>Sale Price: " + salesCurr[i].price + "</dt>"
-  //        + "<dt>Council District: " + salesCurr[i].councilDistrict + "</dt>"
-  //        + "<dt>Neighborhood: " + salesCurr[i].neighborhood + "</dt>"
-  //        + "<dt>Year: " + salesCurr[i].year + "</dt>";
-  //
-  // 	L.circleMarker([salesCurr[i].lat, salesCurr[i].long], {
-  //   	//renderer: myRenderer,
-  //     color: '#8C82FA',
-  //     fillColor: '#8C82FA',
-  //     fillOpacity: 0.05,
-  //     radius: 1
-  //   }).addTo(map).bindPopup(s_descrip);
-  // }
-
-
-
-// function blightDots(blightCurr, map){
-//
-//   for (var i = 0; i < Object.keys(blightCurr).length; i += 1) {
-//     var b_descrip = "<dl><dt>Type: Blight Violation</dt>"
-//          + "<dt>Final Fine Amount: " + blightCurr[i].totalDue + "</dt>"
-//          + "<dt>Council District: " + blightCurr[i].councilDistrict + "</dt>"
-//          + "<dt>Neighborhood: " + blightCurr[i].NHood_Name + "</dt>"
-//          + "<dt>Year: " + blightCurr[i].year + "</dt>";
-//       L.circleMarker([blightCurr[i].lat, blightCurr[i].long], {
-//         //renderer: myRenderer,
-//         color: '#ED9007',
-//         fillColor: '#ED9007',
-//         fillOpacity: 0.75,
-//         radius: 1
-//       }).addTo(map).bindPopup(b_descrip);
-//   };
-//
-// }
-//
-// function demDots(demCurr, map){
-//   var group_temp2 = L.layerGroup()
-//   for (var i = 0; i < Object.keys(demCurr).length; i += 1) {
-//     var d_descrip = "<dl><dt>Type: Demolition</dt>"
-//          + "<dt>Cost: " + demCurr[i].price + "</dt>"
-//          + "<dt>Council District: " + demCurr[i].councilDistrict + "</dt>"
-//          + "<dt>Neighborhood: " + demCurr[i].neighborhood + "</dt>"
-//          + "<dt>Year: " + demCurr[i].year + "</dt>";
-//     	L.circleMarker([demCurr[i].lat, demCurr[i].long], {
-//       	//renderer: myRenderer,
-//         color: '#14E5D0',
-//         fillColor: '#14E5D0',
-//         fillOpacity: 0.75,
-//         radius: 1
-//       }).bindPopup(d_descrip)
-//       .on('mouseover', function (e) {
-//         this.openPopup();
-//       })
-//       .on('mouseout', function (e) {
-//         this.closePopup();
-//       })
-//       .addTo(group_temp2);
-//   };
-//   return group_temp2;
-// }
-//
-// function saleDots(salesCurr, map){
-//   for (var i = 0; i < Object.keys(salesCurr).length; i += 1) {
-//
-//     var s_descrip = "<dl><dt>Type: Public Land Sale</dt>"
-//          + "<dt>Sale Price: " + salesCurr[i].price + "</dt>"
-//          + "<dt>Council District: " + salesCurr[i].councilDistrict + "</dt>"
-//          + "<dt>Neighborhood: " + salesCurr[i].neighborhood + "</dt>"
-//          + "<dt>Year: " + salesCurr[i].year + "</dt>";
-//
-//   	L.circleMarker([salesCurr[i].lat, salesCurr[i].long], {
-//     	//renderer: myRenderer,
-//       color: '#8C82FA',
-//       fillColor: '#8C82FA',
-//       fillOpacity: 0.05,
-//       radius: 1
-//     }).addTo(map).bindPopup(s_descrip);
-//   };
-// }
+    return {type: 'FeatureCollection', features: array};
+};

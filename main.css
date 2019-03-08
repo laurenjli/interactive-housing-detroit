@@ -136,9 +136,16 @@ div.tooltip {
     /* width: 100px;
     height: 40px; */
     padding: 2px;
-    font: 10px sans-serif;
+    font: 12px sans-serif;
     font-family: Prociono;
     background: #f5f5f5;
     border: black 2px;
     pointer-events: none;
+}
+
+
+.hovered {
+    cursor: pointer;
+    opacity: 1.0;
+    fill: red;
 }
