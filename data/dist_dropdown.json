@@ -1,34 +1,34 @@
 [
   {
     "text": "All",
-    "value": 0
+    "value": "District 0"
   },
   {
     "text": "Council District 1",
-    "value": 1
+    "value": "District 1"
   },
   {
     "text": "Council District 2",
-    "value": 2
+    "value": "District 2"
   },
   {
     "text": "Council District 3",
-    "value": 3
+    "value": "District 3"
   },
   {
     "text": "Council District 4",
-    "value": 4
+    "value": "District 4"
   },
   {
     "text": "Council District 5",
-    "value": 5
+    "value": "District 5"
   },
   {
     "text": "Council District 6",
-    "value": 6
+    "value": "District 6"
   },
   {
     "text": "Council District 7",
-    "value": 7
+    "value": "District 7"
   }
 ]

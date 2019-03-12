@@ -15,7 +15,8 @@ Promise.all(
    d3.json("./data/dem.geojson"),
    d3.json("./data/sales.geojson"),
    d3.json("./data/summary.json"),
-   d3.json("./data/dist_dropdown.json")
+   d3.json("./data/dist_dropdown.json"),
+   d3.json("./data/nhood_dropdown.json")
   ])
   .then(function(data) {
     console.log(data)
@@ -118,11 +119,23 @@ function makeTable(summary){
 
 
 function makeMap(dataset) {
-  const [dist, nhood, blight, dem, sales, disregard, dist_dropdown] = dataset;
+  const [dist, nhood, blight, dem, sales, disregard, dist_dropdown, nhood_dropdown] = dataset;
 
-  var map = L.map('chart', { center: [42.3614, -83.0458], zoom:11}); //setView(new L.LatLng(42.3314, -83.0458));
+  //set bounds
+  var sw = [42.1, -83.4458]
+  var ne = [42.6, -82.4]
+  var bounds = L.latLngBounds(sw, ne);
+
+  var map = L.map('chart', {
+    center: [42.3614, -83.0458],
+    zoom:11,
+    maxBounds: bounds,
+    minZoom: 11 //https://gis.stackexchange.com/questions/179630/how-to-set-bounds-and-make-map-bounce-back-if-moved-away
+  }); //setView(new L.LatLng(42.3314, -83.0458));
+
 
   //L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
+  //referenced: https://leafletjs.com/examples/layers-control/example.html
   var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
 			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
 			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -135,6 +148,17 @@ function makeMap(dataset) {
   var legend = L.control({
     position: 'topright'
   });
+
+  //referenced: https://gis.stackexchange.com/questions/127286/home-button-leaflet-map
+  var home = {
+  lat: 42.3614,
+  lng: -83.0458,
+  zoom: 11
+  };
+
+  L.easyButton('fa-home',function(btn,map){
+    map.setView([home.lat, home.lng], home.zoom);
+  },'Return to City View').addTo(map);
 
   //referenced: http://www.gistechsolutions.com/leaflet/DEMO/filter/filter.html
   //referenced: https://stackoverflow.com/questions/27748453/mouseover-actions-with-geojson-polygon
@@ -160,7 +184,7 @@ function makeMap(dataset) {
     myData.addLayer(dist_geo);
     myData.addTo(map);
 
-
+  
   d3.select("#dropdown")
       .selectAll("option")
       .data(dist_dropdown)
@@ -183,15 +207,19 @@ function makeMap(dataset) {
 
     d3.select("#dropdown")
         .selectAll("option")
+        .data([]).exit().remove();
+
+    d3.select("#dropdown")
+        .selectAll("option")
         .data(dist_dropdown)
         .enter()
         .append("option")
         .attr("value", d => d.value)
         .text(d => d.text);
-
-    d3.select("#dropdown")
-        .selectAll("option")
-        .data(dist_dropdown).exit().remove();
+    //
+    // d3.select("#dropdown")
+    //     .selectAll("option")
+    //     .data(dist_dropdown).exit().remove();
 
     });
 
@@ -205,15 +233,19 @@ function makeMap(dataset) {
 
     d3.select("#dropdown")
         .selectAll("option")
-        .data([])
+        .data([]).exit().remove();
+
+    d3.select("#dropdown")
+        .selectAll("option")
+        .data(nhood_dropdown)
         .enter()
         .append('option')
         .attr("value", d => d.value)
         .text(d => d.text);
 
-    d3.select("#dropdown")
-        .selectAll("option")
-        .data([]).exit().remove();
+    // d3.select("#dropdown")
+    //     .selectAll("option")
+    //     .data([{'text': 'Nhood1', 'value': 'Nhood1'}, {'text': 'Nhood2', 'value': 'Nhood2'}]).exit().remove();
 
     });
 
@@ -288,6 +320,11 @@ function makeMap(dataset) {
         .duration(100)
         .remove();
 
+      unique_point.classed('active', false)
+        .style('opacity', 0.65)
+        .style('fill', '#ED9007')
+        .style('r', 5.5);
+
       cats.push('Blight Violation')
       types.push(4.5)
     }
@@ -306,6 +343,11 @@ function makeMap(dataset) {
         .duration(100)
         .remove();
 
+      unique_point.classed('active', false)
+        .style('opacity', 0.65)
+        .style('fill', '#14E5D0')
+        .style('r', 5.5);
+
       cats.push('Demolition')
       types.push(2.5)
     }
@@ -322,6 +364,11 @@ function makeMap(dataset) {
         .transition()
         .duration(100)
         .remove();
+
+      unique_point.classed('active', false)
+        .style('opacity', 0.65)
+        .style('fill', '#8C82FA')
+        .style('r', 5.5);
 
       cats.push('Public Land Sale')
       types.push(1.5)
@@ -398,7 +445,7 @@ function plotPoints(dataset, map, type, title, tooltip, g, svg){
                         + "<dt>Amount: " + d.properties.price + "</dt>"
                         + "<dt>Council District: " + d.properties.councilDistrict + "</dt>"
                         + "<dt>Neighborhood: " + d.properties.neighborhood + "</dt>"
-                        + "<dt>Year: " + d.properties.year + "</dt>")
+                        + "<dt>Year: 20" + d.properties.year + "</dt>")
                  .style("top",(d3.event.pageY-10)+"px")
                  .style("left",(d3.event.pageX+30)+"px");
                })
@@ -415,7 +462,7 @@ function plotPoints(dataset, map, type, title, tooltip, g, svg){
                 .style('fill', color_fade)
                 .style('r', 5.5);
             	unique_point = d3.selectAll('.circle')
-            		.filter(function(f) {return d.geometry.coordinates == f.geometry.coordinates})
+            		.filter(function(f) {return d.properties.id == f.properties.id && d.geometry.coordinates == f.geometry.coordinates && d.properties.saleDate == f.properties.saleDate})
             		.classed('active', true)
             		.style('opacity', 1)
                 .style('fill', 'red');
@@ -482,7 +529,7 @@ function plotBlight(dataset, map, type, title, tooltip, g, svg){
                         + "<dt>Amount: $" + d.properties.totalDue + "</dt>"
                         + "<dt>Council District: " + d.properties.councilDistrict + "</dt>"
                         + "<dt>Neighborhood: " + d.properties.NHood_Name + "</dt>"
-                        + "<dt>Year: " + d.properties.year + "</dt>")
+                        + "<dt>Year: 20" + d.properties.year + "</dt>")
                  .style("top",(d3.event.pageY-10)+"px")
                  .style("left",(d3.event.pageX+30)+"px");})
             .on("mouseout", function(d){
@@ -497,7 +544,7 @@ function plotBlight(dataset, map, type, title, tooltip, g, svg){
                .style('fill', '#ED9007')
                .style('r', 5.5);
              unique_point = d3.selectAll('.circle')
-               .filter(function(e) {return d.geometry.coordinates == e.geometry.coordinates})
+               .filter(function(f) {return d.properties.id == f.properties.id && d.geometry.coordinates == f.geometry.coordinates})
                .classed('active', true)
                .style('opacity', 1)
                .style('fill', 'red');

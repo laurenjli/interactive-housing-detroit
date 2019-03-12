@@ -25,6 +25,12 @@ h1,h3 {
   text-align: center;
 }
 
+/* .div .extentControl{
+  border: 1px solid black;
+  height: 26px;
+  width: 26px;
+} */
+
 fieldset{
   border: none;
   font-family: "Trebuchet MS", Helvetica, sans-serif;

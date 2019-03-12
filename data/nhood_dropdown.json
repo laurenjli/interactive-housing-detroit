@@ -1,0 +1,790 @@
+[
+  {
+    "text": "All",
+    "value": "All"
+  },
+  {
+    "text": "Airport Sub",
+    "value": "Airport Sub"
+  },
+  {
+    "text": "Arden Park",
+    "value": "Arden Park"
+  },
+  {
+    "text": "Aviation Sub",
+    "value": "Aviation Sub"
+  },
+  {
+    "text": "Bagley",
+    "value": "Bagley"
+  },
+  {
+    "text": "Barton-McFarland",
+    "value": "Barton-McFarland"
+  },
+  {
+    "text": "Belle Isle",
+    "value": "Belle Isle"
+  },
+  {
+    "text": "Belmont",
+    "value": "Belmont"
+  },
+  {
+    "text": "Bentler-Pickford",
+    "value": "Bentler-Pickford"
+  },
+  {
+    "text": "Berg-Lahser",
+    "value": "Berg-Lahser"
+  },
+  {
+    "text": "Blackstone Park",
+    "value": "Blackstone Park"
+  },
+  {
+    "text": "Boston Edison",
+    "value": "Boston Edison"
+  },
+  {
+    "text": "Boynton",
+    "value": "Boynton"
+  },
+  {
+    "text": "Brewster Douglas",
+    "value": "Brewster Douglas"
+  },
+  {
+    "text": "Brewster Homes",
+    "value": "Brewster Homes"
+  },
+  {
+    "text": "Brightmoor",
+    "value": "Brightmoor"
+  },
+  {
+    "text": "Brush Park",
+    "value": "Brush Park"
+  },
+  {
+    "text": "Buffalo",
+    "value": "Buffalo"
+  },
+  {
+    "text": "Butler",
+    "value": "Butler"
+  },
+  {
+    "text": "Cadillac Community",
+    "value": "Cadillac Community"
+  },
+  {
+    "text": "Cadillac Heights",
+    "value": "Cadillac Heights"
+  },
+  {
+    "text": "Campau/Banglatown",
+    "value": "Campau/Banglatown"
+  },
+  {
+    "text": "Carbon Works",
+    "value": "Carbon Works"
+  },
+  {
+    "text": "Castle Rouge",
+    "value": "Castle Rouge"
+  },
+  {
+    "text": "Chadsey Condon",
+    "value": "Chadsey Condon"
+  },
+  {
+    "text": "Chandler Park",
+    "value": "Chandler Park"
+  },
+  {
+    "text": "Chandler Park-Chalmers",
+    "value": "Chandler Park-Chalmers"
+  },
+  {
+    "text": "Claytown",
+    "value": "Claytown"
+  },
+  {
+    "text": "College Park",
+    "value": "College Park"
+  },
+  {
+    "text": "Conant Gardens",
+    "value": "Conant Gardens"
+  },
+  {
+    "text": "Conner Creek",
+    "value": "Conner Creek"
+  },
+  {
+    "text": "Conner Creek Industrial",
+    "value": "Conner Creek Industrial"
+  },
+  {
+    "text": "Core City",
+    "value": "Core City"
+  },
+  {
+    "text": "Corktown",
+    "value": "Corktown"
+  },
+  {
+    "text": "Cornerstone Village",
+    "value": "Cornerstone Village"
+  },
+  {
+    "text": "Crary/St Marys",
+    "value": "Crary/St Marys"
+  },
+  {
+    "text": "Cultural Center",
+    "value": "Cultural Center"
+  },
+  {
+    "text": "Davison",
+    "value": "Davison"
+  },
+  {
+    "text": "Davison-Schoolcraft",
+    "value": "Davison-Schoolcraft"
+  },
+  {
+    "text": "Delray",
+    "value": "Delray"
+  },
+  {
+    "text": "Denby",
+    "value": "Denby"
+  },
+  {
+    "text": "Detroit Golf",
+    "value": "Detroit Golf"
+  },
+  {
+    "text": "Dexter-Fenkell",
+    "value": "Dexter-Fenkell"
+  },
+  {
+    "text": "Dexter-Linwood",
+    "value": "Dexter-Linwood"
+  },
+  {
+    "text": "Downtown",
+    "value": "Downtown"
+  },
+  {
+    "text": "East English Village",
+    "value": "East English Village"
+  },
+  {
+    "text": "East Village",
+    "value": "East Village"
+  },
+  {
+    "text": "Eastern Market",
+    "value": "Eastern Market"
+  },
+  {
+    "text": "Eden Gardens",
+    "value": "Eden Gardens"
+  },
+  {
+    "text": "Elijah McCoy",
+    "value": "Elijah McCoy"
+  },
+  {
+    "text": "Eliza Howell",
+    "value": "Eliza Howell"
+  },
+  {
+    "text": "Elmwood Park",
+    "value": "Elmwood Park"
+  },
+  {
+    "text": "Evergreen Lahser 7/8",
+    "value": "Evergreen Lahser 7/8"
+  },
+  {
+    "text": "Evergreen-Outer Drive",
+    "value": "Evergreen-Outer Drive"
+  },
+  {
+    "text": "Far West Detroit",
+    "value": "Far West Detroit"
+  },
+  {
+    "text": "Farwell",
+    "value": "Farwell"
+  },
+  {
+    "text": "Fiskhorn",
+    "value": "Fiskhorn"
+  },
+  {
+    "text": "Fitzgerald",
+    "value": "Fitzgerald"
+  },
+  {
+    "text": "Five Points",
+    "value": "Five Points"
+  },
+  {
+    "text": "Forest Park",
+    "value": "Forest Park"
+  },
+  {
+    "text": "Fox Creek",
+    "value": "Fox Creek"
+  },
+  {
+    "text": "Franklin",
+    "value": "Franklin"
+  },
+  {
+    "text": "Franklin Park",
+    "value": "Franklin Park"
+  },
+  {
+    "text": "Garden View",
+    "value": "Garden View"
+  },
+  {
+    "text": "Gateway Community",
+    "value": "Gateway Community"
+  },
+  {
+    "text": "Gold Coast",
+    "value": "Gold Coast"
+  },
+  {
+    "text": "Grand River-I96",
+    "value": "Grand River-I96"
+  },
+  {
+    "text": "Grand River-St Marys",
+    "value": "Grand River-St Marys"
+  },
+  {
+    "text": "Grandmont",
+    "value": "Grandmont"
+  },
+  {
+    "text": "Grandmont #1",
+    "value": "Grandmont #1"
+  },
+  {
+    "text": "Grant",
+    "value": "Grant"
+  },
+  {
+    "text": "Gratiot Town/Ketterring",
+    "value": "Gratiot Town/Ketterring"
+  },
+  {
+    "text": "Gratiot Woods",
+    "value": "Gratiot Woods"
+  },
+  {
+    "text": "Gratiot-Findlay",
+    "value": "Gratiot-Findlay"
+  },
+  {
+    "text": "Gratiot-Grand",
+    "value": "Gratiot-Grand"
+  },
+  {
+    "text": "Greektown",
+    "value": "Greektown"
+  },
+  {
+    "text": "Green Acres",
+    "value": "Green Acres"
+  },
+  {
+    "text": "Greenfield",
+    "value": "Greenfield"
+  },
+  {
+    "text": "Greenfield Park",
+    "value": "Greenfield Park"
+  },
+  {
+    "text": "Greenfield-Grand River",
+    "value": "Greenfield-Grand River"
+  },
+  {
+    "text": "Greenwich",
+    "value": "Greenwich"
+  },
+  {
+    "text": "Grixdale Farms",
+    "value": "Grixdale Farms"
+  },
+  {
+    "text": "Happy Homes",
+    "value": "Happy Homes"
+  },
+  {
+    "text": "Harmony Village",
+    "value": "Harmony Village"
+  },
+  {
+    "text": "Hawthorne Park",
+    "value": "Hawthorne Park"
+  },
+  {
+    "text": "Henry Ford",
+    "value": "Henry Ford"
+  },
+  {
+    "text": "Herman Kiefer",
+    "value": "Herman Kiefer"
+  },
+  {
+    "text": "Historic Atkinson",
+    "value": "Historic Atkinson"
+  },
+  {
+    "text": "Hubbard Farms",
+    "value": "Hubbard Farms"
+  },
+  {
+    "text": "Hubbard Richard",
+    "value": "Hubbard Richard"
+  },
+  {
+    "text": "Hubbell-Lyndon",
+    "value": "Hubbell-Lyndon"
+  },
+  {
+    "text": "Hubbell-Puritan",
+    "value": "Hubbell-Puritan"
+  },
+  {
+    "text": "Hunt",
+    "value": "Hunt"
+  },
+  {
+    "text": "Indian Village",
+    "value": "Indian Village"
+  },
+  {
+    "text": "Islandview",
+    "value": "Islandview"
+  },
+  {
+    "text": "Jamison",
+    "value": "Jamison"
+  },
+  {
+    "text": "Jefferson Chalmers",
+    "value": "Jefferson Chalmers"
+  },
+  {
+    "text": "Jeffries",
+    "value": "Jeffries"
+  },
+  {
+    "text": "Joseph Berry Sub",
+    "value": "Joseph Berry Sub"
+  },
+  {
+    "text": "Joy Community",
+    "value": "Joy Community"
+  },
+  {
+    "text": "Joy-Schaefer",
+    "value": "Joy-Schaefer"
+  },
+  {
+    "text": "Krainz Woods",
+    "value": "Krainz Woods"
+  },
+  {
+    "text": "Lafayette Park",
+    "value": "Lafayette Park"
+  },
+  {
+    "text": "LaSalle College Park",
+    "value": "LaSalle College Park"
+  },
+  {
+    "text": "LaSalle Gardens",
+    "value": "LaSalle Gardens"
+  },
+  {
+    "text": "Littlefield Community",
+    "value": "Littlefield Community"
+  },
+  {
+    "text": "Mapleridge",
+    "value": "Mapleridge"
+  },
+  {
+    "text": "Marina District",
+    "value": "Marina District"
+  },
+  {
+    "text": "Martin Park",
+    "value": "Martin Park"
+  },
+  {
+    "text": "Medbury Park",
+    "value": "Medbury Park"
+  },
+  {
+    "text": "Medical Center",
+    "value": "Medical Center"
+  },
+  {
+    "text": "Melvern Hill",
+    "value": "Melvern Hill"
+  },
+  {
+    "text": "Mexicantown",
+    "value": "Mexicantown"
+  },
+  {
+    "text": "Michigan-Martin",
+    "value": "Michigan-Martin"
+  },
+  {
+    "text": "Midtown",
+    "value": "Midtown"
+  },
+  {
+    "text": "Midwest",
+    "value": "Midwest"
+  },
+  {
+    "text": "Miller Grove",
+    "value": "Miller Grove"
+  },
+  {
+    "text": "Milwaukee Junction",
+    "value": "Milwaukee Junction"
+  },
+  {
+    "text": "Minock Park",
+    "value": "Minock Park"
+  },
+  {
+    "text": "Mohican Regent",
+    "value": "Mohican Regent"
+  },
+  {
+    "text": "Morningside",
+    "value": "Morningside"
+  },
+  {
+    "text": "Moross-Morang",
+    "value": "Moross-Morang"
+  },
+  {
+    "text": "Mount Olivet",
+    "value": "Mount Olivet"
+  },
+  {
+    "text": "Nardin Park",
+    "value": "Nardin Park"
+  },
+  {
+    "text": "New Center",
+    "value": "New Center"
+  },
+  {
+    "text": "New Center Commons",
+    "value": "New Center Commons"
+  },
+  {
+    "text": "Nolan",
+    "value": "Nolan"
+  },
+  {
+    "text": "North Campau",
+    "value": "North Campau"
+  },
+  {
+    "text": "North Corktown",
+    "value": "North Corktown"
+  },
+  {
+    "text": "North End",
+    "value": "North End"
+  },
+  {
+    "text": "North Rosedale Park",
+    "value": "North Rosedale Park"
+  },
+  {
+    "text": "Northeast Central District",
+    "value": "Northeast Central District"
+  },
+  {
+    "text": "Northwest Community",
+    "value": "Northwest Community"
+  },
+  {
+    "text": "Nortown",
+    "value": "Nortown"
+  },
+  {
+    "text": "NW Goldberg",
+    "value": "NW Goldberg"
+  },
+  {
+    "text": "O'Hair Park",
+    "value": "O'Hair Park"
+  },
+  {
+    "text": "Oak Grove",
+    "value": "Oak Grove"
+  },
+  {
+    "text": "Oakman Blvd Community",
+    "value": "Oakman Blvd Community"
+  },
+  {
+    "text": "Oakwood Heights",
+    "value": "Oakwood Heights"
+  },
+  {
+    "text": "Old Redford",
+    "value": "Old Redford"
+  },
+  {
+    "text": "Outer Drive-Hayes",
+    "value": "Outer Drive-Hayes"
+  },
+  {
+    "text": "Palmer Park",
+    "value": "Palmer Park"
+  },
+  {
+    "text": "Palmer Woods",
+    "value": "Palmer Woods"
+  },
+  {
+    "text": "Paveway",
+    "value": "Paveway"
+  },
+  {
+    "text": "Pembroke",
+    "value": "Pembroke"
+  },
+  {
+    "text": "Penrose",
+    "value": "Penrose"
+  },
+  {
+    "text": "Pershing",
+    "value": "Pershing"
+  },
+  {
+    "text": "Petoskey-Otsego",
+    "value": "Petoskey-Otsego"
+  },
+  {
+    "text": "Piety Hill",
+    "value": "Piety Hill"
+  },
+  {
+    "text": "Pilgrim Village",
+    "value": "Pilgrim Village"
+  },
+  {
+    "text": "Pingree Park",
+    "value": "Pingree Park"
+  },
+  {
+    "text": "Plymouth-Hubbell",
+    "value": "Plymouth-Hubbell"
+  },
+  {
+    "text": "Plymouth-I96",
+    "value": "Plymouth-I96"
+  },
+  {
+    "text": "Poletown East",
+    "value": "Poletown East"
+  },
+  {
+    "text": "Pride Area Community",
+    "value": "Pride Area Community"
+  },
+  {
+    "text": "Pulaski",
+    "value": "Pulaski"
+  },
+  {
+    "text": "Ravendale",
+    "value": "Ravendale"
+  },
+  {
+    "text": "Regent Park",
+    "value": "Regent Park"
+  },
+  {
+    "text": "Riverdale",
+    "value": "Riverdale"
+  },
+  {
+    "text": "Rivertown",
+    "value": "Rivertown"
+  },
+  {
+    "text": "Rosedale Park",
+    "value": "Rosedale Park"
+  },
+  {
+    "text": "Rouge Park",
+    "value": "Rouge Park"
+  },
+  {
+    "text": "Russell Industrial",
+    "value": "Russell Industrial"
+  },
+  {
+    "text": "Russell Woods",
+    "value": "Russell Woods"
+  },
+  {
+    "text": "Schaefer 7/8 Lodge",
+    "value": "Schaefer 7/8 Lodge"
+  },
+  {
+    "text": "Schoolcraft-I96",
+    "value": "Schoolcraft-I96"
+  },
+  {
+    "text": "Schulze",
+    "value": "Schulze"
+  },
+  {
+    "text": "Seven Mile-Rouge",
+    "value": "Seven Mile-Rouge"
+  },
+  {
+    "text": "Sherwood",
+    "value": "Sherwood"
+  },
+  {
+    "text": "Sherwood Forest",
+    "value": "Sherwood Forest"
+  },
+  {
+    "text": "South of Six",
+    "value": "South of Six"
+  },
+  {
+    "text": "Southfield Plymouth",
+    "value": "Southfield Plymouth"
+  },
+  {
+    "text": "Southwest Detroit",
+    "value": "Southwest Detroit"
+  },
+  {
+    "text": "Springwells",
+    "value": "Springwells"
+  },
+  {
+    "text": "State Fair",
+    "value": "State Fair"
+  },
+  {
+    "text": "Tech Town",
+    "value": "Tech Town"
+  },
+  {
+    "text": "The Eye",
+    "value": "The Eye"
+  },
+  {
+    "text": "Tri-Point",
+    "value": "Tri-Point"
+  },
+  {
+    "text": "University District",
+    "value": "University District"
+  },
+  {
+    "text": "Virginia Park",
+    "value": "Virginia Park"
+  },
+  {
+    "text": "Von Steuben",
+    "value": "Von Steuben"
+  },
+  {
+    "text": "Wade",
+    "value": "Wade"
+  },
+  {
+    "text": "Warren Ave Community",
+    "value": "Warren Ave Community"
+  },
+  {
+    "text": "Warrendale",
+    "value": "Warrendale"
+  },
+  {
+    "text": "Waterworks Park",
+    "value": "Waterworks Park"
+  },
+  {
+    "text": "Wayne State",
+    "value": "Wayne State"
+  },
+  {
+    "text": "We Care Community",
+    "value": "We Care Community"
+  },
+  {
+    "text": "Weatherby",
+    "value": "Weatherby"
+  },
+  {
+    "text": "West Outer Drive",
+    "value": "West Outer Drive"
+  },
+  {
+    "text": "West Side Industrial",
+    "value": "West Side Industrial"
+  },
+  {
+    "text": "West Village",
+    "value": "West Village"
+  },
+  {
+    "text": "West Virginia Park",
+    "value": "West Virginia Park"
+  },
+  {
+    "text": "Westwood Park",
+    "value": "Westwood Park"
+  },
+  {
+    "text": "Wildemere Park",
+    "value": "Wildemere Park"
+  },
+  {
+    "text": "Winship",
+    "value": "Winship"
+  },
+  {
+    "text": "Woodbridge",
+    "value": "Woodbridge"
+  },
+  {
+    "text": "Yorkshire Woods",
+    "value": "Yorkshire Woods"
+  }
+]
