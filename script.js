@@ -127,7 +127,7 @@ function makeMap(dataset) {
   var bounds = L.latLngBounds(sw, ne);
 
   var map = L.map('chart', {
-    center: [42.3614, -83.0458],
+    center: [42.3614, -83.08],
     zoom:11,
     maxBounds: bounds,
     minZoom: 11 //https://gis.stackexchange.com/questions/179630/how-to-set-bounds-and-make-map-bounce-back-if-moved-away
@@ -138,7 +138,8 @@ function makeMap(dataset) {
   //referenced: https://leafletjs.com/examples/layers-control/example.html
   var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
 			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>, ' +
+      'Data Source: <a href="https://data.detroitmi.gov/">Detroit Open Data Portal</a>',
 		mbUrl = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
 
 	L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}).addTo(map);
@@ -152,7 +153,7 @@ function makeMap(dataset) {
   //referenced: https://gis.stackexchange.com/questions/127286/home-button-leaflet-map
   var home = {
   lat: 42.3614,
-  lng: -83.0458,
+  lng: -83.08,
   zoom: 11
   };
 
@@ -165,7 +166,7 @@ function makeMap(dataset) {
   //base layers
   const distGeo = L.geoJSON(dist, {
     style: function (){
-      return {"color": '#31044F',
+      return {"color": 'black',
       "weight": 3,
       "fillColor": 'white',
       "fillOpacity": 0}},
@@ -175,7 +176,7 @@ function makeMap(dataset) {
 
   const nhoodGeo = L.geoJSON(nhood, {
     style: function (){
-      return {"color": '#31044F',
+      return {"color": 'black',
       "weight": 3,
       "fillColor": 'white',
       "fillOpacity": 0}},
@@ -194,7 +195,42 @@ function makeMap(dataset) {
       .enter()
       .append("option")
       .attr("value", d => d.value)
-      .text(d => d.text)
+      .text(d => d.text);
+
+  var dropDown = d3.select("#dropdown");
+
+  dropDown.on("change", function() {
+    //console.log(d3.event.target.value)
+    //Highlight district polygon and zoom
+    //referenced: https://gis.stackexchange.com/questions/116159/how-to-style-specific-polygons-from-a-geojson-with-leaflet
+    //referenced: https://stackoverflow.com/questions/22796520/finding-the-center-of-leaflet-polygon
+    myData.clearLayers();
+    map.removeLayer(myData);
+
+    myData.addLayer(distGeo);
+    myData.addTo(map);
+
+    var currDrop = d3.event.target.value
+    if (currDrop != '0'){
+      const dropHighlightDist = L.geoJSON(dist, {
+        style: function(feature) {
+          if (feature.properties.districts == currDrop){
+            //console.log(feature.geometry.coordinates[0][0][0])
+            map.setView([feature.geometry.coordinates[0][0][7][1],feature.geometry.coordinates[0][0][7][0]], zoom=12);
+            return {color: "yellow", "weight": 5, "fillColor": 'yellow', 'fillOpacity':0.5};
+          }
+          else {
+            return {color: "grey", "weight": 0, "fillColor": 'white', 'fillOpacity':0};
+          }
+        }
+      })
+      myData.addLayer(dropHighlightDist)
+      myData.addTo(map);
+  }
+  else {
+    map.setView([home.lat, home.lng], home.zoom);
+  }
+  });
 
 
   //If district map box is clicked.
@@ -217,39 +253,34 @@ function makeMap(dataset) {
         .attr("value", d => d.value)
         .text(d => d.text);
 
-    });
+      dropDown.on("change", function() {
+        myData.clearLayers();
+        map.removeLayer(myData);
 
-    var dropDown = d3.select("#dropdown");
-
-    dropDown.on("change", function() {
-      console.log(d3.event.target.value) //this is value returned from choosing the dropdown
-      //need to get centroids for each polygon and input as  [lat, long] into below to handle zoom
-      //https://stackoverflow.com/questions/22796520/finding-the-center-of-leaflet-polygon
-      //map.setView(d.LatLng, 14.5)
-
-      //Highlight district polygon
-      //referenced: https://gis.stackexchange.com/questions/116159/how-to-style-specific-polygons-from-a-geojson-with-leaflet
-      myData.clearLayers();
-      map.removeLayer(myData);
-
-      myData.addLayer(distGeo);
-      myData.addTo(map);
-
-      var currDrop = d3.event.target.value
-      if (currDrop != '0'){
-        const dropHighlightDist = L.geoJSON(dist, {
-          style: function(feature) {
-            if (feature.properties.districts == currDrop){
-              return {color: "#ff0000", "weight": 5, "fillColor": '#ff0000', 'fillOpacity':0.5};
-            }
-            else {
-              return {color: "grey", "weight": 0, "fillColor": 'white', 'fillOpacity':0};
-            }
-          }
-        })
-        myData.addLayer(dropHighlightDist)
+        myData.addLayer(distGeo);
         myData.addTo(map);
+
+        var currDrop = d3.event.target.value
+        if (currDrop != '0'){
+          const dropHighlightDist = L.geoJSON(dist, {
+            style: function(feature) {
+              if (feature.properties.districts == currDrop){
+                map.setView([feature.geometry.coordinates[0][0][7][1],feature.geometry.coordinates[0][0][7][0]], zoom=12);
+                return {color: "yellow", "weight": 5, "fillColor": 'yellow', 'fillOpacity':0.5};
+              }
+              else {
+                return {color: "grey", "weight": 0, "fillColor": 'white', 'fillOpacity':0};
+              }
+            }
+          })
+          myData.addLayer(dropHighlightDist)
+          myData.addTo(map);
       }
+      else {
+        map.setView([home.lat, home.lng], home.zoom);
+      }
+      });
+
     });
 
   //If neighborhood map box is clicked
@@ -271,6 +302,37 @@ function makeMap(dataset) {
         .append('option')
         .attr("value", d => d.value)
         .text(d => d.text);
+
+    var dropDownN = d3.select("#dropdown");
+
+    dropDownN.on("change", function() {
+      myData.clearLayers();
+      map.removeLayer(myData);
+
+      myData.addLayer(nhoodGeo);
+      myData.addTo(map);
+
+      var currDropN = d3.event.target.value
+      console.log(currDropN)
+      if (currDropN != 'All'){
+        const dropHighlightNhood = L.geoJSON(nhood, {
+          style: function(feature) {
+            if (feature.properties.nhood_name == currDropN){
+              map.setView([feature.geometry.coordinates[0][0][7][1],feature.geometry.coordinates[0][0][7][0]], zoom=12.25);
+              return {color: "yellow", "weight": 5, "fillColor": 'yellow', 'fillOpacity':0.5};
+            }
+            else {
+              return {color: "grey", "weight": 0, "fillColor": 'white', 'fillOpacity':0};
+            }
+          }
+        })
+        myData.addLayer(dropHighlightNhood)
+        myData.addTo(map);
+    }
+    else {
+      map.setView([home.lat, home.lng], home.zoom);
+    }
+    });
 
     });
 
@@ -347,7 +409,7 @@ function makeMap(dataset) {
 
       unique_point.classed('active', false)
         .style('opacity', 0.65)
-        .style('fill', '#ED9007')
+        .style('fill', '#FF4B1E')
         .style('r', 5.5);
 
       cats.push('Blight Violation')
@@ -373,7 +435,7 @@ function makeMap(dataset) {
 
       unique_point.classed('active', false)
         .style('opacity', 0.65)
-        .style('fill', '#14E5D0')
+        .style('fill', '#133090')
         .style('r', 5.5);
 
       cats.push('Demolition')
@@ -395,7 +457,7 @@ function makeMap(dataset) {
 
       unique_point.classed('active', false)
         .style('opacity', 0.65)
-        .style('fill', '#8C82FA')
+        .style('fill', '#59AB00')
         .style('r', 5.5);
 
       cats.push('Public Land Sale')
@@ -448,10 +510,10 @@ function plotPoints(dataset, map, type, title, tooltip, g, svg){
   });
 
   if (type == 'sale'){
-    var color_fade = '#8C82FA'
+    var color_fade = '#59AB00'
   }
   else{
-    var color_fade = '#14E5D0'
+    var color_fade = '#133090'
   }
   const join = g.selectAll(".circle-" +type)
              .data(dataset.features)
@@ -570,7 +632,7 @@ function plotBlight(dataset, map, type, title, tooltip, g, svg){
            .on('click', function(d){
              unique_point.classed('active', false)
                .style('opacity', 0.5)
-               .style('fill', '#ED9007')
+               .style('fill', '#FF4B1E')
                .style('r', 5.5);
              unique_point = d3.selectAll('.circle')
                .filter(function(f) {return d.properties.id == f.properties.id && d.geometry.coordinates == f.geometry.coordinates})
@@ -616,8 +678,8 @@ function reformat(array) {
 };
 
 function getColor(d) {
-    return d > 5 ? '#ED9007' :
-           d > 3  ? '#14E5D0' :
-           d > 1 ? '#8C82FA' :
+    return d > 5 ? '#FF4B1E' :
+           d > 3  ? '#133090' :
+           d > 1 ? '#59AB00' :
                       '#FFEDA0';
 }

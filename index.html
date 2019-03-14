@@ -77,9 +77,6 @@
           <input type="radio" name="year" value="2018-box" id="2018-box" checked>
           <label for="2018-box">2018</label>
       </fieldset>
-
-      <select id="dropdown"></select>
-
     </div>
     <div class = "column">
       <h3 class = 'table-title'></h3>
@@ -87,22 +84,30 @@
     </div>
   </div>
   <div class = "row map-container">
-    <div id="chart" style="width: 1500px; height: 500px" class="animate-bottom"></div>
+    <div class = "column">
+      <div id="chart" style="width: 700px; height: 500px" class="animate-bottom"></div>
 
-    <script>
-    //referenced: https://www.w3schools.com/howto/howto_css_loader.asp
-    var myVar;
+      <script>
+      //referenced: https://www.w3schools.com/howto/howto_css_loader.asp
+      var myVar;
 
-    function myFunction() {
-      myVar = setTimeout(showPage, 20000);
-    }
+      function myFunction() {
+        myVar = setTimeout(showPage, 20000);
+      }
 
-    function showPage() {
-      document.getElementById("loader").style.display = "none";
-      document.getElementById("chart").style.display = "block";
-    }
-  </script>
+      function showPage() {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("chart").style.display = "block";
+      }
+    </script>
   </div>
+  <div class = "column">
+    <fieldset class="drop">
+        <legend class = 'legend'>Zoom to:</legend>
+        <select id="dropdown"></select>
+    </fieldset>
+  </div>
+</div>
 <!-- referenced: https://github.com/CliffCloud/Leaflet.EasyButton -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
 <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
