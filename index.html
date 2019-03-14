@@ -9,13 +9,26 @@
 </head>
 
 <body onload="myFunction()" style="margin:0;">
-  <h1>Blight, Demolitions, and Public Land Sales<br>in Detroit, Michigan</h1>
+  <!-- <h1>Battling Urban Blight and Abandoned Lots<br>in Detroit, Michigan</h1>
+  <h2>Visualizing blight violations, demolitions, and public land sales in the city since 2015.</h2> -->
+  <div class = "row-banner">
+    <div class = "img-container">
+      <div class = "inner-container">
+        <div class="pos-absolute z-index-2">
+          <h1>Battling Urban Blight and Vacant Lots<br>in Detroit, Michigan</h1>
+          <h2>Visualizing blight violations, demolitions, and public land sales in the city since 2015.</h2>
+        </div>
+        <div id="banner"></div>
+      </div>
+    </div>
+  </div>
+
   <div id="loader"></div>
 
   <script type="text/javascript" src="./d3/d3.min.js"></script>
   <script type="text/javascript" src="./leaflet/leaflet.js"></script>
 
-  <p class='description'>
+  <!-- <p class='description'>
     Like many other metropolitan cities, Detroit suffers from derelict properties decaying from
     years of abandonment and disuse. Abandoned buildings often lower the values of surrounding properties and are
     linked to increased rates of crime. The city of Detroit has several methods of combatting blight and vacant buildings:
@@ -35,7 +48,7 @@
     The DLBA sounds land from its inventory through a number of programs, notably the Side Lot Sales, Own It Now, and Auctions programs.
     <br>
     <br>
-  </p>
+  </p> -->
 
   <div class = "row">
     <div class = "column">
@@ -103,7 +116,7 @@
   </div>
   <div class = "column">
     <fieldset class="drop">
-        <legend class = 'legend'>Zoom to:</legend>
+        <legend class = 'legend'>Select a point on the map or choose a subarea:</legend>
         <select id="dropdown"></select>
     </fieldset>
   </div>

@@ -16,7 +16,9 @@ Promise.all(
    d3.json("./data/sales.geojson"),
    d3.json("./data/summary.json"),
    d3.json("./data/dist_dropdown.json"),
-   d3.json("./data/nhood_dropdown.json")
+   d3.json("./data/nhood_dropdown.json"),
+   d3.json('./data/sumbyD.json'),
+   d3.json('./data/sumbyN.json')
   ])
   .then(function(data) {
     console.log(data)
@@ -119,7 +121,7 @@ function makeTable(summary){
 
 
 function makeMap(dataset) {
-  const [dist, nhood, blight, dem, sales, disregard, dist_dropdown, nhood_dropdown] = dataset;
+  const [dist, nhood, blight, dem, sales, disregard, dist_dropdown, nhood_dropdown, barD, barN] = dataset;
 
   //set bounds
   var sw = [42.1, -83.4458]
