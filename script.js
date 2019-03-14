@@ -163,7 +163,7 @@ function makeMap(dataset) {
   //referenced: http://www.gistechsolutions.com/leaflet/DEMO/filter/filter.html
   //referenced: https://stackoverflow.com/questions/27748453/mouseover-actions-with-geojson-polygon
   //base layers
-  const dist_geo = L.geoJSON(dist, {
+  const distGeo = L.geoJSON(dist, {
     style: function (){
       return {"color": '#31044F',
       "weight": 3,
@@ -171,7 +171,9 @@ function makeMap(dataset) {
       "fillOpacity": 0}},
   });
 
-  const nhood_geo = L.geoJSON(nhood, {
+  console.log(distGeo)
+
+  const nhoodGeo = L.geoJSON(nhood, {
     style: function (){
       return {"color": '#31044F',
       "weight": 3,
@@ -181,10 +183,11 @@ function makeMap(dataset) {
 
   //Use Layers to add and remove data, default is by district, 2018, demolitions
   var myData =  L.layerGroup([]);
-    myData.addLayer(dist_geo);
+    myData.addLayer(distGeo);
     myData.addTo(map);
 
-  
+  //http://bl.ocks.org/feyderm/e6cab5931755897c2eb377ccbf9fdf18
+  //initialize dropdown
   d3.select("#dropdown")
       .selectAll("option")
       .data(dist_dropdown)
@@ -199,11 +202,8 @@ function makeMap(dataset) {
     myData.clearLayers();
     map.removeLayer(myData);
 
-    myData.addLayer(dist_geo);
+    myData.addLayer(distGeo);
     myData.addTo(map);
-
-    //http://bl.ocks.org/feyderm/e6cab5931755897c2eb377ccbf9fdf18
-    //initialize dropdown
 
     d3.select("#dropdown")
         .selectAll("option")
@@ -216,11 +216,40 @@ function makeMap(dataset) {
         .append("option")
         .attr("value", d => d.value)
         .text(d => d.text);
-    //
-    // d3.select("#dropdown")
-    //     .selectAll("option")
-    //     .data(dist_dropdown).exit().remove();
 
+    });
+
+    var dropDown = d3.select("#dropdown");
+
+    dropDown.on("change", function() {
+      console.log(d3.event.target.value) //this is value returned from choosing the dropdown
+      //need to get centroids for each polygon and input as  [lat, long] into below to handle zoom
+      //https://stackoverflow.com/questions/22796520/finding-the-center-of-leaflet-polygon
+      //map.setView(d.LatLng, 14.5)
+
+      //Highlight district polygon
+      //referenced: https://gis.stackexchange.com/questions/116159/how-to-style-specific-polygons-from-a-geojson-with-leaflet
+      myData.clearLayers();
+      map.removeLayer(myData);
+
+      myData.addLayer(distGeo);
+      myData.addTo(map);
+
+      var currDrop = d3.event.target.value
+      if (currDrop != '0'){
+        const dropHighlightDist = L.geoJSON(dist, {
+          style: function(feature) {
+            if (feature.properties.districts == currDrop){
+              return {color: "#ff0000", "weight": 5, "fillColor": '#ff0000', 'fillOpacity':0.5};
+            }
+            else {
+              return {color: "grey", "weight": 0, "fillColor": 'white', 'fillOpacity':0};
+            }
+          }
+        })
+        myData.addLayer(dropHighlightDist)
+        myData.addTo(map);
+      }
     });
 
   //If neighborhood map box is clicked
@@ -228,7 +257,7 @@ function makeMap(dataset) {
     myData.clearLayers();
     map.removeLayer(myData);
 
-    myData.addLayer(nhood_geo);
+    myData.addLayer(nhoodGeo);
     myData.addTo(map);
 
     d3.select("#dropdown")
@@ -242,10 +271,6 @@ function makeMap(dataset) {
         .append('option')
         .attr("value", d => d.value)
         .text(d => d.text);
-
-    // d3.select("#dropdown")
-    //     .selectAll("option")
-    //     .data([{'text': 'Nhood1', 'value': 'Nhood1'}, {'text': 'Nhood2', 'value': 'Nhood2'}]).exit().remove();
 
     });
 
@@ -341,6 +366,9 @@ function makeMap(dataset) {
       g.selectAll('.circle-dem').data(reformat(demCurr).features).exit()
         .transition()
         .duration(100)
+        //.ease(d3.easeBounceOut)
+          // .attr('r', 10)
+          // .attr('opacity', .1)
         .remove();
 
       unique_point.classed('active', false)
@@ -427,6 +455,7 @@ function plotPoints(dataset, map, type, title, tooltip, g, svg){
   }
   const join = g.selectAll(".circle-" +type)
              .data(dataset.features)
+
   var dots = join
              .enter()
              .append('circle')
@@ -461,7 +490,7 @@ function plotPoints(dataset, map, type, title, tooltip, g, svg){
             		.style('opacity', 0.65)
                 .style('fill', color_fade)
                 .style('r', 5.5);
-            	unique_point = d3.selectAll('.circle')
+            	unique_point = d3.selectAll('.circle-'+type)
             		.filter(function(f) {return d.properties.id == f.properties.id && d.geometry.coordinates == f.geometry.coordinates && d.properties.saleDate == f.properties.saleDate})
             		.classed('active', true)
             		.style('opacity', 1)
