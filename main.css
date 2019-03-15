@@ -14,6 +14,9 @@ body{
   padding-right: 25px;
 }
 
+.column-bar{
+    flex: 30%;
+}
 .column{
   flex: 50%;
   padding: 10px;
@@ -220,4 +223,10 @@ div.tooltip {
 
 .statsTable{
   position: relative;
+  font-family: Helvetica;
+}
+
+.barchart-s{
+  display: block;
+  margin: auto;
 }

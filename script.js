@@ -31,6 +31,11 @@ function makeVis(dataset) {
   const summaryStats = dataset[5];
   makeTable(summaryStats);
   makeMap(dataset);
+  // var f = dataset[8].filter(function(d){return d.councilDistrict == 2 && d.type == 'Blight Violation'});
+  // console.log(f)
+  // makeBarChart(f, 'district', 'Blight Violations', 'b');
+  // makeBarChart(f, 'district', 'Blight Violations', 'd');
+  // makeBarChart(f, 'district', 'Blight Violations', 's');
 
 }
 
@@ -118,6 +123,149 @@ function makeTable(summary){
 
 }
 
+function makeBarChart (dataset, reg, type, code){
+
+  const margin = {
+  top: 50,
+  left: 45,
+  right: 25,
+  bottom: 25
+  };
+
+  const width = 300 - margin.right - margin.left;
+  const height = 200 - margin.top - margin.bottom;
+
+
+  var xScale = d3.scaleBand()
+        .domain(["2015", "2016", "2017", "2018"])
+        .range([0, width]);
+
+  var yScale = d3.scaleLinear()
+    .domain([0, d3.max(dataset, d => d.count)])
+    .range([height, 0])
+    .nice();
+
+    d3.select('.barchart-'+code).selectAll('*').remove()
+
+  var svg = d3.select('.barchart-'+code)
+          .append('svg')
+            .attr('width', width + margin.left + margin.right)
+            .attr('height', height + margin.top+margin.bottom);
+
+
+  var g = svg.append('g')
+            .attr('transform', 'translate('+ margin.left+',' +margin.top+')');
+
+  g.append('g')
+        .call(d3.axisBottom(xScale))
+        .attr('transform', 'translate(0,'+ height + ')');
+  g.append('g')
+          .call(d3.axisLeft(yScale));
+
+  var d = 0;
+
+  if (type == 'Blight Violations'){
+    var d = 6
+  }
+  if (type == 'Demolitions'){
+    var d = 4
+  }
+  if (type == 'Public Land Sales'){
+    var d = 2
+  }
+
+  if (d3.max(dataset, d => d.count) > 0){
+    const joinB = g.selectAll(".bar")
+               .data(dataset)
+
+    var dots = joinB
+      .enter().append("rect")
+      .attr('class','bar')
+      .merge(joinB)
+      .style("fill", getColor(d))
+      .attr('class', 'rect-'+code)
+      .attr("x", function(d) { return xScale(d.year); })
+      .attr("width", 30)
+      .attr("y", function(d) { return yScale(d.count); })
+      .attr("height", function(d) { return height - yScale(d.count); })
+      .attr('transform', 'translate(15,0)')
+      .attr('opacity', 0)
+      .transition().duration(1100).delay(200)
+      .style('opacity', 1);
+
+    joinB
+      .transition().duration(250)
+      .attr("y", function(d,i) { return yScale(d.count); })
+      .attr("height", function(d,i) { return height - yScale(d.count); });
+
+    joinB.exit().remove();
+  }
+
+  if (reg == 'district'){
+    if (dataset[0].councilDistrict == '0'){
+      title1 = 'All Districts'
+    }
+    else {
+    title1 = 'District ' + dataset[0].councilDistrict
+    }
+  }
+  else {
+    if (dataset[0].neighborhood == 'All'){
+      title1 = dataset[0].neighborhood + ' Neighborhoods'
+    }
+    else {
+      title1 = dataset[0].neighborhood
+    }
+  }
+
+
+
+  const labs = [
+    {
+      x: `${width/2 + margin.left}`,
+      y: margin.top/2,
+      label: title1 + ': Number of ' + type,
+      size: 12,
+      transform: ''
+    },
+    {
+      x: `${width/2 + margin.left}`,
+      y: `${height+margin.top +24}`,
+      label: 'Year',
+      size: 10,
+      transform: ''
+    },
+    // {
+    //   x: 300,
+    //   y: 300,
+    //   label: 'Number of' + type,
+    //   size: 10,
+    //   transform: 'rotate(90)'
+    // // },
+    // {
+    //   x: width-margin.left-5,
+    //   y: height+margin.top+25,
+    //   label: 'Data Source: Detroit Open Data Portal',
+    //   size: 8,
+    //   transform: ''
+    // }
+  ];
+
+  const title = svg.selectAll('.title').data(labs);
+  // ENTER
+  title.enter()
+    .append('text')
+    .attr('class', 'title')
+    .attr('x', d => d.x)
+    .attr('y', d => d.y)
+    .attr('text-anchor', 'middle')
+    .attr('font-size', d => d.size)
+    .attr('font-family', 'sans-serif')
+    .attr('transform', d => d.transform)
+    .text(d => d.label);
+
+};
+
 
 
 function makeMap(dataset) {
@@ -201,7 +349,12 @@ function makeMap(dataset) {
 
   var dropDown = d3.select("#dropdown");
 
+  makeBarChart(barD.filter(function(d){return d.councilDistrict == '0' && d.type == 'Blight Violation'}), 'district', 'Blight Violations', 'b');
+  makeBarChart(barD.filter(function(d){return d.councilDistrict == '0' && d.type == 'Demolition'}), 'district', 'Demolitions', 'd');
+  makeBarChart(barD.filter(function(d){return d.councilDistrict == '0' && d.type == 'Public Land Sale'}), 'district', 'Public Land Sales', 's');
+
   dropDown.on("change", function() {
+
     //console.log(d3.event.target.value)
     //Highlight district polygon and zoom
     //referenced: https://gis.stackexchange.com/questions/116159/how-to-style-specific-polygons-from-a-geojson-with-leaflet
@@ -231,7 +384,12 @@ function makeMap(dataset) {
   }
   else {
     map.setView([home.lat, home.lng], home.zoom);
-  }
+  };
+
+  makeBarChart(barD.filter(function(d){return d.councilDistrict == currDrop && d.type == 'Blight Violation'}), 'district', 'Blight Violations', 'b');
+  makeBarChart(barD.filter(function(d){return d.councilDistrict == currDrop && d.type == 'Demolition'}), 'district', 'Demolitions', 'd');
+  makeBarChart(barD.filter(function(d){return d.councilDistrict == currDrop && d.type == 'Public Land Sale'}), 'district', 'Public Land Sales', 's');
+
   });
 
 
@@ -280,7 +438,12 @@ function makeMap(dataset) {
       }
       else {
         map.setView([home.lat, home.lng], home.zoom);
-      }
+      };
+
+      makeBarChart(barD.filter(function(d){return d.councilDistrict == currDrop && d.type == 'Blight Violation'}), 'district', 'Blight Violations', 'b');
+      makeBarChart(barD.filter(function(d){return d.councilDistrict == currDrop && d.type == 'Demolition'}), 'district', 'Demolitions', 'd');
+      makeBarChart(barD.filter(function(d){return d.councilDistrict == currDrop && d.type == 'Public Land Sale'}), 'district', 'Public Land Sales', 's');
+
       });
 
     });
@@ -307,6 +470,11 @@ function makeMap(dataset) {
 
     var dropDownN = d3.select("#dropdown");
 
+    makeBarChart(barN.filter(function(d){return d.neighborhood == 'All' && d.type == 'Blight Violation'}), 'neighborhood', 'Blight Violations', 'b');
+    makeBarChart(barN.filter(function(d){return d.neighborhood == 'All' && d.type == 'Demolition'}), 'neighborhood', 'Demolitions', 'd');
+    makeBarChart(barN.filter(function(d){return d.neighborhood == 'All' && d.type == 'Public Land Sale'}), 'neighborhood', 'Public Land Sales', 's');
+
+
     dropDownN.on("change", function() {
       myData.clearLayers();
       map.removeLayer(myData);
@@ -330,9 +498,17 @@ function makeMap(dataset) {
         })
         myData.addLayer(dropHighlightNhood)
         myData.addTo(map);
+
+        makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Blight Violation'}), 'neighborhood', 'Blight Violations', 'b');
+        makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Demolition'}), 'neighborhood', 'Demolitions', 'd');
+        makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Public Land Sale'}), 'neighborhood', 'Public Land Sales', 's');
+
     }
     else {
       map.setView([home.lat, home.lng], home.zoom);
+      makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Blight Violation'}), 'neighborhood', 'Blight Violations', 'b');
+      makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Demolition'}), 'neighborhood', 'Demolitions', 'd');
+      makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Public Land Sale'}), 'neighborhood', 'Public Land Sales', 's');
     }
     });
 
