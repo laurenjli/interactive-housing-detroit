@@ -6,6 +6,7 @@
 
 var CURR_YEAR = 18;
 var unique_point = d3.select(null);
+var DROP_VAL = null;
 
 //load data
 Promise.all(
@@ -31,12 +32,6 @@ function makeVis(dataset) {
   const summaryStats = dataset[5];
   makeTable(summaryStats);
   makeMap(dataset);
-  // var f = dataset[8].filter(function(d){return d.councilDistrict == 2 && d.type == 'Blight Violation'});
-  // console.log(f)
-  // makeBarChart(f, 'district', 'Blight Violations', 'b');
-  // makeBarChart(f, 'district', 'Blight Violations', 'd');
-  // makeBarChart(f, 'district', 'Blight Violations', 's');
-
 }
 
 function makeTable(summary){
@@ -123,8 +118,8 @@ function makeTable(summary){
 
 }
 
-function makeBarChart (dataset, reg, type, code){
-
+//function makeBarChart (dataset, reg, type, code, svg, g, tooltip){
+function makeBarChart (dataset, reg, type, code, tooltip){
   const margin = {
   top: 50,
   left: 45,
@@ -141,11 +136,11 @@ function makeBarChart (dataset, reg, type, code){
         .range([0, width]);
 
   var yScale = d3.scaleLinear()
-    .domain([0, d3.max(dataset, d => d.count)])
+    .domain([0, Math.max(10, d3.max(dataset, d => d.count))])
     .range([height, 0])
     .nice();
 
-    d3.select('.barchart-'+code).selectAll('*').remove()
+  d3.select('.barchart-'+code).selectAll('*').remove()
 
   var svg = d3.select('.barchart-'+code)
           .append('svg')
@@ -162,16 +157,16 @@ function makeBarChart (dataset, reg, type, code){
   g.append('g')
           .call(d3.axisLeft(yScale));
 
-  var d = 0;
+  var e = 0;
 
   if (type == 'Blight Violations'){
-    var d = 6
+    var e = 6
   }
   if (type == 'Demolitions'){
-    var d = 4
+    var e = 4
   }
   if (type == 'Public Land Sales'){
-    var d = 2
+    var e = 2
   }
 
   if (d3.max(dataset, d => d.count) > 0){
@@ -182,7 +177,7 @@ function makeBarChart (dataset, reg, type, code){
       .enter().append("rect")
       .attr('class','bar')
       .merge(joinB)
-      .style("fill", getColor(d))
+      .style("fill", getColor(e))
       .attr('class', 'rect-'+code)
       .attr("x", function(d) { return xScale(d.year); })
       .attr("width", 30)
@@ -190,6 +185,29 @@ function makeBarChart (dataset, reg, type, code){
       .attr("height", function(d) { return height - yScale(d.count); })
       .attr('transform', 'translate(15,0)')
       .attr('opacity', 0)
+      .on("mouseover", function(d) {
+        d3.select(this)
+         .classed('hovered', true)
+         .transition().duration(200)
+         .style('fill','#E80C94');
+
+       tooltip.style('opacity',1)
+       tooltip.html("<dl><dt> Total: " + numberWithCommas(d.count) + "</dt>"
+                + "<dt>Average Amount: $TO DO</dt>")
+                //+ "<dt>Average Amount: $" + numberWithCommas(d.amount) + "</dt>")
+         .style("top",(d3.event.pageY-10)+"px")
+         .style("left",(d3.event.pageX+30)+"px");
+      })
+      .on("mouseout", function() {
+          tooltip.style('opacity', 0);
+
+          d3.select(this)
+            .classed('hovered', false)
+            .transition().duration(200)
+            .style("fill", function() {
+              return "" + getColor(e) + "";
+          });
+      })
       .transition().duration(1100).delay(200)
       .style('opacity', 1);
 
@@ -198,7 +216,7 @@ function makeBarChart (dataset, reg, type, code){
       .attr("y", function(d,i) { return yScale(d.count); })
       .attr("height", function(d,i) { return height - yScale(d.count); });
 
-    joinB.exit().remove();
+    joinB.exit().transition().duration(1000).remove();
   }
 
   if (reg == 'district'){
@@ -263,7 +281,6 @@ function makeBarChart (dataset, reg, type, code){
     .attr('font-family', 'sans-serif')
     .attr('transform', d => d.transform)
     .text(d => d.label);
-
 };
 
 
@@ -294,11 +311,74 @@ function makeMap(dataset) {
 
 	L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}).addTo(map);
 
+  map.on('load', d3.select('#loader').remove())
+
   //https://gis.stackexchange.com/questions/193161/add-legend-to-leaflet-map
   //legend
   var legend = L.control({
     position: 'topright'
   });
+
+  //http://bl.ocks.org/feyderm/e6cab5931755897c2eb377ccbf9fdf18
+  //initialize dropdown
+  d3.select("#dropdown")
+      .selectAll("option")
+      .data(dist_dropdown)
+      .enter()
+      .append("option")
+      .attr("value", d => d.value)
+      .text(d => d.text);
+
+  var dropDown = d3.select("#dropdown");
+
+  //set up bar charts
+  var tooltip2 = d3.select('body')
+    .append("div")
+    .attr("class", "tooltip-b")
+    .text("a simple tooltip-bar")
+    .style("opacity", 0)
+    .style("z-index", "999");
+
+  const margin = {
+  top: 50,
+  left: 45,
+  right: 25,
+  bottom: 25
+  };
+
+  const width = 300 - margin.right - margin.left;
+  const height = 200 - margin.top - margin.bottom;
+
+  var svgB = d3.select('.barchart-b')
+          .append('svg')
+            .attr('width', width + margin.left + margin.right)
+            .attr('height', height + margin.top+margin.bottom);
+
+
+  var gB = svgB.append('g')
+            .attr('transform', 'translate('+ margin.left+',' +margin.top+')');
+
+  var svgD = d3.select('.barchart-d')
+          .append('svg')
+            .attr('width', width + margin.left + margin.right)
+            .attr('height', height + margin.top+margin.bottom);
+
+
+  var gD = svgD.append('g')
+            .attr('transform', 'translate('+ margin.left+',' +margin.top+')');
+
+  var svgS = d3.select('.barchart-s')
+          .append('svg')
+            .attr('width', width + margin.left + margin.right)
+            .attr('height', height + margin.top+margin.bottom);
+
+
+  var gS = svgS.append('g')
+            .attr('transform', 'translate('+ margin.left+',' +margin.top+')');
+
+  makeBarChart(barD.filter(function(d){return d.councilDistrict == '0' && d.type == 'Blight Violation'}), 'district', 'Blight Violations', 'b', tooltip2);
+  makeBarChart(barD.filter(function(d){return d.councilDistrict == '0' && d.type == 'Demolition'}), 'district', 'Demolitions', 'd', tooltip2);
+  makeBarChart(barD.filter(function(d){return d.councilDistrict == '0' && d.type == 'Public Land Sale'}), 'district', 'Public Land Sales', 's', tooltip2);
 
   //referenced: https://gis.stackexchange.com/questions/127286/home-button-leaflet-map
   var home = {
@@ -307,7 +387,19 @@ function makeMap(dataset) {
   zoom: 11
   };
 
-  L.easyButton('fa-home',function(btn,map){
+  L.easyButton('fa-home',function(btn, map, barD, barN){
+    if (["0", "1", "2", "3", "4", "5", "6", "7"].includes(document.getElementById('dropdown').value)){
+      //document.getElementById('dropdown').value = "0";
+      // makeBarChart(barD.filter(function(d){return d.councilDistrict == '0' && d.type == 'Blight Violation'}), 'district', 'Blight Violations', 'b', svgB, gB, tooltip2);
+      // makeBarChart(barD.filter(function(d){return d.councilDistrict == '0' && d.type == 'Demolition'}), 'district', 'Demolitions', 'd', svgD, gD, tooltip2);
+      // makeBarChart(barD.filter(function(d){return d.councilDistrict == '0' && d.type == 'Public Land Sale'}), 'district', 'Public Land Sales', 's', svgS, gS, tooltip2);
+    }
+    else{
+      //document.getElementById('dropdown').value = "All";
+      // makeBarChart(barN.filter(function(d){return d.councilDistrict == 'All' && d.type == 'Blight Violation'}), 'district', 'Blight Violations', 'b', svgB, gB, tooltip2);
+      // makeBarChart(barN.filter(function(d){return d.councilDistrict == 'All' && d.type == 'Demolition'}), 'district', 'Demolitions', 'd', svgD, gD, tooltip2);
+      // makeBarChart(barN.filter(function(d){return d.councilDistrict == 'All' && d.type == 'Public Land Sale'}), 'district', 'Public Land Sales', 's', svgS, gS, tooltip2);
+    };
     map.setView([home.lat, home.lng], home.zoom);
   },'Return to City View').addTo(map);
 
@@ -337,21 +429,6 @@ function makeMap(dataset) {
     myData.addLayer(distGeo);
     myData.addTo(map);
 
-  //http://bl.ocks.org/feyderm/e6cab5931755897c2eb377ccbf9fdf18
-  //initialize dropdown
-  d3.select("#dropdown")
-      .selectAll("option")
-      .data(dist_dropdown)
-      .enter()
-      .append("option")
-      .attr("value", d => d.value)
-      .text(d => d.text);
-
-  var dropDown = d3.select("#dropdown");
-
-  makeBarChart(barD.filter(function(d){return d.councilDistrict == '0' && d.type == 'Blight Violation'}), 'district', 'Blight Violations', 'b');
-  makeBarChart(barD.filter(function(d){return d.councilDistrict == '0' && d.type == 'Demolition'}), 'district', 'Demolitions', 'd');
-  makeBarChart(barD.filter(function(d){return d.councilDistrict == '0' && d.type == 'Public Land Sale'}), 'district', 'Public Land Sales', 's');
 
   dropDown.on("change", function() {
 
@@ -386,9 +463,9 @@ function makeMap(dataset) {
     map.setView([home.lat, home.lng], home.zoom);
   };
 
-  makeBarChart(barD.filter(function(d){return d.councilDistrict == currDrop && d.type == 'Blight Violation'}), 'district', 'Blight Violations', 'b');
-  makeBarChart(barD.filter(function(d){return d.councilDistrict == currDrop && d.type == 'Demolition'}), 'district', 'Demolitions', 'd');
-  makeBarChart(barD.filter(function(d){return d.councilDistrict == currDrop && d.type == 'Public Land Sale'}), 'district', 'Public Land Sales', 's');
+  makeBarChart(barD.filter(function(d){return d.councilDistrict == currDrop && d.type == 'Blight Violation'}), 'district', 'Blight Violations', 'b', tooltip2);
+  makeBarChart(barD.filter(function(d){return d.councilDistrict == currDrop && d.type == 'Demolition'}), 'district', 'Demolitions', 'd', tooltip2);
+  makeBarChart(barD.filter(function(d){return d.councilDistrict == currDrop && d.type == 'Public Land Sale'}), 'district', 'Public Land Sales', 's', tooltip2);
 
   });
 
@@ -412,6 +489,10 @@ function makeMap(dataset) {
         .append("option")
         .attr("value", d => d.value)
         .text(d => d.text);
+
+        makeBarChart(barD.filter(function(d){return d.councilDistrict == '0' && d.type == 'Blight Violation'}), 'district', 'Blight Violations', 'b', tooltip2);
+        makeBarChart(barD.filter(function(d){return d.councilDistrict == '0' && d.type == 'Demolition'}), 'district', 'Demolitions', 'd', tooltip2);
+        makeBarChart(barD.filter(function(d){return d.councilDistrict == '0' && d.type == 'Public Land Sale'}), 'district', 'Public Land Sales', 's', tooltip2);
 
       dropDown.on("change", function() {
         myData.clearLayers();
@@ -440,9 +521,9 @@ function makeMap(dataset) {
         map.setView([home.lat, home.lng], home.zoom);
       };
 
-      makeBarChart(barD.filter(function(d){return d.councilDistrict == currDrop && d.type == 'Blight Violation'}), 'district', 'Blight Violations', 'b');
-      makeBarChart(barD.filter(function(d){return d.councilDistrict == currDrop && d.type == 'Demolition'}), 'district', 'Demolitions', 'd');
-      makeBarChart(barD.filter(function(d){return d.councilDistrict == currDrop && d.type == 'Public Land Sale'}), 'district', 'Public Land Sales', 's');
+      makeBarChart(barD.filter(function(d){return d.councilDistrict == currDrop && d.type == 'Blight Violation'}), 'district', 'Blight Violations', 'b', svgB, gB, tooltip2);
+      makeBarChart(barD.filter(function(d){return d.councilDistrict == currDrop && d.type == 'Demolition'}), 'district', 'Demolitions', 'd', svgD, gD, tooltip2);
+      makeBarChart(barD.filter(function(d){return d.councilDistrict == currDrop && d.type == 'Public Land Sale'}), 'district', 'Public Land Sales', 's', svgS, gS, tooltip2);
 
       });
 
@@ -470,9 +551,9 @@ function makeMap(dataset) {
 
     var dropDownN = d3.select("#dropdown");
 
-    makeBarChart(barN.filter(function(d){return d.neighborhood == 'All' && d.type == 'Blight Violation'}), 'neighborhood', 'Blight Violations', 'b');
-    makeBarChart(barN.filter(function(d){return d.neighborhood == 'All' && d.type == 'Demolition'}), 'neighborhood', 'Demolitions', 'd');
-    makeBarChart(barN.filter(function(d){return d.neighborhood == 'All' && d.type == 'Public Land Sale'}), 'neighborhood', 'Public Land Sales', 's');
+    makeBarChart(barN.filter(function(d){return d.neighborhood == 'All' && d.type == 'Blight Violation'}), 'neighborhood', 'Blight Violations', 'b', tooltip2);
+    makeBarChart(barN.filter(function(d){return d.neighborhood == 'All' && d.type == 'Demolition'}), 'neighborhood', 'Demolitions', 'd',tooltip2);
+    makeBarChart(barN.filter(function(d){return d.neighborhood == 'All' && d.type == 'Public Land Sale'}), 'neighborhood', 'Public Land Sales', 's', tooltip2);
 
 
     dropDownN.on("change", function() {
@@ -499,16 +580,16 @@ function makeMap(dataset) {
         myData.addLayer(dropHighlightNhood)
         myData.addTo(map);
 
-        makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Blight Violation'}), 'neighborhood', 'Blight Violations', 'b');
-        makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Demolition'}), 'neighborhood', 'Demolitions', 'd');
-        makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Public Land Sale'}), 'neighborhood', 'Public Land Sales', 's');
+        makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Blight Violation'}), 'neighborhood', 'Blight Violations', 'b',tooltip2);
+        makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Demolition'}), 'neighborhood', 'Demolitions', 'd', tooltip2);
+        makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Public Land Sale'}), 'neighborhood', 'Public Land Sales', 's', tooltip2);
 
     }
     else {
       map.setView([home.lat, home.lng], home.zoom);
-      makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Blight Violation'}), 'neighborhood', 'Blight Violations', 'b');
-      makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Demolition'}), 'neighborhood', 'Demolitions', 'd');
-      makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Public Land Sale'}), 'neighborhood', 'Public Land Sales', 's');
+      makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Blight Violation'}), 'neighborhood', 'Blight Violations', 'b', tooltip2);
+      makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Demolition'}), 'neighborhood', 'Demolitions', 'd', tooltip2);
+      makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Public Land Sale'}), 'neighborhood', 'Public Land Sales', 's', tooltip2);
     }
     });
 
@@ -585,6 +666,19 @@ function makeMap(dataset) {
         .duration(100)
         .remove();
 
+      // DROP_VAL = toString(unique_point['_groups'][0][0]["__data__"].properties.councilDistrict)
+      // if (["0", "1", "2", "3", "4", "5", "6", "7"].includes(DROP_VAL)) {
+      //   makeBarChart(barD.filter(function(d){return d.councilDistrict == DROP_VAL && d.type == 'Blight Violation'}), 'district', 'Blight Violations', 'b', svgB, gB, tooltip2);
+      //   makeBarChart(barD.filter(function(d){return d.councilDistrict == DROP_VAL && d.type == 'Demolition'}), 'district', 'Demolitions', 'd', svgD, gD, tooltip2);
+      //   makeBarChart(barD.filter(function(d){return d.councilDistrict == DROP_VAL && d.type == 'Public Land Sale'}), 'district', 'Public Land Sales', 's', svgS, gS, tooltip2);
+      // }
+      //
+      // else{
+      //   makeBarChart(barN.filter(function(d){return d.neighborhood == DROP_VAL && d.type == 'Blight Violation'}), 'district', 'Blight Violations', 'b', svgB, gB, tooltip2);
+      //   makeBarChart(barN.filter(function(d){return d.neighborhood == DROP_VAL && d.type == 'Demolition'}), 'district', 'Demolitions', 'd', svgD, gD, tooltip2);
+      //   makeBarChart(barN.filter(function(d){return d.neighborhood == DROP_VAL && d.type == 'Public Land Sale'}), 'district', 'Public Land Sales', 's', svgS, gS, tooltip2);
+      // }
+
       unique_point.classed('active', false)
         .style('opacity', 0.65)
         .style('fill', '#FF4B1E')
@@ -602,7 +696,7 @@ function makeMap(dataset) {
     }
 
     if(choices.includes('dem-box')){
-      plotPoints(reformat(demCurr), map, 'dem', 'Demolition', tooltip, g, svg);
+      plotPoints(reformat(demCurr), map, 'dem', 'Demolition', tooltip, g, svg, barD, barN, tooltip2);
       g.selectAll('.circle-dem').data(reformat(demCurr).features).exit()
         .transition()
         .duration(100)
@@ -610,6 +704,24 @@ function makeMap(dataset) {
           // .attr('r', 10)
           // .attr('opacity', .1)
         .remove();
+      //
+      // console.log(unique_point)
+      // if (unique_point['_groups'][0][0] != null) {
+      //   console.log(unique_point['_groups'][0][0]["__data__"].properties.councilDistrict)
+      //   DROP_VAL = toString(unique_point['_groups'][0][0]["__data__"].properties.councilDistrict)
+      //   console.log(DROP_VAL)
+      //   if (["0", "1", "2", "3", "4", "5", "6", "7"].includes(DROP_VAL)) {
+      //     makeBarChart(barD.filter(function(d){return d.councilDistrict == DROP_VAL && d.type == 'Blight Violation'}), 'district', 'Blight Violations', 'b', tooltip2);
+      //     makeBarChart(barD.filter(function(d){return d.councilDistrict == DROP_VAL && d.type == 'Demolition'}), 'district', 'Demolitions', 'd', tooltip2);
+      //     makeBarChart(barD.filter(function(d){return d.councilDistrict == DROP_VAL && d.type == 'Public Land Sale'}), 'district', 'Public Land Sales', 's', tooltip2);
+      //   }
+      //
+      //   else{
+      //     makeBarChart(barN.filter(function(d){return d.neighborhood == DROP_VAL && d.type == 'Blight Violation'}), 'district', 'Blight Violations', 'b', tooltip2);
+      //     makeBarChart(barN.filter(function(d){return d.neighborhood == DROP_VAL && d.type == 'Demolition'}), 'district', 'Demolitions', 'd', tooltip2);
+      //     makeBarChart(barN.filter(function(d){return d.neighborhood == DROP_VAL && d.type == 'Public Land Sale'}), 'district', 'Public Land Sales', 's', tooltip2);
+      //   }
+      // }
 
       unique_point.classed('active', false)
         .style('opacity', 0.65)
@@ -627,11 +739,24 @@ function makeMap(dataset) {
     }
 
     if(choices.includes('sales-box')){
-      plotPoints(reformat(salesCurr), map, 'sale', 'Public Land Sale', tooltip, g, svg);
+      plotPoints(reformat(salesCurr), map, 'sale', 'Public Land Sale', tooltip, g, svg, barD, barN);
       g.selectAll('.circle-sale').data(reformat(salesCurr).features).exit()
         .transition()
         .duration(100)
         .remove();
+
+      // DROP_VAL = toString(unique_point['_groups'][0][0]["__data__"].properties.councilDistrict)
+      // if (["0", "1", "2", "3", "4", "5", "6", "7"].includes(DROP_VAL)) {
+      //   makeBarChart(barD.filter(function(d){return d.councilDistrict == DROP_VAL && d.type == 'Blight Violation'}), 'district', 'Blight Violations', 'b', svgB, gB, tooltip2);
+      //   makeBarChart(barD.filter(function(d){return d.councilDistrict == DROP_VAL && d.type == 'Demolition'}), 'district', 'Demolitions', 'd', svgD, gD, tooltip2);
+      //   makeBarChart(barD.filter(function(d){return d.councilDistrict == DROP_VAL && d.type == 'Public Land Sale'}), 'district', 'Public Land Sales', 's', svgS, gS, tooltip2);
+      // }
+      //
+      // else{
+      //   makeBarChart(barN.filter(function(d){return d.neighborhood == DROP_VAL && d.type == 'Blight Violation'}), 'district', 'Blight Violations', 'b', svgB, gB, tooltip2);
+      //   makeBarChart(barN.filter(function(d){return d.neighborhood == DROP_VAL && d.type == 'Demolition'}), 'district', 'Demolitions', 'd', svgD, gD, tooltip2);
+      //   makeBarChart(barN.filter(function(d){return d.neighborhood == DROP_VAL && d.type == 'Public Land Sale'}), 'district', 'Public Land Sales', 's', svgS, gS, tooltip2);
+      // }
 
       unique_point.classed('active', false)
         .style('opacity', 0.65)
@@ -676,7 +801,7 @@ function makeMap(dataset) {
 
 //referenced: http://bl.ocks.org/d3noob/9267535
 //referenced: https://bost.ocks.org/mike/leaflet/
-function plotPoints(dataset, map, type, title, tooltip, g, svg){
+function plotPoints(dataset, map, type, title, tooltip, g, svg, barD, barN, tooltip2){
 
   //  create a d3.geo.path to convert GeoJSON to SVG
   var transform = d3.geoTransform({point: projectPoint}),
@@ -707,7 +832,7 @@ function plotPoints(dataset, map, type, title, tooltip, g, svg){
                 .classed('hovered', true)
                 .transition().duration(200)
                 .attr('r', 8)
-                .attr('fill','red');
+                .attr('fill','#F70CDC');
 
                tooltip.transition().duration(100).style('opacity',1)
                tooltip.html("<dl><dt> Type: " + title + "</dt>"
@@ -718,14 +843,14 @@ function plotPoints(dataset, map, type, title, tooltip, g, svg){
                  .style("top",(d3.event.pageY-10)+"px")
                  .style("left",(d3.event.pageX+30)+"px");
                })
-            .on("mouseout", function(d){
+            .on("mouseout", function(d, barD){
               //console.log('MOUSEOUT')
               tooltip.style('opacity', 0);
               d3.select(this)
                .classed('hovered', false)
                .transition().duration(300)
                .attr('r', 5.5);})
-            .on('click', function(d){ //https://jaketrent.com/post/d3-class-operations/
+            .on('click', function(d, barD){ //https://jaketrent.com/post/d3-class-operations/
               unique_point.classed('active', false)
             		.style('opacity', 0.65)
                 .style('fill', color_fade)
@@ -734,8 +859,23 @@ function plotPoints(dataset, map, type, title, tooltip, g, svg){
             		.filter(function(f) {return d.properties.id == f.properties.id && d.geometry.coordinates == f.geometry.coordinates && d.properties.saleDate == f.properties.saleDate})
             		.classed('active', true)
             		.style('opacity', 1)
-                .style('fill', 'red');
+                .style('fill', '#F70CDC');
             	map.setView(d.LatLng, 14.5);
+              // console.log(unique_point['_groups'][0][0]["__data__"].properties.councilDistrict)
+              // DROP_VAL = unique_point['_groups'][0][0]["__data__"].properties.councilDistrict
+              // console.log(DROP_VAL)
+              // console.log(barD)
+              // if (["0", "1", "2", "3", "4", "5", "6", "7"].includes(DROP_VAL)) {
+              //   makeBarChart(barD.filter(function(d){return d.councilDistrict == DROP_VAL && d.type == 'Blight Violation'}), 'district', 'Blight Violations', 'b', tooltip2);
+              //   makeBarChart(barD.filter(function(d){return d.councilDistrict == DROP_VAL && d.type == 'Demolition'}), 'district', 'Demolitions', 'd', tooltip2);
+              //   makeBarChart(barD.filter(function(d){return d.councilDistrict == DROP_VAL && d.type == 'Public Land Sale'}), 'district', 'Public Land Sales', 's',tooltip2);
+              // }
+              //
+              // else{
+              //   makeBarChart(barN.filter(function(d){return d.neighborhood == DROP_VAL && d.type == 'Blight Violation'}), 'district', 'Blight Violations', 'b', tooltip2);
+              //   makeBarChart(barN.filter(function(d){return d.neighborhood == DROP_VAL && d.type == 'Demolition'}), 'district', 'Demolitions', 'd',tooltip2);
+              //   makeBarChart(barN.filter(function(d){return d.neighborhood == DROP_VAL && d.type == 'Public Land Sale'}), 'district', 'Public Land Sales', 's',tooltip2);
+              // }
             });
 
  map.on("moveend", update);
@@ -816,7 +956,7 @@ function plotBlight(dataset, map, type, title, tooltip, g, svg){
                .filter(function(f) {return d.properties.id == f.properties.id && d.geometry.coordinates == f.geometry.coordinates})
                .classed('active', true)
                .style('opacity', 1)
-               .style('fill', 'red');
+               .style('fill', '#F70CDC');
 
              // Zoom to selected school on the map
              map.setView(d.LatLng, 14.3);
@@ -860,4 +1000,9 @@ function getColor(d) {
            d > 3  ? '#133090' :
            d > 1 ? '#59AB00' :
                       '#FFEDA0';
+}
+
+//referenced: https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

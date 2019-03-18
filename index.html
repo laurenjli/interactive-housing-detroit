@@ -8,9 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body onload="myFunction()" style="margin:0;">
-  <!-- <h1>Battling Urban Blight and Abandoned Lots<br>in Detroit, Michigan</h1>
-  <h2>Visualizing blight violations, demolitions, and public land sales in the city since 2015.</h2> -->
+<body>
   <div class = "row-banner">
     <div class = "img-container">
       <div class = "inner-container">
@@ -22,8 +20,6 @@
       </div>
     </div>
   </div>
-
-  <div id="loader"></div>
 
   <script type="text/javascript" src="./d3/d3.min.js"></script>
   <script type="text/javascript" src="./leaflet/leaflet.js"></script>
@@ -56,10 +52,10 @@
     <div class = "column">
       <fieldset class="radiobox">
         <legend class = 'legend'>Initialize the map of Detroit (choose one):</legend>
-        <input type="radio" name="map-type" value="c-district-box" id="c-district-box" checked>
+        <input type="radio" name="map-type" value="c-district-box" id="c-district-box" class="form-radio" checked>
         <label for="c-district-box">Council District</label>
 
-        <input type="radio" name="map-type" value="nhood-box" id="nhood-box">
+        <input type="radio" name="map-type" value="nhood-box" id="nhood-box" class="form-radio">
         <label for="nhood-box">Neighborhood</label>
       </fieldset>
 
@@ -77,19 +73,17 @@
 
       <fieldset class="radiobox">
           <legend class = 'legend'>Year (choose one):</legend>
-          <!-- <input type="radio" name="year" value="2014-box" id="2014-box">
-          <label for="2014-box">2014</label> -->
 
-          <input type="radio" name="year" value="2015-box" id="2015-box">
+          <input type="radio" name="year" value="2015-box" id="2015-box" class="form-radio">
           <label for="2015-box">2015</label>
 
-          <input type="radio" name="year" value="2016-box" id="2016-box">
+          <input type="radio" name="year" value="2016-box" id="2016-box" class="form-radio">
           <label for="2016-box">2016</label>
 
-          <input type="radio" name="year" value="2017-box" id="2017-box">
+          <input type="radio" name="year" value="2017-box" id="2017-box" class="form-radio">
           <label for="2017-box">2017</label>
 
-          <input type="radio" name="year" value="2018-box" id="2018-box" checked>
+          <input type="radio" name="year" value="2018-box" id="2018-box" class="form-radio" checked>
           <label for="2018-box">2018</label>
       </fieldset>
     </div>
@@ -99,7 +93,7 @@
     </div>
   </div>
   <div class = "row map-container">
-    <div class = "column">
+    <!-- <div class = "column">
       <div id="chart" style="width: 700px; height: 500px" class="animate-bottom"></div>
 
       <script>
@@ -115,13 +109,13 @@
         document.getElementById("chart").style.display = "block";
       }
     </script>
-  </div>
+  </div> -->
 
   <div class = "column">
-    <fieldset class="drop">
-        <legend class = 'legend'>Select a point on the map or choose a subarea:</legend>
-        <select id="dropdown"></select>
-    </fieldset>
+    <legend class = 'legend-drop'>Choose a subarea or select a point on the map:</legend>
+    <div class="styled-select rounded">
+      <select id="dropdown"></select>
+    </div>
     <div class = 'row'>
       <div class = "barchart-b"></div>
       <div class = "barchart-d"></div>
@@ -130,6 +124,24 @@
       <div class = "barchart-s"></div>
     </div>
   </div>
+
+  <div class = "column">
+    <div id="chart" style="width: 700px; height: 500px" class="animate-bottom"></div>
+    <div id="loader"></div>
+    <!-- <script>
+    //referenced: https://www.w3schools.com/howto/howto_css_loader.asp
+    var myVar;
+
+    function myFunction() {
+      myVar = setTimeout(showPage, 5000);
+    }
+
+    function showPage() {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("chart").style.display = "block";
+    }
+  </script> -->
+</div>
 </div>
 <!-- referenced: https://github.com/CliffCloud/Leaflet.EasyButton -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">

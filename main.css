@@ -26,14 +26,14 @@ body{
   padding-bottom: 25px;
 }
 
-h1, h2 {
+h1, h2, h3 {
   font-family: Helvetica, Helvetica, sans-serif;
   color: black;
   size: 16;
   text-align: center;
 }
 
-h3 {
+/* h3 {
   font-family: Helvetica, Helvetica, sans-serif;
   color: black;
   size: 16;
@@ -41,6 +41,61 @@ h3 {
   padding: 0px;
   margin: 0px;
   padding-bottom: 10px;
+} */
+
+
+
+/*Referenced: https://codepen.io/ericrasch/pen/zjDBx */
+.styled-select {
+   background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
+   height: 29px;
+   overflow: hidden;
+   width: 200px;
+   background-color: #f1f1f1;
+   font-family: Helvetica;
+   display: inline-block;
+   position: relative;
+   left: 15px;
+}
+
+.styled-select select {
+   background: transparent;
+   border: none;
+   font-size: 14px;
+   height: 29px;
+   padding: 5px;
+   width: 268px;
+   font-family: Helvetica;
+}
+
+.styled-select.slate {
+   background: url(http://i62.tinypic.com/2e3ybe1.jpg) no-repeat right center;
+   height: 34px;
+   width: 100px;
+}
+
+.styled-select.slate select {
+   border: 1px solid #ccc;
+   font-size: 14px;
+   height: 34px;
+   width: 268px;
+}
+
+.rounded {
+   -webkit-border-radius: 20px;
+   -moz-border-radius: 20px;
+   border-radius: 20px;
+}
+
+
+
+
+
+
+.title{
+  font-family: Helvetica, Helvetica, sans-serif;
+  color: black;
+  size: 10;
 }
 
 .pos-absolute {
@@ -84,6 +139,14 @@ fieldset{
   font-weight: bold;
 }
 
+.legend-drop{
+  padding-bottom: 25px;
+  padding-left: 15px;
+  font-family: Helvetica;
+  font-weight: bold;
+  font-size: 14;
+}
+
 .info {
   border: 1px solid black;
   padding:10px;
@@ -110,7 +173,7 @@ p {
   border-radius: 50%;
   border-top: 16px solid #3498db;
   position: absolute;
-  left: 20%;
+  left: 75%;
   top: 125%;
   z-index: 1;
   width: 50px;
@@ -185,7 +248,7 @@ tr:hover {background-color: #f5f5f5;}
   opacity: 0.65;
 }
 
-div.tooltip {
+div.tooltip, div.tooltip-b {
     position: absolute;
     text-align: center;
     padding: 2px;
@@ -199,7 +262,7 @@ div.tooltip {
 .hovered {
     cursor: pointer;
     opacity: 1.0;
-    fill: red;
+    fill: #E80C94;
 }
 
 .table-title{
@@ -214,4 +277,83 @@ div.tooltip {
 .barchart-s{
   display: block;
   margin: auto;
+}
+
+/*referenced: http://www.tipue.com/blog/radio-checkbox/ */
+.form-radio
+{
+     -webkit-appearance: none;
+     -moz-appearance: none;
+     appearance: none;
+     display: inline-block;
+     position: relative;
+     background-color: #f1f1f1;
+     color: #666;
+     top: 10px;
+     height: 30px;
+     width: 30px;
+     border: 0;
+     border-radius: 50px;
+     cursor: pointer;
+     margin-right: 7px;
+     outline: none;
+}
+.form-radio:checked::before
+{
+     position: absolute;
+     font: 13px/1 'Open Sans', sans-serif;
+     left: 11px;
+     top: 7px;
+     content: '\02143';
+     transform: rotate(40deg);
+}
+.form-radio:hover
+{
+     background-color: #f7f7f7;
+}
+.form-radio:checked
+{
+     background-color: #f1f1f1;
+}
+
+
+.dot-type
+{
+     -webkit-appearance: none;
+     -moz-appearance: none;
+     appearance: none;
+     display: inline-block;
+     position: relative;
+     background-color: #f1f1f1;
+     color: #666;
+     top: 10px;
+     height: 30px;
+     width: 30px;
+     border: 0;
+     border-radius: 3px;
+     cursor: pointer;
+     margin-right: 7px;
+     outline: none;
+}
+.dot-type:checked::before
+{
+     position: absolute;
+     font: 13px/1 'Open Sans', sans-serif;
+     left: 11px;
+     top: 7px;
+     content: '\02143';
+     transform: rotate(40deg);
+}
+.dot-type:hover
+{
+     background-color: #f7f7f7;
+}
+.dot-type:checked
+{
+     background-color: #f1f1f1;
+}
+
+.drop{
+  position: relative;
+  font-family: Helvetica;
 }

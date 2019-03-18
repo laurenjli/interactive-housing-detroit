@@ -3,73 +3,85 @@
     "year": "2015",
     "type": "Blight Violation",
     "councilDistrict": "0",
-    "count": 18595
+    "count": 18595,
+    "amount": 313.18
   },
   {
     "year": "2016",
     "type": "Blight Violation",
     "councilDistrict": "0",
-    "count": 18882
+    "count": 18882,
+    "amount": 351.23
   },
   {
     "year": "2017",
     "type": "Blight Violation",
     "councilDistrict": "0",
-    "count": 23673
+    "count": 23673,
+    "amount": 391.56
   },
   {
     "year": "2018",
     "type": "Blight Violation",
     "councilDistrict": "0",
-    "count": 22181
+    "count": 22181,
+    "amount": 330.84
   },
   {
     "year": "2015",
     "type": "Demolition",
     "councilDistrict": "0",
-    "count": 4014
+    "count": 4014,
+    "amount": 16716.42	
   },
   {
     "year": "2016",
     "type": "Demolition",
     "councilDistrict": "0",
-    "count": 3201
+    "count": 3201,
+    "amount": 14248.73
   },
   {
     "year": "2017",
     "type": "Demolition",
     "councilDistrict": "0",
-    "count": 2508
+    "count": 2508,
+    "amount": 18455.63
   },
   {
     "year": "2018",
     "type": "Demolition",
     "councilDistrict": "0",
-    "count": 3194
+    "count": 3194,
+    "amount": 19807.63
   },
   {
     "year": "2015",
     "type": "Public Land Sale",
     "councilDistrict": "0",
-    "count": 3129
+    "count": 3129,
+    "amount": 957.12
   },
   {
     "year": "2016",
     "type": "Public Land Sale",
     "councilDistrict": "0",
-    "count": 3778
+    "count": 3778,
+    "amount": 791.10
   },
   {
     "year": "2017",
     "type": "Public Land Sale",
     "councilDistrict": "0",
-    "count": 4241
+    "count": 4241,
+    "amount": 1191.61
   },
   {
     "year": "2018",
     "type": "Public Land Sale",
     "councilDistrict": "0",
-    "count": 3596
+    "count": 3596,
+    "amount": 1911.45
   },
   {
     "year": "2015",
