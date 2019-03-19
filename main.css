@@ -357,3 +357,9 @@ div.tooltip, div.tooltip-b {
   position: relative;
   font-family: Helvetica;
 }
+
+.table-source{
+  font-size: 12px;
+  font-family: Helvetica;
+  text-align: right;
+}
