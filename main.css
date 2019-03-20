@@ -68,17 +68,17 @@ h1, h2, h3 {
 .styled-select select {
    background: transparent;
    border: none;
-   font-size: 20px;
+   font-size: 15px;
    height: 29px;
    padding: 5px;
-   width: 268px;
+   width: 300px;
    font-family: Helvetica;
 }
 
 .styled-select.slate {
    background: url(http://i62.tinypic.com/2e3ybe1.jpg) no-repeat right center;
    height: 34px;
-   width: 100px;
+   width: 150px;
 }
 
 .styled-select.slate select {
@@ -118,7 +118,7 @@ h1, h2, h3 {
 /* TODO double check for redundancy */
 .img-container,
 .inner-container {
-  width: 110%;
+  width: 100%;
   text-align: center;
 }
 
@@ -147,7 +147,7 @@ fieldset{
   float: left;
   margin: 0;
   padding-top: 20px;
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .info{
@@ -163,7 +163,7 @@ fieldset{
   padding-left: 15px;
   font-family: Helvetica;
   font-weight: bold;
-  font-size: 28px;
+  font-size: 20px;
 }
 
 
