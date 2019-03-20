@@ -1,38 +1,6 @@
 [
   {
     "Year": 15,
-    "Total (Number)": "18,595",
-    "Average Amount": "$313.18",
-    "Category": "Blight Ticket",
-    "Pct Change in Avg Amount from Previous Year": "--",
-    "Pct Change in Total from Previous Year": "--"
-  },
-  {
-    "Year": 16,
-    "Total (Number)": "18,822",
-    "Average Amount": "$351.23",
-    "Category": "Blight Ticket",
-    "Pct Change in Avg Amount from Previous Year": "12.1%",
-    "Pct Change in Total from Previous Year": "1.2%"
-  },
-  {
-    "Year": 17,
-    "Total (Number)": "23,673",
-    "Average Amount": "$391.56",
-    "Category": "Blight Ticket",
-    "Pct Change in Avg Amount from Previous Year": "11.5%",
-    "Pct Change in Total from Previous Year": "25.8%"
-  },
-  {
-    "Year": 18,
-    "Total (Number)": "22,181",
-    "Average Amount": "$330.84",
-    "Category": "Blight Ticket",
-    "Pct Change in Avg Amount from Previous Year": "-15.5%",
-    "Pct Change in Total from Previous Year": "-6.3%"
-  },
-  {
-    "Year": 15,
     "Total (Number)": "4,014",
     "Average Amount": "$16,716.42",
     "Category": "Demolition",
@@ -94,5 +62,37 @@
     "Category": "Public Land Sale",
     "Pct Change in Avg Amount from Previous Year": "60.4%",
     "Pct Change in Total from Previous Year": "-15%"
+  },
+  {
+    "Year": 15,
+    "Total (Number)": "18,595",
+    "Average Amount": "$313.18",
+    "Category": "Blight Ticket",
+    "Pct Change in Avg Amount from Previous Year": "--",
+    "Pct Change in Total from Previous Year": "--"
+  },
+  {
+    "Year": 16,
+    "Total (Number)": "18,822",
+    "Average Amount": "$351.23",
+    "Category": "Blight Ticket",
+    "Pct Change in Avg Amount from Previous Year": "12.1%",
+    "Pct Change in Total from Previous Year": "1.2%"
+  },
+  {
+    "Year": 17,
+    "Total (Number)": "23,673",
+    "Average Amount": "$391.56",
+    "Category": "Blight Ticket",
+    "Pct Change in Avg Amount from Previous Year": "11.5%",
+    "Pct Change in Total from Previous Year": "25.8%"
+  },
+  {
+    "Year": 18,
+    "Total (Number)": "22,181",
+    "Average Amount": "$330.84",
+    "Category": "Blight Ticket",
+    "Pct Change in Avg Amount from Previous Year": "-15.5%",
+    "Pct Change in Total from Previous Year": "-6.3%"
   }
 ]

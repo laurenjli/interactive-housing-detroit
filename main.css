@@ -109,7 +109,7 @@ h1, h2, h3 {
 .pos-absolute {
   position: absolute;
   top: 12%;
-  left: 30%;
+  left: 35%;
 }
 
 .z-index-2 {
@@ -199,7 +199,7 @@ p {
   border-top: 16px solid #3498db;
   position: absolute;
   left: 75%;
-  top: 125%;
+  top: 80%;
   z-index: 1;
   width: 50px;
   height: 50px;
@@ -304,10 +304,10 @@ div.tooltip, div.tooltip-b {
   padding-right: 50px;
 }
 
-.barchart-s{
+/* #barchart-s{
   display: block;
   margin: auto;
-}
+} */
 
 /*referenced: http://www.tipue.com/blog/radio-checkbox/ */
 .form-radio
@@ -419,5 +419,5 @@ div.tooltip, div.tooltip-b {
 }
 
 #chart{
-  position: center;
+  padding-right: 50px;
 }

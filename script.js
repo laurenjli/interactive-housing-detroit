@@ -41,7 +41,7 @@ function makeTable(summary){
 'Pct Change in Avg Amount from Previous Year'];
 
   var title = d3.select('.table-title').append('text');
-  var src = d3.select('.table-source').append('text').text('Data Source: Detroit Open Data Portal');
+  //var src = d3.select('.table-source').append('text').text('Data Source: Detroit Open Data Portal');
 
   d3.selectAll('.dot-type').on("change", tableUpdate);
   tableUpdate()
@@ -237,16 +237,16 @@ function makeBarChart (dataset, reg, type, code, svg, g, tooltip){
       x: `${width/2 + margin.left}`,
       y: margin.top/2,
       label: title1 + ': Total ' + type,
-      size: 16,
-      transform: ''
-    },
-    {
-      x: `${width - margin.left/2}`,
-      y: `${height+margin.top +24}`,
-      label: 'Data Source: Detroit Open Data Portal',
-      size: 6,
+      size: 14.5,
       transform: ''
     }
+    // {
+    //   x: `${width - margin.left/2}`,
+    //   y: `${height+margin.top +24}`,
+    //   label: 'Data Source: Detroit Open Data Portal',
+    //   size: 6,
+    //   transform: ''
+    // }
     // {
     //   x: 300,
     //   y: 300,
@@ -345,7 +345,7 @@ function makeMap(dataset) {
   const width = 320 - margin.right - margin.left;
   const height = 325 - margin.top - margin.bottom;
 
-  var svgB = d3.select('.barchart-b')
+  var svgB = d3.select('#barchart-b')
           .append('svg')
             .attr('width', width + margin.left + margin.right)
             .attr('height', height + margin.top+margin.bottom);
@@ -358,7 +358,7 @@ function makeMap(dataset) {
   gB.append('g')
     .attr('class', 'y-axis');
 
-  var svgD = d3.select('.barchart-d')
+  var svgD = d3.select('#barchart-d')
           .append('svg')
             .attr('width', width + margin.left + margin.right)
             .attr('height', height + margin.top+margin.bottom);
@@ -370,7 +370,7 @@ function makeMap(dataset) {
   gD.append('g')
     .attr('class', 'y-axis');
 
-  var svgS = d3.select('.barchart-s')
+  var svgS = d3.select('#barchart-s')
           .append('svg')
             .attr('width', width + margin.left + margin.right)
             .attr('height', height + margin.top+margin.bottom);
@@ -484,9 +484,27 @@ function makeMap(dataset) {
         .attr("value", d => d.value)
         .text(d => d.text);
 
-        makeBarChart(barD.filter(function(d){return d.councilDistrict == '0' && d.type == 'Blight Violation'}), 'district', 'Blight Violations', 'b', svgB, gB, tooltip2);
-        makeBarChart(barD.filter(function(d){return d.councilDistrict == '0' && d.type == 'Demolition'}), 'district', 'Demolitions', 'd', svgD, gD, tooltip2);
-        makeBarChart(barD.filter(function(d){return d.councilDistrict == '0' && d.type == 'Public Land Sale'}), 'district', 'Public Land Sales', 's', svgS, gS, tooltip2);
+    var checkBar = document.getElementById('barchart-b');
+    console.log(checkBar)
+    if (checkBar == null){
+      var testappend = d3.select('.row-bar')
+              .append('div')
+                .attr('id','barchart-b')
+      svgB = testappend.append('svg')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top+margin.bottom);
+
+      var gB = svgB.append('g')
+          .attr('class', 'wowza')
+          .attr('transform', 'translate('+ margin.left+',' +margin.top+')');
+
+      gB.append('g')
+        .attr('class', 'y-axis');
+    }
+
+    makeBarChart(barD.filter(function(d){return d.councilDistrict == '0' && d.type == 'Blight Violation'}), 'district', 'Blight Violations', 'b', svgB, gB, tooltip2);
+    makeBarChart(barD.filter(function(d){return d.councilDistrict == '0' && d.type == 'Demolition'}), 'district', 'Demolitions', 'd', svgD, gD, tooltip2);
+    makeBarChart(barD.filter(function(d){return d.councilDistrict == '0' && d.type == 'Public Land Sale'}), 'district', 'Public Land Sales', 's', svgS, gS, tooltip2);
 
       dropDown.on("change", function() {
         myData.clearLayers();
@@ -545,7 +563,8 @@ function makeMap(dataset) {
 
     var dropDownN = d3.select("#dropdown");
 
-    makeBarChart(barN.filter(function(d){return d.neighborhood == 'All' && d.type == 'Blight Violation'}), 'neighborhood', 'Blight Violations', 'b', svgB, gB, tooltip2);
+    d3.selectAll('#barchart-b').remove();
+    //makeBarChart(barN.filter(function(d){return d.neighborhood == 'All' && d.type == 'Blight Violation'}), 'neighborhood', 'Blight Violations', 'b', svgB, gB, tooltip2);
     makeBarChart(barN.filter(function(d){return d.neighborhood == 'All' && d.type == 'Demolition'}), 'neighborhood', 'Demolitions', 'd', svgD, gD, tooltip2);
     makeBarChart(barN.filter(function(d){return d.neighborhood == 'All' && d.type == 'Public Land Sale'}), 'neighborhood', 'Public Land Sales', 's', svgS, gS, tooltip2);
 

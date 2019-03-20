@@ -56,19 +56,22 @@
         <label for="c-district-box">Council District</label>
 
         <input type="radio" name="map-type" value="nhood-box" id="nhood-box" class="form-radio">
-        <label for="nhood-box">Neighborhood*</label>
+        <label for="nhood-box">Neighborhood</label>
       </fieldset>
 
       <fieldset class="radiobox">
           <legend class = 'legend'>Explore:</legend>
-          <input type="checkbox" class = 'dot-type' name="blight-box" value = "blight-box" id="blight-box">
-          <label for="blight-box">Blight Tickets</label>
+          <!-- <input type="checkbox" class = 'dot-type' name="blight-box" value = "blight-box" id="blight-box">
+          <label for="blight-box">Blight Tickets</label> -->
 
           <input type="checkbox" class = 'dot-type' name="demolitions-box" value = "dem-box" id="demolitions-box" checked>
           <label for="demolitions-box">Demolitions</label>
 
           <input type="checkbox" class = 'dot-type' name="land-sales-box" value = "sales-box" id="land-sales-box">
           <label for="land-sales-box">Public Land Sales</label>
+
+          <input type="checkbox" class = 'dot-type' name="blight-box" value = "blight-box" id="blight-box">
+          <label for="blight-box">Blight Tickets*</label>
       </fieldset>
 
       <fieldset class="radiobox">
@@ -103,9 +106,9 @@
       </div>
     </div>
     <div class = 'row-bar'>
-      <div class = "barchart-b"></div>
-      <div class = "barchart-d"></div>
-      <div class = "barchart-s"></div>
+      <div id = "barchart-d"></div>
+      <div id = "barchart-s"></div>
+      <div id = "barchart-b"></div>
     </div>
     <!-- <div class = 'row'>
       <div class = "barchart-s"></div>
