@@ -31,7 +31,7 @@ body{
 }
 
 .map-container{
-  padding-bottom: 25px;
+  padding-bottom: 60px;
 }
 
 h1, h2, h3 {
@@ -188,7 +188,8 @@ fieldset{
 p {
   font-family: Helvetica, Helvetica, sans-serif;
   padding-left: 45px;
-  padding-right: 45px
+  /* padding-right: 45px
+  padding-bottom: 0; */
 }
 
 
@@ -299,7 +300,8 @@ div.tooltip, div.tooltip-b {
   position: absolute;
   font-family: Helvetica;
   font-size: 16px;
-  padding: 0px;
+  padding-bottom: 0px;
+  padding-right: 50px;
 }
 
 .barchart-s{
@@ -412,5 +414,10 @@ div.tooltip, div.tooltip-b {
    text-align: left;
    z-index:999;
    font-size: 12px;
+   padding-top: 10px;
 
+}
+
+#chart{
+  position: center;
 }

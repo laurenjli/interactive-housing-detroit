@@ -342,7 +342,7 @@ function makeMap(dataset) {
   bottom: 25
   };
 
-  const width = 300 - margin.right - margin.left;
+  const width = 320 - margin.right - margin.left;
   const height = 325 - margin.top - margin.bottom;
 
   var svgB = d3.select('.barchart-b')
