@@ -61,7 +61,7 @@ h1, h2, h3 {
 .styled-select select {
    background: transparent;
    border: none;
-   font-size: 14px;
+   font-size: 20px;
    height: 29px;
    padding: 5px;
    width: 268px;
@@ -76,7 +76,7 @@ h1, h2, h3 {
 
 .styled-select.slate select {
    border: 1px solid #ccc;
-   font-size: 14px;
+   font-size: 20px;
    height: 34px;
    width: 268px;
 }
@@ -140,6 +140,15 @@ fieldset{
   float: left;
   margin: 0;
   padding-top: 20px;
+  font-size: 24px;
+}
+
+.info{
+  font-weight: bold;
+  float: left;
+  margin: 0;
+  padding-top: 20px;
+  font-size: 12px;
 }
 
 .legend-drop{
@@ -147,7 +156,7 @@ fieldset{
   padding-left: 15px;
   font-family: Helvetica;
   font-weight: bold;
-  font-size: 14;
+  font-size: 28px;
 }
 
 
