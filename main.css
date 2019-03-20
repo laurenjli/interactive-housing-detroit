@@ -14,6 +14,13 @@ body{
   padding-right: 25px;
 }
 
+.row-bar{
+  display:flex;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 25px;
+}
+
 .column-bar{
     flex: 30%;
 }
@@ -100,8 +107,8 @@ h1, h2, h3 {
 
 .pos-absolute {
   position: absolute;
-  top: 75px;
-  left: 350px;
+  top: 20%;
+  left: 50%;
 }
 
 .z-index-2 {
@@ -230,7 +237,8 @@ th, td {
   border: 1px solid white;
   border-collapse: collapse;
   text-align: center;
-  width: 1%
+  width: 1%;
+  font-size: 16px;
 }
 
 th {
@@ -285,6 +293,7 @@ div.tooltip, div.tooltip-b {
 .statsTable{
   position: relative;
   font-family: Helvetica;
+  padding: 0px;
 }
 
 .barchart-s{
@@ -376,4 +385,8 @@ div.tooltip, div.tooltip-b {
   font-size: 12px;
   font-family: Helvetica;
   text-align: right;
+}
+
+.label {
+  font-size: 18px;
 }
