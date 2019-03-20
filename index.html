@@ -56,7 +56,7 @@
         <label for="c-district-box">Council District</label>
 
         <input type="radio" name="map-type" value="nhood-box" id="nhood-box" class="form-radio">
-        <label for="nhood-box">Neighborhood</label>
+        <label for="nhood-box">Neighborhood <sup>1</sup></label>
       </fieldset>
 
       <fieldset class="radiobox">
@@ -71,7 +71,7 @@
           <label for="land-sales-box">Public Land Sales</label>
 
           <input type="checkbox" class = 'dot-type' name="blight-box" value = "blight-box" id="blight-box">
-          <label for="blight-box">Blight Tickets*</label>
+          <label for="blight-box">Blight Tickets <sup>2</sup></label>
       </fieldset>
 
       <fieldset class="radiobox">
@@ -136,9 +136,10 @@
 
 <!-- referenced: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_fixed_footer -->
 <div class="footer">
-    <p>*Note on neighborhood-level data: </p>
-  <p>Data Source: <a href="https://data.detroitmi.gov/">Detroit Open Data Portal</a> (for all data relating to the blight violations, demolitions, and public land sales)</p>
-  <p>Code base: <a href="https://github.com/laurenjli/interactive-housing-detroit">Github Repository</a></p>
+    <p>1. Neighborhood level is only available from the source for Demolitions and Public Land Sales. If you choose to view by neighborhood, you will only see aggregated information for demolitions and public land sales. <br>
+    2. Blight Ticket data was matched with Council District regions to identify the Council District for each ticket. The matching process is not as consistent for the neighborhood level so blight violation information for each neighborhood is not provided.
+  Please see the code base for more information. </p>
+  <p>Data Source: <a href="https://data.detroitmi.gov/">Detroit Open Data Portal</a> (for all data relating to the blight violations, demolitions, and public land sales)<br>Code base: <a href="https://github.com/laurenjli/interactive-housing-detroit">Github Repository</a></p>
 </div>
 <!-- referenced: https://github.com/CliffCloud/Leaflet.EasyButton -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
