@@ -137,6 +137,9 @@ fieldset{
 
 .legend{
   font-weight: bold;
+  float: left;
+  margin: 0;
+  padding-top: 20px;
 }
 
 .legend-drop{
@@ -146,6 +149,7 @@ fieldset{
   font-weight: bold;
   font-size: 14;
 }
+
 
 .info {
   border: 1px solid black;
@@ -297,6 +301,7 @@ div.tooltip, div.tooltip-b {
      cursor: pointer;
      margin-right: 7px;
      outline: none;
+     padding-left: 15px;
 }
 .form-radio:checked::before
 {

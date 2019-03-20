@@ -161,32 +161,30 @@ function makeBarChart (dataset, reg, type, code, svg, g, tooltip){
     var e = 2
   }
 
-  if (d3.max(dataset, d => d.count) > 0){
+  // if (d3.max(dataset, d => d.count) > 0){
     const joinB = g.selectAll(".bar")
-               .data(dataset)
+               .data(dataset); //, function(d) { return d.year });
 
     var bars = joinB
       .enter()
       .append("rect")
-      .merge(joinB)
       .style("fill", getColor(e))
       .attr('class', 'bar rect-'+code)
-      .attr("x", function(d) { return xScale(d.year); })
       .attr("width", 30)
+      .attr("x", function(d) { return xScale(d.year) + 15; })
       .attr("y", function(d) { return yScale(d.count); })
       .attr("height", function(d) { return height - yScale(d.count); })
-      .attr('transform', 'translate(15,0)')
-      .attr('opacity', 0)
       .on("mouseover", function(d) {
         d3.select(this)
          .classed('hovered', true)
          .transition().duration(200)
          .style('fill','#E80C94');
-
        tooltip.style('opacity',1)
-       tooltip.html("<dl><dt> Total: " + numberWithCommas(d.count) + "</dt>"
-                + "<dt>Average Amount: $TO DO</dt>")
-                //+ "<dt>Average Amount: $" + numberWithCommas(d.amount) + "</dt>")
+       tooltip.html("<dl><dt> Total " + type + ": " + numberWithCommas(d.count) + "</dt>"
+                //+ "<dt>Average Amount: $todo</dt>"
+                + "<dt>Neighborhood: " + d.neighborhood + "</dt>"
+                + "<dt>Average Amount: $" + numberWithCommas(d.amount) + "</dt>"
+                + "<dt>Year: " + d.year + "</dt>")
          .style("top",(d3.event.pageY-10)+"px")
          .style("left",(d3.event.pageX+30)+"px");
       })
@@ -200,16 +198,19 @@ function makeBarChart (dataset, reg, type, code, svg, g, tooltip){
               return "" + getColor(e) + "";
           });
       })
+      .attr('opacity', 0)
       .transition().duration(1600).delay(200)
-      .style('opacity', 1);
+      .attr('opacity', 1)
 
     joinB
       .transition().duration(2000)
       .attr("y", function(d,i) { return yScale(d.count); })
       .attr("height", function(d,i) { return height - yScale(d.count); });
 
-    joinB.exit().transition().duration(1000).delay(200).remove();
-  }
+    // joinB.exit().transition().duration(1000).delay(200)
+    //   .style('opacity', 0)
+    //   .remove();
+  //}
 
   if (reg == 'district'){
     if (dataset[0].councilDistrict == '0'){
