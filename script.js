@@ -130,7 +130,7 @@ function makeBarChart (dataset, reg, type, code, svg, g, tooltip){
   };
 
   const width = 300 - margin.right - margin.left;
-  const height = 275 - margin.top - margin.bottom;
+  const height = 325 - margin.top - margin.bottom;
 
 
   var xScale = d3.scaleBand()
@@ -144,7 +144,8 @@ function makeBarChart (dataset, reg, type, code, svg, g, tooltip){
 
   g.append('g')
         .call(d3.axisBottom(xScale))
-        .attr('transform', 'translate(0,'+ height + ')');
+        .attr('transform', 'translate(0,'+ height + ')')
+        .attr('class','x-axis');
 
   g.select('.y-axis')
         .call(d3.axisLeft(yScale));
@@ -235,7 +236,7 @@ function makeBarChart (dataset, reg, type, code, svg, g, tooltip){
     {
       x: `${width/2 + margin.left}`,
       y: margin.top/2,
-      label: title1 + ': Yearly Total of ' + type,
+      label: title1 + ': Total ' + type,
       size: 16,
       transform: ''
     },
@@ -342,7 +343,7 @@ function makeMap(dataset) {
   };
 
   const width = 300 - margin.right - margin.left;
-  const height = 275 - margin.top - margin.bottom;
+  const height = 325 - margin.top - margin.bottom;
 
   var svgB = d3.select('.barchart-b')
           .append('svg')
