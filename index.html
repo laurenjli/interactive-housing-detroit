@@ -24,28 +24,6 @@
   <script type="text/javascript" src="./d3/d3.min.js"></script>
   <script type="text/javascript" src="./leaflet/leaflet.js"></script>
 
-  <!-- <p class='description'>
-    Like many other metropolitan cities, Detroit suffers from derelict properties decaying from
-    years of abandonment and disuse. Abandoned buildings often lower the values of surrounding properties and are
-    linked to increased rates of crime. The city of Detroit has several methods of combatting blight and vacant buildings:
-    monetary violations, demolitions, and sales of publically-owned land.
-    <br>
-    <br>
-    Blight tickets are fines issued to property owners for infractions regarding the maintenance of their property’s exterior.
-    While blight plagues the entire city, it is more concentrated in some areas than others. You can explore the density of
-    blight violations in the dashboard below.
-    <br>
-    <br>
-    To maintain publically-owned blighted and abandoned land, Detroit has one of the largest demolitions programs in the country.
-    The city spends tens of millions of dollars each year to demolish thousands of buildings.
-    <br>
-    <br>
-    Detroit Land Bank Authority is a public agency and the city’s largest landowner with a number of vacant lots and abandoned houses.
-    The DLBA sounds land from its inventory through a number of programs, notably the Side Lot Sales, Own It Now, and Auctions programs.
-    <br>
-    <br>
-  </p> -->
-
   <h1></h1>
   <h1></h1>
   <div class = "row">
@@ -61,8 +39,6 @@
 
       <fieldset class="radiobox">
           <legend class = 'legend'>Explore:</legend>
-          <!-- <input type="checkbox" class = 'dot-type' name="blight-box" value = "blight-box" id="blight-box">
-          <label for="blight-box">Blight Tickets</label> -->
 
           <input type="checkbox" class = 'dot-type' name="demolitions-box" value = "dem-box" id="demolitions-box" checked>
           <label for="demolitions-box">Demolitions</label>
@@ -110,13 +86,11 @@
       <div id = "barchart-s"></div>
       <div id = "barchart-b"></div>
     </div>
-    <!-- <div class = 'row'>
-      <div class = "barchart-s"></div>
-    </div> -->
   </div>
 
   <div class = "column">
     <div id="chart" style="height: 500px" class="animate-bottom"></div>
+    <!-- referenced: (15) https://www.w3schools.com/howto/howto_css_loader.asp -->
     <div id="loader"></div>
     <!-- <script>
     //referenced: https://www.w3schools.com/howto/howto_css_loader.asp
@@ -134,14 +108,17 @@
 </div>
 </div>
 
-<!-- referenced: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_fixed_footer -->
+<!-- referenced: (13) https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_fixed_footer -->
 <div class="footer">
-    <p>1. Neighborhood level is only available from the source for Demolitions and Public Land Sales. If you choose to view by neighborhood, you will only see aggregated information for demolitions and public land sales. <br>
-    2. Blight Ticket data was matched with Council District regions to identify the Council District for each ticket. The matching process is not as consistent for the neighborhood level so blight violation information for each neighborhood is not provided.
+    <p>1. Neighborhood level is only available from the source for Demolitions and Public Land Sales. If you choose to view by neighborhood, you will only see aggregated information for demolitions and public land sales.
+      <br> 2. Public Land Sales include sales through the Side Lot Sales Program, Auctions, and the Own It Now program.
+    <br>3. Blight Ticket data was matched with Council District regions to identify the Council District for each ticket. The matching process is not as consistent for the neighborhood level so blight violation information for each neighborhood is not provided.
   Please see the code base for more information. </p>
-  <p>Data Source: <a href="https://data.detroitmi.gov/">Detroit Open Data Portal</a> (for all data relating to the blight violations, demolitions, and public land sales)<br>Code base: <a href="https://github.com/laurenjli/interactive-housing-detroit">Github Repository</a></p>
+  <p>Data Source: <a href="https://data.detroitmi.gov/">Detroit Open Data Portal</a> (for all data relating to the blight violations, demolitions, and public land sales)
+    <br>Code base: <a href="https://github.com/laurenjli/interactive-housing-detroit">Github Repository</a>
+  </p>
 </div>
-<!-- referenced: https://github.com/CliffCloud/Leaflet.EasyButton -->
+<!-- referenced: (14) https://github.com/CliffCloud/Leaflet.EasyButton -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
 <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
 <script src="script.js"></script>

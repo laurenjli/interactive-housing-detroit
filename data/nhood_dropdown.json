@@ -32,12 +32,12 @@
     "value": "Belmont"
   },
   {
-    "text": "Bentler-Pickford",
-    "value": "Bentler-Pickford"
-  },
-  {
     "text": "Berg-Lahser",
     "value": "Berg-Lahser"
+  },
+  {
+    "text": "Bethune Community",
+    "value": "Bethune Community"
   },
   {
     "text": "Blackstone Park",
@@ -50,10 +50,6 @@
   {
     "text": "Boynton",
     "value": "Boynton"
-  },
-  {
-    "text": "Brewster Douglas",
-    "value": "Brewster Douglas"
   },
   {
     "text": "Brewster Homes",
@@ -96,8 +92,16 @@
     "value": "Castle Rouge"
   },
   {
+    "text": "Central Southwest",
+    "value": "Central Southwest"
+  },
+  {
     "text": "Chadsey Condon",
     "value": "Chadsey Condon"
+  },
+  {
+    "text": "Chalfonte",
+    "value": "Chalfonte"
   },
   {
     "text": "Chandler Park",
@@ -176,8 +180,16 @@
     "value": "Dexter-Linwood"
   },
   {
+    "text": "Douglass",
+    "value": "Douglass"
+  },
+  {
     "text": "Downtown",
     "value": "Downtown"
+  },
+  {
+    "text": "East Canfield",
+    "value": "East Canfield"
   },
   {
     "text": "East English Village",
@@ -228,8 +240,8 @@
     "value": "Fiskhorn"
   },
   {
-    "text": "Fitzgerald",
-    "value": "Fitzgerald"
+    "text": "Fitzgerald/Marygrove",
+    "value": "Fitzgerald/Marygrove"
   },
   {
     "text": "Five Points",
@@ -250,6 +262,10 @@
   {
     "text": "Franklin Park",
     "value": "Franklin Park"
+  },
+  {
+    "text": "Garden Homes",
+    "value": "Garden Homes"
   },
   {
     "text": "Garden View",
@@ -352,6 +368,10 @@
     "value": "Historic Atkinson"
   },
   {
+    "text": "Holcomb Community",
+    "value": "Holcomb Community"
+  },
+  {
     "text": "Hubbard Farms",
     "value": "Hubbard Farms"
   },
@@ -366,10 +386,6 @@
   {
     "text": "Hubbell-Puritan",
     "value": "Hubbell-Puritan"
-  },
-  {
-    "text": "Hunt",
-    "value": "Hunt"
   },
   {
     "text": "Indian Village",
@@ -434,6 +450,18 @@
   {
     "text": "Martin Park",
     "value": "Martin Park"
+  },
+  {
+    "text": "McDougall-Hunt",
+    "value": "McDougall-Hunt"
+  },
+  {
+    "text": "McDowell",
+    "value": "McDowell"
+  },
+  {
+    "text": "McNichols Evergreen",
+    "value": "McNichols Evergreen"
   },
   {
     "text": "Medbury Park",
@@ -518,6 +546,10 @@
   {
     "text": "North End",
     "value": "North End"
+  },
+  {
+    "text": "North LaSalle",
+    "value": "North LaSalle"
   },
   {
     "text": "North Rosedale Park",
@@ -632,6 +664,10 @@
     "value": "Regent Park"
   },
   {
+    "text": "Riverbend",
+    "value": "Riverbend"
+  },
+  {
     "text": "Riverdale",
     "value": "Riverdale"
   },
@@ -656,16 +692,24 @@
     "value": "Russell Woods"
   },
   {
+    "text": "San Bernardo",
+    "value": "San Bernardo"
+  },
+  {
     "text": "Schaefer 7/8 Lodge",
     "value": "Schaefer 7/8 Lodge"
   },
   {
-    "text": "Schoolcraft-I96",
-    "value": "Schoolcraft-I96"
+    "text": "Schoolcraft Southfield",
+    "value": "Schoolcraft Southfield"
   },
   {
     "text": "Schulze",
     "value": "Schulze"
+  },
+  {
+    "text": "Seven Mile Lodge",
+    "value": "Seven Mile Lodge"
   },
   {
     "text": "Seven Mile-Rouge",
@@ -686,10 +730,6 @@
   {
     "text": "Southfield Plymouth",
     "value": "Southfield Plymouth"
-  },
-  {
-    "text": "Southwest Detroit",
-    "value": "Southwest Detroit"
   },
   {
     "text": "Springwells",
@@ -750,6 +790,10 @@
   {
     "text": "Weatherby",
     "value": "Weatherby"
+  },
+  {
+    "text": "West End",
+    "value": "West End"
   },
   {
     "text": "West Outer Drive",

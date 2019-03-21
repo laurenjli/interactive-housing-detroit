@@ -1,8 +1,23 @@
-//whats the best way to separate this for future transitions?
-//repo - scaffold for server to hold json
-// import Blight from './data/blight.json'
+// References
+// (1) http://bl.ocks.org/d3noob/9211665
+// (2) https://leafletjs.com/examples/layers-control/example.html
+// (3) https://gis.stackexchange.com/questions/193161/add-legend-to-leaflet-map
+// (4) http://bl.ocks.org/feyderm/e6cab5931755897c2eb377ccbf9fdf18
+// (5) https://gis.stackexchange.com/questions/127286/home-button-leaflet-map
+// (6) http://www.gistechsolutions.com/leaflet/DEMO/filter/filter.html
+// (7) https://stackoverflow.com/questions/27748453/mouseover-actions-with-geojson-polygon
+// (8) https://gis.stackexchange.com/questions/116159/how-to-style-specific-polygons-from-a-geojson-with-leaflet
+// (9) https://stackoverflow.com/questions/22796520/finding-the-center-of-leaflet-polygon
+// (10) http://bl.ocks.org/d3noob/9267535
+// (11) https://bost.ocks.org/mike/leaflet/
+// (12) https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+// (13) https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_fixed_footer
+// (14) https://github.com/CliffCloud/Leaflet.EasyButton
+// (15) https://www.w3schools.com/howto/howto_css_loader.asp
+// (16) https://codepen.io/ericrasch/pen/zjDBx
+// (17) http://www.tipue.com/blog/radio-checkbox/
 
-//referenced: http://bl.ocks.org/d3noob/9211665
+//referenced: (1) http://bl.ocks.org/d3noob/9211665
 
 var CURR_YEAR = 18;
 var unique_point = d3.select(null);
@@ -22,7 +37,7 @@ Promise.all(
    d3.json('./data/sumbyN.json')
   ])
   .then(function(data) {
-    console.log(data)
+    //console.log(data)
     makeVis(data)
     })
   .catch(error => console.warn(error))
@@ -49,7 +64,7 @@ function makeTable(summary){
   //handle checkbox year changes
   document.getElementById("2015-box").addEventListener('click', function(event) {
     CURR_YEAR = 15;
-    console.log(CURR_YEAR)
+    //console.log(CURR_YEAR)
 
     d3.selectAll('.dot-type').on("change", tableUpdate);
     tableUpdate()
@@ -57,7 +72,7 @@ function makeTable(summary){
 
   document.getElementById("2016-box").addEventListener('click', function(event) {
     CURR_YEAR = 16;
-    console.log(CURR_YEAR)
+    //console.log(CURR_YEAR)
 
     d3.selectAll('.dot-type').on("change", tableUpdate);
     tableUpdate()
@@ -65,7 +80,7 @@ function makeTable(summary){
 
   document.getElementById("2017-box").addEventListener('click', function(event) {
     CURR_YEAR = 17;
-    console.log(CURR_YEAR)
+    //console.log(CURR_YEAR)
 
     d3.selectAll('.dot-type').on("change", tableUpdate);
     tableUpdate()
@@ -73,7 +88,7 @@ function makeTable(summary){
 
   document.getElementById("2018-box").addEventListener('click', function(event) {
     CURR_YEAR = 18;
-    console.log(CURR_YEAR)
+    //console.log(CURR_YEAR)
 
     d3.selectAll('.dot-type').on("change", tableUpdate);
     tableUpdate()
@@ -164,7 +179,7 @@ function makeBarChart (dataset, reg, type, code, svg, g, tooltip){
 
   // if (d3.max(dataset, d => d.count) > 0){
     const joinB = g.selectAll(".bar")
-               .data(dataset); //, function(d) { return d.year });
+               .data(dataset, function(d) { return d.year });
 
     var bars = joinB
       .enter()
@@ -298,7 +313,7 @@ function makeMap(dataset) {
 
 
   //L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
-  //referenced: https://leafletjs.com/examples/layers-control/example.html
+  //referenced: (2) https://leafletjs.com/examples/layers-control/example.html
   var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
 			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
 			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>, ' +
@@ -309,13 +324,13 @@ function makeMap(dataset) {
 
   map.on('load', d3.select('#loader').remove())
 
-  //https://gis.stackexchange.com/questions/193161/add-legend-to-leaflet-map
+  //referenced: (3) https://gis.stackexchange.com/questions/193161/add-legend-to-leaflet-map
   //legend
   var legend = L.control({
     position: 'topright'
   });
 
-  //http://bl.ocks.org/feyderm/e6cab5931755897c2eb377ccbf9fdf18
+  //referenced: (4) http://bl.ocks.org/feyderm/e6cab5931755897c2eb377ccbf9fdf18
   //initialize dropdown
   d3.select("#dropdown")
       .selectAll("option")
@@ -386,7 +401,7 @@ function makeMap(dataset) {
   makeBarChart(barD.filter(d => d.councilDistrict == '0' && d.type == 'Demolition'), 'district', 'Demolitions', 'd', svgD, gD, tooltip2);
   makeBarChart(barD.filter(d => d.councilDistrict == '0' && d.type == 'Public Land Sale'), 'district', 'Public Land Sales', 's', svgS, gS, tooltip2);
 
-  //referenced: https://gis.stackexchange.com/questions/127286/home-button-leaflet-map
+  //referenced: (5) https://gis.stackexchange.com/questions/127286/home-button-leaflet-map
   var home = {
   lat: 42.3614,
   lng: -83.08,
@@ -397,8 +412,8 @@ function makeMap(dataset) {
     map.setView([home.lat, home.lng], home.zoom);
   },'Return to City View').addTo(map);
 
-  //referenced: http://www.gistechsolutions.com/leaflet/DEMO/filter/filter.html
-  //referenced: https://stackoverflow.com/questions/27748453/mouseover-actions-with-geojson-polygon
+  //referenced: (6) http://www.gistechsolutions.com/leaflet/DEMO/filter/filter.html
+  //referenced: (7) https://stackoverflow.com/questions/27748453/mouseover-actions-with-geojson-polygon
   //base layers
   const distGeo = L.geoJSON(dist, {
     style: function (){
@@ -408,7 +423,7 @@ function makeMap(dataset) {
       "fillOpacity": 0}},
   });
 
-  console.log(distGeo)
+  //console.log(distGeo)
 
   const nhoodGeo = L.geoJSON(nhood, {
     style: function (){
@@ -428,8 +443,8 @@ function makeMap(dataset) {
 
     //console.log(d3.event.target.value)
     //Highlight district polygon and zoom
-    //referenced: https://gis.stackexchange.com/questions/116159/how-to-style-specific-polygons-from-a-geojson-with-leaflet
-    //referenced: https://stackoverflow.com/questions/22796520/finding-the-center-of-leaflet-polygon
+    //referenced: (8) https://gis.stackexchange.com/questions/116159/how-to-style-specific-polygons-from-a-geojson-with-leaflet
+    //referenced: (9) https://stackoverflow.com/questions/22796520/finding-the-center-of-leaflet-polygon
     myData.clearLayers();
     map.removeLayer(myData);
 
@@ -485,7 +500,7 @@ function makeMap(dataset) {
         .text(d => d.text);
 
     var checkBar = document.getElementById('barchart-b');
-    console.log(checkBar)
+    //console.log(checkBar)
     if (checkBar == null){
       var testappend = d3.select('.row-bar')
               .append('div')
@@ -577,7 +592,7 @@ function makeMap(dataset) {
       myData.addTo(map);
 
       var currDropN = d3.event.target.value
-      console.log(currDropN)
+      //console.log(currDropN)
       if (currDropN != 'All'){
         const dropHighlightNhood = L.geoJSON(nhood, {
           style: function(feature) {
@@ -593,14 +608,14 @@ function makeMap(dataset) {
         myData.addLayer(dropHighlightNhood)
         myData.addTo(map);
 
-        makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Blight Violation'}), 'neighborhood', 'Blight Violations', 'b', svgB, gB, tooltip2);
+        //makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Blight Violation'}), 'neighborhood', 'Blight Violations', 'b', svgB, gB, tooltip2);
         makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Demolition'}), 'neighborhood', 'Demolitions', 'd', svgD, gD, tooltip2);
         makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Public Land Sale'}), 'neighborhood', 'Public Land Sales', 's', svgS, gS, tooltip2);
 
     }
     else {
       map.setView([home.lat, home.lng], home.zoom);
-      makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Blight Violation'}), 'neighborhood', 'Blight Violations', 'b', svgB, gB, tooltip2);
+      //makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Blight Violation'}), 'neighborhood', 'Blight Violations', 'b', svgB, gB, tooltip2);
       makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Demolition'}), 'neighborhood', 'Demolitions', 'd', svgD, gD, tooltip2);
       makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Public Land Sale'}), 'neighborhood', 'Public Land Sales', 's', svgS, gS, tooltip2);
     }
@@ -768,8 +783,8 @@ function makeMap(dataset) {
   };
 };
 
-//referenced: http://bl.ocks.org/d3noob/9267535
-//referenced: https://bost.ocks.org/mike/leaflet/
+//referenced: (10) http://bl.ocks.org/d3noob/9267535
+//referenced: (11) https://bost.ocks.org/mike/leaflet/
 function plotPoints(dataset, map, type, title, tooltip, g, svg, barD, barN, tooltip2){
 
   //  create a d3.geo.path to convert GeoJSON to SVG
@@ -891,7 +906,6 @@ function plotBlight(dataset, map, type, title, tooltip, g, svg){
                tooltip.html("<dl><dt> Type: " + title + "</dt>"
                         + "<dt>Amount: $" + d.properties.totalDue + "</dt>"
                         + "<dt>Council District: " + d.properties.councilDistrict + "</dt>"
-                        + "<dt>Neighborhood: " + d.properties.NHood_Name + "</dt>"
                         + "<dt>Year: 20" + d.properties.year + "</dt>")
                  .style("top",(d3.event.pageY-10)+"px")
                  .style("left",(d3.event.pageX+30)+"px");})
@@ -956,7 +970,7 @@ function getColor(d) {
                       '#FFEDA0';
 }
 
-//referenced: https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+//referenced: (12) https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }

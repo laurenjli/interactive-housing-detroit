@@ -53,7 +53,7 @@ h1, h2, h3 {
 
 
 
-/*Referenced: https://codepen.io/ericrasch/pen/zjDBx */
+/*Referenced: (16) https://codepen.io/ericrasch/pen/zjDBx */
 .styled-select {
    background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
    height: 29px;
@@ -192,7 +192,7 @@ p {
   padding-bottom: 0; */
 }
 
-
+/* referenced: (15) https://www.w3schools.com/howto/howto_css_loader.asp */
 #loader {
   border: 16px solid #f3f3f3;
   border-radius: 50%;
@@ -309,7 +309,7 @@ div.tooltip, div.tooltip-b {
   margin: auto;
 } */
 
-/*referenced: http://www.tipue.com/blog/radio-checkbox/ */
+/*referenced: (17) http://www.tipue.com/blog/radio-checkbox/ */
 .form-radio
 {
      -webkit-appearance: none;
