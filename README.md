@@ -10,29 +10,35 @@ Detroit Land Bank Authority is a public agency and the city’s largest landowne
 
 You can explore the concentration of blight, demolitions, and public land sales over the past several years in the dashboard. 
 
-#Access
+# Access
 You can access the dashboard at \url{https://laurenjli.github.io/interactive-housing-detroit/}
 
-#Data
+# Data
 The data used for this dashboard is available on the \href{https://data.detroitmi.gov/}{Detroit Open Data Portal}.
 
 The primary data sets used are listed below. The datasets were downloaded and parsed for the dashboard in January 2019.
 
-\href{https://data.detroitmi.gov/Property-Parcels/Blight-Violations/ti6p-wcg4}{Blight Violations}
+[Blight violations](https://data.detroitmi.gov/Property-Parcels/Blight-Violations/ti6p-wcg4).
 
-\href{https://data.detroitmi.gov/Property-Parcels/Detroit-Demolitions/rv44-e9di}{Demolitions}
 
-\href{https://data.detroitmi.gov/Property-Parcels/Side-Lot-Sales/mfsk-uw55}{Side Lot Sales}
+[Completed Demolitions](https://data.detroitmi.gov/Property-Parcels/Detroit-Demolitions/rv44-e9di).
 
-\href{https://data.detroitmi.gov/Property-Parcels/DLBA-Auctions-Closed/tgwk-njih}{Auctions Sales}
 
-\href{https://data.detroitmi.gov/Property-Parcels/Own-It-Now-Sales/pyf3-v3vc}{Own It Now Sales}
+[Side Lot Sales](https://data.detroitmi.gov/Property-Parcels/Side-Lot-Sales/mfsk-uw55).
 
-\href{https://data.detroitmi.gov/Government/City-Council-Districts/4vse-9zps}{Detroit City Council Districts}
 
-\href{https://data.detroitmi.gov/Government/Detroit-Neighborhoods/5mn6-ihjv}{Detroit Neighborhoods).
+[Auctions](https://data.detroitmi.gov/Property-Parcels/DLBA-Auctions-Closed/tgwk-njih).
 
-#Methodology
+
+[Own It Now Sales](https://data.detroitmi.gov/Property-Parcels/Own-It-Now-Sales/pyf3-v3vc).
+
+
+[Detroit City Council Districts](https://data.detroitmi.gov/Government/City-Council-Districts/4vse-9zps).
+
+
+[Detroit Neighborhoods](https://data.detroitmi.gov/Government/Detroit-Neighborhoods/5mn6-ihjv).
+
+# Methodology
 
 Mapping points: Latitude and longitude are provided in the Blight Violations, Demolitions, and Land sales datasets.
 
@@ -42,7 +48,7 @@ Summary by Neighborhood: Note that neighborhoods are very fluid boundaries and w
 
 The land sales and demolitions datasets provided a Neighborhood field that was used to summarize data by region.  The Blight Violations dataset does not provide this information. An intersection with neighborhood polygons was tested, but it led to inconsistent matches between blight tickets and neighborhood regions due to the small polygons and multiple crossovers between old and new neighborhoods. As a result, when the user chooses to view by Neighborhood, there will not be a bar chart summary for blight violations. 
 
-#Pipeline
+# Pipeline
 
 index.html: contains overall HTML wrapper for the dashboard 
 script.js: contains code to populate and control the dashboard buttons, charts, and map
