@@ -51,7 +51,9 @@ The land sales and demolitions datasets provided a Neighborhood field that was u
 # Pipeline
 
 index.html: contains overall HTML wrapper for the dashboard 
+
 script.js: contains code to populate and control the dashboard buttons, charts, and map
+
 main.css: contains CSS styling dashboard layout and themes
 
 To access the files, you can clone this repository. If you use a development http server (such as live-server) you can run the dashboard locally. You can also access the dashboard [here](https://laurenjli.github.io/interactive-housing-detroit/).
