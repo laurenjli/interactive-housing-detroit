@@ -11,32 +11,32 @@ Detroit Land Bank Authority is a public agency and the city’s largest landowne
 You can explore the concentration of blight, demolitions, and public land sales over the past several years in the dashboard. 
 
 # Access
-You can access the dashboard at \url{https://laurenjli.github.io/interactive-housing-detroit/}
+You can access the dashboard at [here](https://laurenjli.github.io/interactive-housing-detroit/).
 
 # Data
-The data used for this dashboard is available on the \href{https://data.detroitmi.gov/}{Detroit Open Data Portal}.
+The data used for this dashboard is available on the [Detroit Open Data Portal](https://data.detroitmi.gov/).
 
 The primary data sets used are listed below. The datasets were downloaded and parsed for the dashboard in January 2019.
 
-[Blight violations](https://data.detroitmi.gov/Property-Parcels/Blight-Violations/ti6p-wcg4).
+[Blight violations](https://data.detroitmi.gov/Property-Parcels/Blight-Violations/ti6p-wcg4)
 
 
-[Completed Demolitions](https://data.detroitmi.gov/Property-Parcels/Detroit-Demolitions/rv44-e9di).
+[Completed Demolitions](https://data.detroitmi.gov/Property-Parcels/Detroit-Demolitions/rv44-e9di)
 
 
-[Side Lot Sales](https://data.detroitmi.gov/Property-Parcels/Side-Lot-Sales/mfsk-uw55).
+[Side Lot Sales](https://data.detroitmi.gov/Property-Parcels/Side-Lot-Sales/mfsk-uw55)
 
 
-[Auctions](https://data.detroitmi.gov/Property-Parcels/DLBA-Auctions-Closed/tgwk-njih).
+[Auctions](https://data.detroitmi.gov/Property-Parcels/DLBA-Auctions-Closed/tgwk-njih)
 
 
-[Own It Now Sales](https://data.detroitmi.gov/Property-Parcels/Own-It-Now-Sales/pyf3-v3vc).
+[Own It Now Sales](https://data.detroitmi.gov/Property-Parcels/Own-It-Now-Sales/pyf3-v3vc)
 
 
-[Detroit City Council Districts](https://data.detroitmi.gov/Government/City-Council-Districts/4vse-9zps).
+[Detroit City Council Districts](https://data.detroitmi.gov/Government/City-Council-Districts/4vse-9zps)
 
 
-[Detroit Neighborhoods](https://data.detroitmi.gov/Government/Detroit-Neighborhoods/5mn6-ihjv).
+[Detroit Neighborhoods](https://data.detroitmi.gov/Government/Detroit-Neighborhoods/5mn6-ihjv)
 
 # Methodology
 
@@ -54,7 +54,7 @@ index.html: contains overall HTML wrapper for the dashboard
 script.js: contains code to populate and control the dashboard buttons, charts, and map
 main.css: contains CSS styling dashboard layout and themes
 
-To access the files, you can clone this repository. If you use a development http server (such as live-server) you can run the dashboard locally. You can also access the dashboard \href{https://laurenjli.github.io/interactive-housing-detroit/}{here}. 
+To access the files, you can clone this repository. If you use a development http server (such as live-server) you can run the dashboard locally. You can also access the dashboard [here](https://laurenjli.github.io/interactive-housing-detroit/).
 
 
 
