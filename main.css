@@ -40,7 +40,7 @@ h1, h2, h3 {
 
 /*Referenced: (16) https://codepen.io/ericrasch/pen/zjDBx */
 .styled-select {
-   background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
+   background: url(./arrow.png) no-repeat 96% 0;
    height: 29px;
    overflow: hidden;
    width: 200px;
