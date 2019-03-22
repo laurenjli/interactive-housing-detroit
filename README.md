@@ -18,7 +18,7 @@ The data used for this dashboard is available on the [Detroit Open Data Portal](
 
 The primary data sets used are listed below. The datasets were downloaded and parsed for the dashboard in January 2019.
 
-[Blight violations](https://data.detroitmi.gov/Property-Parcels/Blight-Violations/ti6p-wcg4)
+[Blight Violations](https://data.detroitmi.gov/Property-Parcels/Blight-Violations/ti6p-wcg4)
 
 
 [Completed Demolitions](https://data.detroitmi.gov/Property-Parcels/Detroit-Demolitions/rv44-e9di)
@@ -42,11 +42,11 @@ The primary data sets used are listed below. The datasets were downloaded and pa
 
 Mapping points: Latitude and longitude are provided in the Blight Violations, Demolitions, and Land sales datasets.
 
-Summary Council District: The Land Sales and Demolitions datasets provided a Council District field that was used to summarize data by region. The Blight Violations dataset does not provide this information. A st_intersection ([R sf package](https://cran.r-project.org/web/packages/sf/index.html)) was used with a shapefile containing Council District information to match to points in the Blight Violation dataset in a relatively consistent way.
+Summary by Council District: The Land Sales and Demolitions datasets provided a Council District field that was used to summarize data by region. The Blight Violations dataset does not provide this information. A st_intersection ([R sf package](https://cran.r-project.org/web/packages/sf/index.html)) was used with a shapefile containing Council District information to match to points in the Blight Violation dataset in a relatively consistent way.
 
 Summary by Neighborhood: Note that neighborhoods are very fluid boundaries and within the Neighborhood data set there are multiple old and new neighborhoods. The dropdown uses new neighborhood names but as this dataset spans several years, there may be some discrepancies. 
 
-The land sales and demolitions datasets provided a Neighborhood field that was used to summarize data by region.  The Blight Violations dataset does not provide this information. An intersection with neighborhood polygons was tested, but it led to inconsistent matches between blight tickets and neighborhood regions due to the small polygons and multiple crossovers between old and new neighborhoods. As a result, when the user chooses to view by Neighborhood, there will not be a bar chart summary for blight violations. 
+The land sales and demolitions datasets provided a Neighborhood field that was used to summarize data by region.  The Blight Violations dataset does not provide this information. An intersection with neighborhood polygons was tested, but it led to inconsistent matches between blight tickets and neighborhood regions, likely due to the small polygons and multiple crossovers between old and new neighborhoods. As a result, when the user chooses to view by Neighborhood, there will not be a bar chart summary for blight violations. 
 
 # Pipeline
 
