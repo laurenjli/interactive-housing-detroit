@@ -33,11 +33,10 @@ Promise.all(
    d3.json("./data/summary.json"),
    d3.json("./data/dist_dropdown.json"),
    d3.json("./data/nhood_dropdown.json"),
-   d3.json('./data/sumbyD.json'),
-   d3.json('./data/sumbyN.json')
+   d3.json('./data/sumbyD_final.json'),
+   d3.json('./data/sumbyN_final.json')
   ])
   .then(function(data) {
-    //console.log(data)
     makeVis(data)
     })
   .catch(error => console.warn(error))
@@ -137,6 +136,7 @@ function makeTable(summary){
 
 //function makeBarChart (dataset, reg, type, code, svg, g, tooltip){
 function makeBarChart (dataset, reg, type, code, svg, g, tooltip){
+
   const margin = {
   top: 50,
   left: 45,
