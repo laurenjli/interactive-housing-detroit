@@ -191,7 +191,6 @@ function makeBarChart (dataset, reg, type, code, svg, g, tooltip){
          .style('fill','#E80C94');
        tooltip.style('opacity',1)
        tooltip.html("<dl><dt> Total " + type + ": " + numberWithCommas(d.count) + "</dt>"
-                + "<dt>Neighborhood: " + d.neighborhood + "</dt>"
                 + "<dt>Average Amount: $" + numberWithCommas(d.amount) + "</dt>"
                 + "<dt>Year: " + d.year + "</dt>")
          .style("top",(d3.event.pageY-10)+"px")
