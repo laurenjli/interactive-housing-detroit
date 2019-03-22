@@ -28,7 +28,7 @@ body {
 
 .map-container{
   padding-bottom: 5px;
-  padding-right: 40px;
+  padding-right: 25px;
 }
 
 h1, h2, h3 {
@@ -115,8 +115,8 @@ h1, h2, h3 {
 fieldset{
   border: none;
   font-family: Helvetica, Helvetica, sans-serif;
-  padding-bottom: 15px;
-  padding-left: 15px;
+  padding-bottom: 12px;
+  padding-left: 8px;
   padding-top: 15px;
 }
 
@@ -268,7 +268,7 @@ div.tooltip, div.tooltip-b {
   position: absolute;
   font-family: Helvetica;
   font-size: 14px;
-  padding-right: 50px;
+  padding-right: 30px;
 }
 
 
