@@ -1,9 +1,4 @@
-/*#gray, light purple, darker purple, dark purple
-#light orange, light blue, light green
-primary <- c('#D3D3D3', '#8C82FA', '#6408A1','#31044F')
-secondary <- c('#ED9007','#14E5D0', '#B0EE31')*/
-
-body{
+body {
   padding-left: 0px;
   padding-right: 0px;
   margin: 0;
@@ -40,18 +35,6 @@ h1, h2, h3 {
   size: 16;
   text-align: center;
 }
-
-/* h3 {
-  font-family: Helvetica, Helvetica, sans-serif;
-  color: black;
-  size: 16;
-  text-align: center;
-  padding: 0px;
-  margin: 0px;
-  padding-bottom: 10px;
-} */
-
-
 
 /*Referenced: (16) https://codepen.io/ericrasch/pen/zjDBx */
 .styled-select {
@@ -95,11 +78,6 @@ h1, h2, h3 {
    border-radius: 20px;
 }
 
-
-
-
-
-
 .title{
   font-family: Helvetica, Helvetica, sans-serif;
   color: black;
@@ -116,7 +94,6 @@ h1, h2, h3 {
   z-index: 2;
 }
 
-/* TODO double check for redundancy */
 .img-container,
 .inner-container {
   width: 100%;
@@ -126,7 +103,6 @@ h1, h2, h3 {
 #banner {
   height: 400px;
   width: 100%;
-  /* background-color: #cccccc; */
   background-image: url('./b4.png');
   background-size: cover;
   background-repeat: no-repeat;
@@ -170,13 +146,6 @@ fieldset{
   font-size: 20px;
 }
 
-
-/* .info {
-  border: 1px solid black;
-  padding:10px;
-  background-color: white;
-} */
-
 .map-circle{
   border-radius: 50%;
   width: 10px;
@@ -188,8 +157,6 @@ fieldset{
 p {
   font-family: Helvetica, Helvetica, sans-serif;
   padding-left: 45px;
-  /* padding-right: 45px
-  padding-bottom: 0; */
 }
 
 /* referenced: (15) https://www.w3schools.com/howto/howto_css_loader.asp */
@@ -218,7 +185,6 @@ p {
   100% { transform: rotate(360deg); }
 }
 
-/* Add animation to "page content" */
 .animate-bottom {
   position: relative;
   -webkit-animation-name: animatebottom;
@@ -304,10 +270,6 @@ div.tooltip, div.tooltip-b {
   padding-right: 50px;
 }
 
-/* #barchart-s{
-  display: block;
-  margin: auto;
-} */
 
 /*referenced: (17) http://www.tipue.com/blog/radio-checkbox/ */
 .form-radio
@@ -347,7 +309,7 @@ div.tooltip, div.tooltip-b {
      background-color: #f1f1f1;
 }
 
-
+/*referenced: (17) http://www.tipue.com/blog/radio-checkbox/ */
 .dot-type
 {
      -webkit-appearance: none;

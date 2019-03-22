@@ -16,6 +16,9 @@
 // (15) https://www.w3schools.com/howto/howto_css_loader.asp
 // (16) https://codepen.io/ericrasch/pen/zjDBx
 // (17) http://www.tipue.com/blog/radio-checkbox/
+// (18) http://bl.ocks.org/williaster/10ef968ccfdc71c30ef8
+// (19) https://gis.stackexchange.com/questions/179630/how-to-set-bounds-and-make-map-bounce-back-if-moved-away
+// (20) https://jaketrent.com/post/d3-class-operations/
 
 //referenced: (1) http://bl.ocks.org/d3noob/9211665
 
@@ -55,7 +58,6 @@ function makeTable(summary){
 'Pct Change in Avg Amount from Previous Year'];
 
   var title = d3.select('.table-title').append('text');
-  //var src = d3.select('.table-source').append('text').text('Data Source: Detroit Open Data Portal');
 
   d3.selectAll('.dot-type').on("change", tableUpdate);
   tableUpdate()
@@ -63,7 +65,6 @@ function makeTable(summary){
   //handle checkbox year changes
   document.getElementById("2015-box").addEventListener('click', function(event) {
     CURR_YEAR = 15;
-    //console.log(CURR_YEAR)
 
     d3.selectAll('.dot-type').on("change", tableUpdate);
     tableUpdate()
@@ -71,7 +72,6 @@ function makeTable(summary){
 
   document.getElementById("2016-box").addEventListener('click', function(event) {
     CURR_YEAR = 16;
-    //console.log(CURR_YEAR)
 
     d3.selectAll('.dot-type').on("change", tableUpdate);
     tableUpdate()
@@ -79,7 +79,6 @@ function makeTable(summary){
 
   document.getElementById("2017-box").addEventListener('click', function(event) {
     CURR_YEAR = 17;
-    //console.log(CURR_YEAR)
 
     d3.selectAll('.dot-type').on("change", tableUpdate);
     tableUpdate()
@@ -87,14 +86,13 @@ function makeTable(summary){
 
   document.getElementById("2018-box").addEventListener('click', function(event) {
     CURR_YEAR = 18;
-    //console.log(CURR_YEAR)
 
     d3.selectAll('.dot-type').on("change", tableUpdate);
     tableUpdate()
   });
 
   function tableUpdate() {
-    //should change table
+
     var summaryYr = summary.filter(d => d.Year == CURR_YEAR);
 
     title.text('Summary of 20' + CURR_YEAR);
@@ -113,14 +111,11 @@ function makeTable(summary){
   		  .append('th')
   		    .text(d => d);
 
-
-    //create a row for each object in the data
   	var rows = tbody.selectAll('tr')
   	  .data(summaryYr)
   	  .enter()
   	  .append('tr');
 
-  	//create a cell in each row for each column
   	var cells = rows.selectAll('td')
   	  .data(function (row) {
   	    return colNames.map(function (colNames) {
@@ -134,7 +129,7 @@ function makeTable(summary){
 
 }
 
-//function makeBarChart (dataset, reg, type, code, svg, g, tooltip){
+//referenced: (18) http://bl.ocks.org/williaster/10ef968ccfdc71c30ef8
 function makeBarChart (dataset, reg, type, code, svg, g, tooltip){
 
   const margin = {
@@ -177,7 +172,6 @@ function makeBarChart (dataset, reg, type, code, svg, g, tooltip){
     var e = 2
   }
 
-  // if (d3.max(dataset, d => d.count) > 0){
     const joinB = g.selectAll(".bar")
                .data(dataset, function(d) { return d.year });
 
@@ -197,7 +191,6 @@ function makeBarChart (dataset, reg, type, code, svg, g, tooltip){
          .style('fill','#E80C94');
        tooltip.style('opacity',1)
        tooltip.html("<dl><dt> Total " + type + ": " + numberWithCommas(d.count) + "</dt>"
-                //+ "<dt>Average Amount: $todo</dt>"
                 + "<dt>Neighborhood: " + d.neighborhood + "</dt>"
                 + "<dt>Average Amount: $" + numberWithCommas(d.amount) + "</dt>"
                 + "<dt>Year: " + d.year + "</dt>")
@@ -222,11 +215,6 @@ function makeBarChart (dataset, reg, type, code, svg, g, tooltip){
       .transition().duration(2000)
       .attr("y", function(d,i) { return yScale(d.count); })
       .attr("height", function(d,i) { return height - yScale(d.count); });
-
-    // joinB.exit().transition().duration(1000).delay(200)
-    //   .style('opacity', 0)
-    //   .remove();
-  //}
 
   if (reg == 'district'){
     if (dataset[0].councilDistrict == '0'){
@@ -255,31 +243,10 @@ function makeBarChart (dataset, reg, type, code, svg, g, tooltip){
       size: 14.5,
       transform: ''
     }
-    // {
-    //   x: `${width - margin.left/2}`,
-    //   y: `${height+margin.top +24}`,
-    //   label: 'Data Source: Detroit Open Data Portal',
-    //   size: 6,
-    //   transform: ''
-    // }
-    // {
-    //   x: 300,
-    //   y: 300,
-    //   label: 'Number of' + type,
-    //   size: 10,
-    //   transform: 'rotate(90)'
-    // // },
-    // {
-    //   x: width-margin.left-5,
-    //   y: height+margin.top+28,
-    //   label: 'Data Source: Detroit Open Data Portal',
-    //   size: 8,
-    //   transform: ''
-    // }
   ];
   svg.selectAll('.title').data([]).exit().remove();
   const title = svg.selectAll('.title').data(labs);
-  // ENTER
+
   title.enter()
     .append('text')
     .attr('class', 'title')
@@ -304,15 +271,14 @@ function makeMap(dataset) {
   var ne = [42.6, -82.4]
   var bounds = L.latLngBounds(sw, ne);
 
+  //referenced: (19) https://gis.stackexchange.com/questions/179630/how-to-set-bounds-and-make-map-bounce-back-if-moved-away
   var map = L.map('chart', {
     center: [42.3614, -83.08],
     zoom:11,
     maxBounds: bounds,
-    minZoom: 11 //https://gis.stackexchange.com/questions/179630/how-to-set-bounds-and-make-map-bounce-back-if-moved-away
-  }); //setView(new L.LatLng(42.3314, -83.0458));
+    minZoom: 11
+  });
 
-
-  //L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(map);
   //referenced: (2) https://leafletjs.com/examples/layers-control/example.html
   var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
 			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
@@ -325,13 +291,11 @@ function makeMap(dataset) {
   map.on('load', d3.select('#loader').remove())
 
   //referenced: (3) https://gis.stackexchange.com/questions/193161/add-legend-to-leaflet-map
-  //legend
   var legend = L.control({
     position: 'topright'
   });
 
   //referenced: (4) http://bl.ocks.org/feyderm/e6cab5931755897c2eb377ccbf9fdf18
-  //initialize dropdown
   d3.select("#dropdown")
       .selectAll("option")
       .data(dist_dropdown)
@@ -423,8 +387,6 @@ function makeMap(dataset) {
       "fillOpacity": 0}},
   });
 
-  //console.log(distGeo)
-
   const nhoodGeo = L.geoJSON(nhood, {
     style: function (){
       return {"color": 'black',
@@ -440,8 +402,6 @@ function makeMap(dataset) {
 
 
   dropDown.on("change", function() {
-
-    //console.log(d3.event.target.value)
     //Highlight district polygon and zoom
     //referenced: (8) https://gis.stackexchange.com/questions/116159/how-to-style-specific-polygons-from-a-geojson-with-leaflet
     //referenced: (9) https://stackoverflow.com/questions/22796520/finding-the-center-of-leaflet-polygon
@@ -456,7 +416,6 @@ function makeMap(dataset) {
       const dropHighlightDist = L.geoJSON(dist, {
         style: function(feature) {
           if (feature.properties.districts == currDrop){
-            //console.log(feature.geometry.coordinates[0][0][0])
             map.setView([feature.geometry.coordinates[0][0][7][1],feature.geometry.coordinates[0][0][7][0]], zoom=12);
             return {color: "yellow", "weight": 5, "fillColor": 'yellow', 'fillOpacity':0.5};
           }
@@ -500,7 +459,6 @@ function makeMap(dataset) {
         .text(d => d.text);
 
     var checkBar = document.getElementById('barchart-b');
-    //console.log(checkBar)
     if (checkBar == null){
       var testappend = d3.select('.row-bar')
               .append('div')
@@ -579,7 +537,7 @@ function makeMap(dataset) {
     var dropDownN = d3.select("#dropdown");
 
     d3.selectAll('#barchart-b').remove();
-    //makeBarChart(barN.filter(function(d){return d.neighborhood == 'All' && d.type == 'Blight Violation'}), 'neighborhood', 'Blight Violations', 'b', svgB, gB, tooltip2);
+
     makeBarChart(barN.filter(function(d){return d.neighborhood == 'All' && d.type == 'Demolition'}), 'neighborhood', 'Demolitions', 'd', svgD, gD, tooltip2);
     makeBarChart(barN.filter(function(d){return d.neighborhood == 'All' && d.type == 'Public Land Sale'}), 'neighborhood', 'Public Land Sales', 's', svgS, gS, tooltip2);
 
@@ -592,7 +550,7 @@ function makeMap(dataset) {
       myData.addTo(map);
 
       var currDropN = d3.event.target.value
-      //console.log(currDropN)
+
       if (currDropN != 'All'){
         const dropHighlightNhood = L.geoJSON(nhood, {
           style: function(feature) {
@@ -608,14 +566,13 @@ function makeMap(dataset) {
         myData.addLayer(dropHighlightNhood)
         myData.addTo(map);
 
-        //makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Blight Violation'}), 'neighborhood', 'Blight Violations', 'b', svgB, gB, tooltip2);
         makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Demolition'}), 'neighborhood', 'Demolitions', 'd', svgD, gD, tooltip2);
         makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Public Land Sale'}), 'neighborhood', 'Public Land Sales', 's', svgS, gS, tooltip2);
 
     }
     else {
       map.setView([home.lat, home.lng], home.zoom);
-      //makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Blight Violation'}), 'neighborhood', 'Blight Violations', 'b', svgB, gB, tooltip2);
+
       makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Demolition'}), 'neighborhood', 'Demolitions', 'd', svgD, gD, tooltip2);
       makeBarChart(barN.filter(function(d){return d.neighborhood == currDropN && d.type == 'Public Land Sale'}), 'neighborhood', 'Public Land Sales', 's', svgS, gS, tooltip2);
     }
@@ -685,7 +642,6 @@ function makeMap(dataset) {
     var demCurr = dem.features.filter(d => d.properties.year == CURR_YEAR);
     var salesCurr = sales.features.filter(d => d.properties.year == CURR_YEAR);
 
-    //console.log(choices)
     if(choices.includes('blight-box')){
       //plot blight
       plotBlight(reformat(blightCurr), map, 'blight', 'Blight Violation', tooltip, g, svg);
@@ -715,9 +671,6 @@ function makeMap(dataset) {
       g.selectAll('.circle-dem').data(reformat(demCurr).features).exit()
         .transition()
         .duration(100)
-        //.ease(d3.easeBounceOut)
-          // .attr('r', 10)
-          // .attr('opacity', .1)
         .remove();
 
       unique_point.classed('active', false)
@@ -760,8 +713,6 @@ function makeMap(dataset) {
 
     legend.onAdd = function(map) {
       var div = L.DomUtil.create('div', 'info legend'),
-        //types = [4.5, 3.5, 1.5],
-        //cats = ['Blight Violation', 'Demolition', 'Public Land Sale'],
         labels = [],
         from, to;
 
@@ -828,13 +779,12 @@ function plotPoints(dataset, map, type, title, tooltip, g, svg, barD, barN, tool
                  .style("left",(d3.event.pageX+30)+"px");
                })
             .on("mouseout", function(d, barD){
-              //console.log('MOUSEOUT')
               tooltip.style('opacity', 0);
               d3.select(this)
                .classed('hovered', false)
                .transition().duration(300)
                .attr('r', 5.5);})
-            .on('click', function(d, barD){ //https://jaketrent.com/post/d3-class-operations/
+            .on('click', function(d, barD){ //referenced: (20) https://jaketrent.com/post/d3-class-operations/
               unique_point.classed('active', false)
             		.style('opacity', 0.65)
                 .style('fill', color_fade)
@@ -926,7 +876,6 @@ function plotBlight(dataset, map, type, title, tooltip, g, svg){
                .style('opacity', 1)
                .style('fill', '#F70CDC');
 
-             // Zoom to selected school on the map
              map.setView(d.LatLng, 14.3);
                });
 

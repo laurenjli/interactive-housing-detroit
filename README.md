@@ -42,7 +42,7 @@ The primary data sets used are listed below. The datasets were downloaded and pa
 
 Mapping points: Latitude and longitude are provided in the Blight Violations, Demolitions, and Land sales datasets.
 
-Summary Council District: The Land Sales and Demolitions datasets provided a Council District field that was used to summarize data by region. The Blight Violations dataset does not provide this information. A st_intersection (R, sf package) was used with a shapefile containing Council District information to match to points in the Blight Violation dataset in a relatively consistent way.
+Summary Council District: The Land Sales and Demolitions datasets provided a Council District field that was used to summarize data by region. The Blight Violations dataset does not provide this information. A st_intersection ([R sf package](https://cran.r-project.org/web/packages/sf/index.html)) was used with a shapefile containing Council District information to match to points in the Blight Violation dataset in a relatively consistent way.
 
 Summary by Neighborhood: Note that neighborhoods are very fluid boundaries and within the Neighborhood data set there are multiple old and new neighborhoods. The dropdown uses new neighborhood names but as this dataset spans several years, there may be some discrepancies. 
 
