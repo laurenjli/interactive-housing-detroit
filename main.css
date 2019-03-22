@@ -14,7 +14,7 @@ body {
   display:flex;
   padding-left: 25px;
   padding-right: 25px;
-  padding-top: 25px;
+  padding-top: 50px;
 }
 
 .column-bar{
@@ -26,7 +26,8 @@ body {
 }
 
 .map-container{
-  padding-bottom: 60px;
+  padding-bottom: 2px;
+  padding-right: 50px;
 }
 
 h1, h2, h3 {
@@ -52,7 +53,7 @@ h1, h2, h3 {
 .styled-select select {
    background: transparent;
    border: none;
-   font-size: 15px;
+   font-size: 13px;
    height: 29px;
    padding: 5px;
    width: 300px;
@@ -67,7 +68,7 @@ h1, h2, h3 {
 
 .styled-select.slate select {
    border: 1px solid #ccc;
-   font-size: 20px;
+   font-size: 14px;
    height: 34px;
    width: 268px;
 }
@@ -87,7 +88,7 @@ h1, h2, h3 {
 .pos-absolute {
   position: absolute;
   top: 12%;
-  left: 35%;
+  left: 26%;
 }
 
 .z-index-2 {
@@ -113,7 +114,7 @@ h1, h2, h3 {
 fieldset{
   border: none;
   font-family: Helvetica, Helvetica, sans-serif;
-  padding-bottom: 25px;
+  padding-bottom: 15px;
   padding-left: 15px;
   padding-top: 15px;
 }
@@ -124,7 +125,7 @@ fieldset{
   float: left;
   margin: 0;
   padding-top: 20px;
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .info{
@@ -143,7 +144,7 @@ fieldset{
   padding-left: 15px;
   font-family: Helvetica;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .map-circle{
@@ -209,7 +210,7 @@ th, td {
   border-collapse: collapse;
   text-align: center;
   width: 1%;
-  font-size: 18px;
+  font-size: 15px;
   font-family: Helvetica;
 }
 
@@ -265,8 +266,7 @@ div.tooltip, div.tooltip-b {
 .statsTable{
   position: absolute;
   font-family: Helvetica;
-  font-size: 16px;
-  padding-bottom: 0px;
+  font-size: 14px;
   padding-right: 50px;
 }
 
@@ -294,7 +294,7 @@ div.tooltip, div.tooltip-b {
 .form-radio:checked::before
 {
      position: absolute;
-     font: 13px/1 'Open Sans', sans-serif;
+     font: 13px/1 'Open Sans', Helvetica;
      left: 11px;
      top: 7px;
      content: '\02143';
@@ -351,15 +351,10 @@ div.tooltip, div.tooltip-b {
   font-family: Helvetica;
 }
 
-.table-source{
-  font-size: 12px;
-  font-family: Helvetica;
-  text-align: right;
+label {
+  font-size: 13px;
 }
 
-.label {
-  font-size: 18px;
-}
 
 .x-axis, .y-axis{
   font-size: 11px;
@@ -375,11 +370,12 @@ div.tooltip, div.tooltip-b {
    color: black;
    text-align: left;
    z-index:999;
-   font-size: 14px;
-   padding-top: 10px;
-
+   font-size: 11px;
+   padding-top:10px;
+   padding-bottom: 10px;
 }
 
-#chart{
+/* #chart{
   padding-right: 50px;
-}
+  padding-bottom:0;
+} */

@@ -139,8 +139,8 @@ function makeBarChart (dataset, reg, type, code, svg, g, tooltip){
   bottom: 25
   };
 
-  const width = 300 - margin.right - margin.left;
-  const height = 325 - margin.top - margin.bottom;
+  const width = 200 - margin.right - margin.left;
+  const height = 250 - margin.top - margin.bottom;
 
 
   var xScale = d3.scaleBand()
@@ -180,8 +180,8 @@ function makeBarChart (dataset, reg, type, code, svg, g, tooltip){
       .append("rect")
       .style("fill", getColor(e))
       .attr('class', 'bar rect-'+code)
-      .attr("width", 30)
-      .attr("x", function(d) { return xScale(d.year) + 15; })
+      .attr("width", 23)
+      .attr("x", function(d) { return xScale(d.year) + 7; })
       .attr("y", function(d) { return yScale(d.count); })
       .attr("height", function(d) { return height - yScale(d.count); })
       .on("mouseover", function(d) {
@@ -238,8 +238,15 @@ function makeBarChart (dataset, reg, type, code, svg, g, tooltip){
     {
       x: `${width/2 + margin.left}`,
       y: margin.top/2,
-      label: title1 + ': Total ' + type,
-      size: 14.5,
+      label: title1 + ':', //title1 + ': Total ' + type,
+      size: 12,
+      transform: ''
+    },
+    {
+      x: `${width/2 + margin.left}`,
+      y: margin.top/2+12,
+      label: 'Total ' + type,
+      size: 12,
       transform: ''
     }
   ];
@@ -320,8 +327,8 @@ function makeMap(dataset) {
   bottom: 25
   };
 
-  const width = 320 - margin.right - margin.left;
-  const height = 325 - margin.top - margin.bottom;
+  const width = 200 - margin.right - margin.left;
+  const height = 250 - margin.top - margin.bottom;
 
   var svgB = d3.select('#barchart-b')
           .append('svg')
