@@ -553,7 +553,7 @@ function makeMap(dataset) {
       if (currDropN != 'All'){
         const dropHighlightNhood = L.geoJSON(nhood, {
           style: function(feature) {
-            if (feature.properties.nhood_name == currDropN){
+            if (feature.properties.new_nhood == currDropN){
               map.setView([feature.geometry.coordinates[0][0][7][1],feature.geometry.coordinates[0][0][7][0]], zoom=12.25);
               return {color: "yellow", "weight": 5, "fillColor": 'yellow', 'fillOpacity':0.5};
             }
