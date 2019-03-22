@@ -19,13 +19,10 @@
 // (18) http://bl.ocks.org/williaster/10ef968ccfdc71c30ef8
 // (19) https://gis.stackexchange.com/questions/179630/how-to-set-bounds-and-make-map-bounce-back-if-moved-away
 // (20) https://jaketrent.com/post/d3-class-operations/
-
-//referenced: (1) http://bl.ocks.org/d3noob/9211665
+// (21) http://www.d3noob.org/2013/02/add-html-table-to-your-d3js-graph.html
 
 var CURR_YEAR = 18;
 var unique_point = d3.select(null);
-var DROP_VAL = null;
-
 //load data
 Promise.all(
   [d3.json("./data/districts.geojson"),
@@ -51,6 +48,7 @@ function makeVis(dataset) {
   makeMap(dataset);
 }
 
+//referenced: (21) http://www.d3noob.org/2013/02/add-html-table-to-your-d3js-graph.html
 function makeTable(summary){
 
   const colNames = ['Category','Total (Number)',
@@ -181,7 +179,7 @@ function makeBarChart (dataset, reg, type, code, svg, g, tooltip){
       .style("fill", getColor(e))
       .attr('class', 'bar rect-'+code)
       .attr("width", 23)
-      .attr("x", function(d) { return xScale(d.year) + 7; })
+      .attr("x", function(d) { return xScale(d.year) + 6.5; })
       .attr("y", function(d) { return yScale(d.count); })
       .attr("height", function(d) { return height - yScale(d.count); })
       .on("mouseover", function(d) {
@@ -238,7 +236,7 @@ function makeBarChart (dataset, reg, type, code, svg, g, tooltip){
     {
       x: `${width/2 + margin.left}`,
       y: margin.top/2,
-      label: title1 + ':', //title1 + ': Total ' + type,
+      label: title1 + ':',
       size: 12,
       transform: ''
     },
@@ -279,7 +277,7 @@ function makeMap(dataset) {
 
   //referenced: (19) https://gis.stackexchange.com/questions/179630/how-to-set-bounds-and-make-map-bounce-back-if-moved-away
   var map = L.map('chart', {
-    center: [42.3614, -83.08],
+    center: [42.3614, -83.10],
     zoom:11,
     maxBounds: bounds,
     minZoom: 11
@@ -337,7 +335,6 @@ function makeMap(dataset) {
 
 
   var gB = svgB.append('g')
-      .attr('class', 'wowza')
       .attr('transform', 'translate('+ margin.left+',' +margin.top+')');
 
   gB.append('g')
@@ -374,7 +371,7 @@ function makeMap(dataset) {
   //referenced: (5) https://gis.stackexchange.com/questions/127286/home-button-leaflet-map
   var home = {
   lat: 42.3614,
-  lng: -83.08,
+  lng: -83.10,
   zoom: 11
   };
 
@@ -474,7 +471,6 @@ function makeMap(dataset) {
         .attr('height', height + margin.top+margin.bottom);
 
       var gB = svgB.append('g')
-          .attr('class', 'wowza')
           .attr('transform', 'translate('+ margin.left+',' +margin.top+')');
 
       gB.append('g')
@@ -717,6 +713,7 @@ function makeMap(dataset) {
         .remove();
   }
 
+  //referenced: (3) https://gis.stackexchange.com/questions/193161/add-legend-to-leaflet-map
     legend.onAdd = function(map) {
       var div = L.DomUtil.create('div', 'info legend'),
         labels = [],
@@ -740,6 +737,7 @@ function makeMap(dataset) {
   };
 };
 
+//referenced: (1) http://bl.ocks.org/d3noob/9211665
 //referenced: (10) http://bl.ocks.org/d3noob/9267535
 //referenced: (11) https://bost.ocks.org/mike/leaflet/
 function plotPoints(dataset, map, type, title, tooltip, g, svg, barD, barN, tooltip2){
@@ -918,6 +916,7 @@ function reformat(array) {
     return {type: 'FeatureCollection', features: array};
 };
 
+//referenced: (3) https://gis.stackexchange.com/questions/193161/add-legend-to-leaflet-map
 function getColor(d) {
     return d > 5 ? '#FF4B1E' :
            d > 3  ? '#133090' :

@@ -14,7 +14,7 @@
       <div class = "inner-container">
         <div class="pos-absolute z-index-2">
           <h1>Battling Urban Blight and Vacant Lots<br>in Detroit, Michigan</h1>
-          <h2>Visualizing blight violations, demolitions, and public land sales<br>in the city since 2015.</h2>
+          <h2>Visualizing demolitions, public land sales, and blight violations <br>in the city since 2015.</h2>
         </div>
         <div id="banner"></div>
       </div>
@@ -47,7 +47,7 @@
           <label for="land-sales-box">Public Land Sales <sup>2</sup></label>
 
           <input type="checkbox" class = 'dot-type' name="blight-box" value = "blight-box" id="blight-box">
-          <label for="blight-box">Blight Tickets <sup>3</sup></label>
+          <label for="blight-box">Blight Violations <sup>3</sup></label>
       </fieldset>
 
       <fieldset class="radiobox">
@@ -86,13 +86,10 @@
       <div id = "barchart-s"></div>
       <div id = "barchart-b"></div>
     </div>
-    <!-- <div class = 'row'>
-      <div id = "barchart-b"></div>
-    </div> -->
   </div>
 
   <div class = "column">
-    <div id="chart" style="height: 475px" class="animate-bottom"></div>
+    <div id="chart" style="height: 450px" class="animate-bottom"></div>
     <!-- referenced: (15) https://www.w3schools.com/howto/howto_css_loader.asp -->
     <div id="loader"></div>
 </div>
@@ -102,8 +99,8 @@
 <div class="footer">
     <p>1. Neighborhood level data is only available from the source for Demolitions and Public Land Sales. If you choose to view by neighborhood, you will only see aggregated information for demolitions and public land sales.
       <br> 2. Public Land Sales include sales through the Side Lot Sales program, Auctions, and the Own It Now program.
-    <br>3. Blight Ticket data was matched with Council District regions to identify the Council District for each ticket. The matching process is not as consistent for the neighborhood level so blight violation information for each neighborhood is not provided.
-  Please see the code base for more information. </p>
+    <br>3. Blight Violations data was matched with Council District regions to identify the Council District for each ticket. The matching process is not as consistent for the neighborhood level so blight violation information for each neighborhood is not provided.
+  <br>Please see the code base for more information. </p>
   <p>Data Source: <a href="https://data.detroitmi.gov/">Detroit Open Data Portal</a> (for all data relating to the blight violations, demolitions, and public land sales)
     <br>Code base: <a href="https://github.com/laurenjli/interactive-housing-detroit">Github Repository</a>
   </p>
@@ -112,7 +109,5 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
 <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
 <script src="script.js"></script>
-
-
 </body>
 </html>

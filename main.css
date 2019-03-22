@@ -2,6 +2,7 @@ body {
   padding-left: 0px;
   padding-right: 0px;
   margin: 0;
+  padding-bottom: 0px;
 }
 
 .row {
@@ -26,14 +27,14 @@ body {
 }
 
 .map-container{
-  padding-bottom: 2px;
-  padding-right: 50px;
+  padding-bottom: 5px;
+  padding-right: 40px;
 }
 
 h1, h2, h3 {
   font-family: Helvetica, Helvetica, sans-serif;
   color: black;
-  size: 16;
+  size: 14;
   text-align: center;
 }
 
@@ -88,7 +89,7 @@ h1, h2, h3 {
 .pos-absolute {
   position: absolute;
   top: 12%;
-  left: 26%;
+  left: 25%;
 }
 
 .z-index-2 {
@@ -102,7 +103,7 @@ h1, h2, h3 {
 }
 
 #banner {
-  height: 400px;
+  height: 380px;
   width: 100%;
   background-image: url('./b4.png');
   background-size: cover;
@@ -369,13 +370,8 @@ label {
    background-color: #f7f7f7;
    color: black;
    text-align: left;
-   z-index:999;
+   z-index:1001;
    font-size: 11px;
-   padding-top:10px;
+   padding-top:5px;
    padding-bottom: 10px;
 }
-
-/* #chart{
-  padding-right: 50px;
-  padding-bottom:0;
-} */
